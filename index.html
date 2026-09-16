@@ -1,2696 +1,4011 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CardsMZ — Cartões Virtuais</title>
-<meta name="description" content="Escolha o seu cartão virtual, personalize as suas preferências e acompanhe o pedido.">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>famelack.</title>
 
 <style>
-*,
-*::before,
-*::after{
-box-sizing:border-box;
-margin:0;
-padding:0
-}
-
 :root{
---bg:#05080c;
---panel:#0c131b;
---panel2:#111b25;
---panel3:#16222d;
---line:#23313d;
---text:#f3f6f8;
---muted:#8997a4;
---primary:#19c79a;
---primary-dark:#0e9c78;
---gold:#e6b94f;
---blue:#398cff;
---danger:#ef5350;
---radius:18px
+  --primary:#ef4444;
+  --bg:#0b1622;
+  --panel:#071d38;
+  --muted:#829bb7;
 }
 
-html{
-scroll-behavior:smooth
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-background:var(--bg);
-color:var(--text);
-font-family:'DM Sans',sans-serif;
-line-height:1.6;
--webkit-font-smoothing:antialiased
+  font-family:-apple-system,system-ui,Segoe UI,sans-serif;
+  color:#fff;
+  background:var(--bg);
+  min-height:100vh;
 }
 
-body.locked{
-overflow:hidden
+button,input,select{font:inherit}
+
+.app{
+  max-width:480px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:80px;
 }
 
-button,input,select{
-font:inherit
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  background:rgba(4,20,40,.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-button{
-cursor:pointer
+.brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:bold;
 }
 
-a{
-color:inherit;
-text-decoration:none
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  object-fit:cover;
 }
 
-.hidden{
-display:none!important
+.page{
+  display:none;
+  padding:16px;
 }
 
-.container{
-width:100%;
-max-width:1180px;
-margin:auto;
-padding:0 20px
+.page.active{display:block}
+
+.box{
+  background:rgba(7,29,56,.92);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:14px;
 }
 
-.muted{
-color:var(--muted)
+.balance{
+  background:linear-gradient(145deg,#0a2f5e,#061a34);
+  border:1px solid rgba(43,127,255,.2);
 }
 
-.center{
-text-align:center
+.label{
+  color:#8da6c1;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
 }
 
-.gradient{
-background:linear-gradient(135deg,var(--primary),var(--gold));
--webkit-background-clip:text;
--webkit-text-fill-color:transparent
+.big{
+  font-size:32px;
+  font-weight:bold;
+  margin:6px 0;
+  cursor:pointer;
+}
+
+.green{color:#25e58a}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:14px;
+}
+
+.stat{
+  text-align:center;
+  background:rgba(4,22,43,.7);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:11px;
+  padding:10px 4px;
+}
+
+.stat small{
+  color:#829bb7;
+  font-size:8px;
+}
+
+.stat b{
+  display:block;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.title{
+  font-size:16px;
+  font-weight:bold;
+  margin:16px 0 10px;
 }
 
 .btn{
-border:0;
-border-radius:13px;
-padding:14px 20px;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-font-family:'Space Grotesk',sans-serif;
-font-weight:700;
-transition:.2s;
-width:100%
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.btn-primary{
-background:var(--primary);
-color:#03100b
+.start{
+  height:120px;
+  border:1px solid rgba(255,255,255,.2);
+  background:linear-gradient(145deg,#0c3f82,#0759d9);
 }
 
-.btn-primary:hover{
-background:#25d9aa
+input,select,textarea{
+  width:100%;
+  height:44px;
+  margin:6px 0 10px;
+  background:#04162c;
+  color:#fff;
+  border:1px solid #244b73;
+  border-radius:10px;
+  padding:0 12px;
+  outline:none;
 }
 
-.btn-outline{
-background:transparent;
-border:1px solid var(--line);
-color:var(--text)
+label{
+  display:block;
+  color:#a9bdd2;
+  font-size:10px;
+  font-weight:bold;
 }
 
-.btn-gold{
-background:var(--gold);
-color:#171208
+.nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:70px;
+  background:rgba(4,20,40,.98);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:80;
 }
 
-.processing{
-position:fixed;
-inset:0;
-z-index:30000;
-background:rgba(4,7,10,.98);
-display:none;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-gap:13px;
-text-align:center;
-padding:25px
+.nav button{
+  background:none;
+  border:0;
+  color:#7189a7;
+  font-size:10px;
+  cursor:pointer;
+  padding:8px 0;
 }
 
-.processing.active{
-display:flex
+.nav button.active{color:var(--primary)}
+
+#welcome{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  overflow-y:auto;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(239,68,68,.12),transparent 35%),
+    #0b1622;
 }
+
+.welcome-inner{
+  width:100%;
+  max-width:480px;
+  margin:auto;
+  padding:28px 18px 42px;
+}
+
+.welcome-logo{
+  width:82px;
+  height:82px;
+  border-radius:22px;
+  object-fit:cover;
+  display:block;
+  margin:8px auto 18px;
+  box-shadow:0 15px 45px rgba(0,0,0,.35);
+}
+
+.welcome-brand{
+  text-align:center;
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+
+.welcome-sub{
+  text-align:center;
+  color:#829bb7;
+  font-size:12px;
+  margin-top:6px;
+}
+
+.welcome-hero{
+  text-align:center;
+  padding:20px 0 22px;
+}
+
+.welcome-hero h1{
+  font-size:27px;
+  line-height:1.15;
+  margin-bottom:12px;
+}
+
+.welcome-hero p{
+  color:#a7bbcf;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.welcome-description{
+  background:linear-gradient(145deg,#0a294b,#071d38);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:19px;
+  padding:19px;
+  margin-bottom:16px;
+}
+
+.welcome-description h2{
+  font-size:16px;
+  margin-bottom:9px;
+}
+
+.welcome-description p{
+  color:#91a9c0;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.welcome-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:18px;
+}
+
+.w-info{
+  background:#071d38;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:15px;
+  padding:14px;
+}
+
+.w-info b{
+  display:block;
+  font-size:12px;
+  margin-bottom:6px;
+}
+
+.w-info span{
+  color:#829bb7;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.steps-title{
+  font-size:18px;
+  margin:22px 0 11px;
+}
+
+.welcome-step{
+  display:flex;
+  gap:12px;
+  background:#071d38;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:15px;
+  padding:14px;
+  margin-bottom:9px;
+}
+
+.step-number{
+  flex:0 0 30px;
+  height:30px;
+  border-radius:9px;
+  background:#0b3c72;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.welcome-step b{
+  display:block;
+  font-size:12px;
+  margin-bottom:4px;
+}
+
+.welcome-step p{
+  color:#829bb7;
+  font-size:10px;
+  line-height:1.55;
+}
+
+.welcome-bottom{
+  margin-top:24px;
+  background:linear-gradient(145deg,#0c3f82,#0759d9);
+  border-radius:18px;
+  padding:19px;
+  border:1px solid rgba(255,255,255,.16);
+}
+
+.welcome-bottom h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
+
+.welcome-bottom p{
+  color:#c8dcf0;
+  font-size:10px;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+
+.welcome-actions{
+  display:grid;
+  gap:8px;
+}
+
+.welcome-actions .btn{
+  background:#ef4444;
+}
+
+.welcome-login{
+  background:rgba(255,255,255,.08)!important;
+  border:1px solid rgba(255,255,255,.18);
+}
+
+#login{
+  position:fixed;
+  inset:0;
+  z-index:90;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:#0b1622;
+}
+
+#login .card{
+  width:100%;
+  max-width:360px;
+  background:rgba(7,29,56,.95);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:28px;
+}
+
+.login-description{
+  color:#829bb7;
+  font-size:11px;
+  line-height:1.6;
+  text-align:center;
+  margin-top:9px;
+}
+
+#authFlow{
+  position:fixed;
+  inset:0;
+  z-index:95;
+  background:#0b1622;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding:18px;
+  overflow-y:auto;
+}
+
+.auth-card{
+  width:100%;
+  max-width:390px;
+  background:rgba(7,29,56,.97);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:25px;
+  position:relative;
+  overflow:hidden;
+  margin:auto;
+}
+
+.auth-progress{
+  display:flex;
+  gap:5px;
+  margin-bottom:24px;
+}
+
+.auth-progress span{
+  height:4px;
+  flex:1;
+  border-radius:3px;
+  background:#173552;
+}
+
+.auth-progress span.active{
+  background:var(--primary);
+}
+
+.auth-step{
+  display:none;
+  animation:authIn .3s ease;
+}
+
+.auth-step.active{display:block}
+
+@keyframes authIn{
+  from{opacity:0;transform:translateX(12px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+.auth-processing{
+  position:absolute;
+  inset:0;
+  background:rgba(7,29,56,.985);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:5;
+  text-align:center;
+  padding:30px;
+}
+
+.auth-processing.show{display:flex}
 
 .spinner{
-width:48px;
-height:48px;
-border:3px solid var(--line);
-border-top-color:var(--primary);
-border-radius:50%;
-animation:spin .8s linear infinite
-}
-
-.processing-title{
-font-family:'Space Grotesk';
-font-weight:700;
-font-size:1.1rem
-}
-
-.processing-sub{
-color:var(--muted);
-font-size:.85rem
-}
-
-.overlay{
-position:fixed;
-inset:0;
-z-index:20000;
-background:rgba(4,7,10,.97);
-backdrop-filter:blur(14px);
-display:flex;
-align-items:center;
-justify-content:center;
-padding:18px;
-overflow:auto
-}
-
-.onboarding-box{
-width:100%;
-max-width:570px;
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:23px;
-padding:27px;
-box-shadow:0 35px 120px rgba(0,0,0,.7);
-animation:up .3s ease
-}
-
-.onboarding-progress{
-display:flex;
-gap:5px;
-margin-bottom:25px
-}
-
-.onboarding-progress span{
-height:4px;
-flex:1;
-background:var(--line);
-border-radius:99px;
-transition:.3s
-}
-
-.onboarding-progress span.active{
-background:var(--primary)
-}
-
-.onboarding-step{
-display:none
-}
-
-.onboarding-step.active{
-display:block
-}
-
-.onboarding-icon{
-width:68px;
-height:68px;
-margin:0 auto 18px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:18px;
-background:rgba(25,199,154,.08);
-border:1px solid rgba(25,199,154,.25);
-color:var(--primary)
-}
-
-.onboarding-step h1,
-.onboarding-step h2{
-font-family:'Space Grotesk';
-text-align:center;
-font-size:1.55rem;
-margin-bottom:8px
-}
-
-.onboarding-description{
-text-align:center;
-color:var(--muted);
-font-size:.9rem;
-margin-bottom:20px
-}
-
-.features{
-display:flex;
-flex-direction:column;
-gap:9px;
-margin-bottom:22px
-}
-
-.feature{
-display:flex;
-align-items:center;
-gap:10px;
-padding:12px;
-border-radius:11px;
-background:var(--panel2);
-border:1px solid var(--line);
-font-size:.84rem
-}
-
-.feature-check{
-color:var(--primary);
-font-weight:700
-}
-
-.field{
-margin-bottom:16px
-}
-
-.field label{
-display:block;
-font-size:.8rem;
-color:var(--muted);
-font-weight:600;
-margin-bottom:7px
-}
-
-.input,.select{
-width:100%;
-padding:14px;
-border-radius:11px;
-border:1px solid var(--line);
-background:var(--panel2);
-color:var(--text);
-outline:none
-}
-
-.input:focus,.select:focus{
-border-color:var(--primary)
-}
-
-.select option{
-background:#101820
-}
-
-.error{
-color:var(--danger);
-font-size:.78rem;
-margin-top:6px
-}
-
-.onboarding-actions{
-display:flex;
-gap:10px;
-margin-top:20px
-}
-
-.hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-padding:80px 0
-}
-
-.hero-grid{
-display:grid;
-grid-template-columns:1.05fr .95fr;
-gap:70px;
-align-items:center
-}
-
-.badge{
-display:inline-flex;
-padding:7px 13px;
-border-radius:999px;
-border:1px solid rgba(25,199,154,.25);
-background:rgba(25,199,154,.08);
-color:var(--primary);
-font-size:.76rem;
-font-weight:700;
-letter-spacing:.04em;
-margin-bottom:18px
-}
-
-.hero h1{
-font-family:'Space Grotesk';
-font-size:clamp(2.5rem,6vw,4.6rem);
-line-height:1.04;
-margin-bottom:20px
-}
-
-.hero p{
-font-size:1.08rem;
-color:var(--muted);
-max-width:590px;
-margin-bottom:24px
-}
-
-.hero-points{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-bottom:28px;
-max-width:560px
-}
-
-.hero-point{
-padding:12px;
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:12px;
-font-size:.82rem
-}
-
-.hero-point strong{
-display:block;
-font-family:'Space Grotesk';
-margin-bottom:2px
-}
-
-.hero-point span{
-color:var(--muted)
-}
-
-.card-stage{
-display:flex;
-justify-content:center;
-align-items:center
-}
-
-.virtual-card{
-position:relative;
-width:100%;
-max-width:520px;
-aspect-ratio:1.586/1;
-border-radius:28px;
-overflow:hidden;
-padding:34px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-color:#f7f5ef;
-box-shadow:0 35px 90px rgba(0,0,0,.65);
-border:1px solid rgba(255,255,255,.13)
-}
-
-.virtual-card::before{
-content:"";
-position:absolute;
-width:280px;
-height:280px;
-right:-100px;
-top:-100px;
-border-radius:50%;
-background:rgba(25,199,154,.15);
-filter:blur(40px)
-}
-
-.virtual-card::after{
-content:"";
-position:absolute;
-width:260px;
-height:260px;
-left:-130px;
-bottom:-130px;
-border-radius:50%;
-background:rgba(57,140,255,.13);
-filter:blur(45px)
-}
-
-.virtual-card>*{
-position:relative;
-z-index:2
-}
-
-.card-top{
-display:flex;
-justify-content:space-between;
-align-items:flex-start
-}
-
-.card-brand{
-font-family:'Space Grotesk';
-font-weight:700;
-font-size:1rem;
-letter-spacing:.23em
-}
-
-.card-sub{
-font-size:.68rem;
-letter-spacing:.18em;
-text-transform:uppercase;
-color:rgba(255,255,255,.45)
-}
-
-.chip{
-width:63px;
-height:45px;
-border-radius:9px;
-background:linear-gradient(145deg,#f3d57e,#a67b2b);
-border:1px solid rgba(255,255,255,.25)
-}
-
-.card-number{
-font-family:'Space Grotesk';
-font-size:clamp(18px,3.5vw,26px);
-letter-spacing:.19em
-}
-
-.card-bottom{
-display:flex;
-justify-content:space-between;
-align-items:flex-end
-}
-
-.card-label{
-font-size:.62rem;
-letter-spacing:.18em;
-text-transform:uppercase;
-color:rgba(255,255,255,.42)
-}
-
-.card-value{
-font-family:'Space Grotesk';
-font-size:.9rem;
-font-weight:600
-}
-
-section{
-padding:100px 0
-}
-
-.section-head{
-text-align:center;
-max-width:760px;
-margin:0 auto 55px
-}
-
-.section-head h2{
-font-family:'Space Grotesk';
-font-size:clamp(1.9rem,4vw,3rem)
-}
-
-.section-head p{
-color:var(--muted);
-margin-top:9px
-}
-
-.account-strip{
-background:var(--panel);
-border-top:1px solid var(--line);
-border-bottom:1px solid var(--line);
-padding:15px 0
-}
-
-.account-strip-inner{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px
-}
-
-.account-user{
-display:flex;
-align-items:center;
-gap:11px
-}
-
-.avatar{
-width:42px;
-height:42px;
-border-radius:12px;
-background:rgba(25,199,154,.1);
-border:1px solid rgba(25,199,154,.25);
-display:flex;
-align-items:center;
-justify-content:center;
-font-family:'Space Grotesk';
-font-weight:700;
-color:var(--primary)
-}
-
-.account-user small{
-display:block;
-font-size:.7rem;
-color:var(--muted)
-}
-
-.account-user strong{
-font-family:'Space Grotesk'
-}
-
-.account-status{
-font-size:.76rem;
-padding:6px 10px;
-border-radius:999px;
-background:rgba(25,199,154,.08);
-color:var(--primary)
-}
-
-.cards-area{
-display:grid;
-grid-template-columns:1fr;
-gap:38px;
-max-width:1050px;
-margin:auto
-}
-
-.product{
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:23px;
-overflow:hidden;
-transition:.25s
-}
-
-.product:hover{
-transform:translateY(-3px);
-border-color:#31414e
-}
-
-.product.recommended{
-border-color:rgba(25,199,154,.55);
-box-shadow:0 20px 65px rgba(25,199,154,.06)
-}
-
-.product-inner{
-padding:28px
-}
-
-.product-card{
-margin-bottom:28px
-}
-
-.product-card .virtual-card{
-max-width:610px
-}
-
-.product-heading{
-display:flex;
-align-items:flex-start;
-justify-content:space-between;
-gap:20px;
-margin-bottom:20px
-}
-
-.product-heading h3{
-font-size:1.45rem
-}
-
-.product-type{
-font-size:.82rem;
-color:var(--muted);
-margin-top:3px
-}
-
-.product-price{
-font-family:'Space Grotesk';
-font-size:2rem;
-font-weight:700;
-white-space:nowrap
-}
-
-.product-price small{
-font-family:'DM Sans';
-font-size:.8rem;
-color:var(--muted);
-font-weight:500
-}
-
-.tag{
-display:inline-block;
-font-size:.7rem;
-font-weight:700;
-padding:6px 11px;
-border-radius:999px;
-background:rgba(25,199,154,.09);
-color:var(--primary);
-margin-bottom:13px
-}
-
-.product-description{
-color:var(--muted);
-font-size:.9rem;
-margin-bottom:22px
-}
-
-.details-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:13px;
-margin-bottom:22px
-}
-
-.detail-box{
-background:var(--panel2);
-border:1px solid var(--line);
-border-radius:12px;
-padding:13px
-}
-
-.detail-box small{
-display:block;
-font-size:.66rem;
-text-transform:uppercase;
-letter-spacing:.1em;
-color:var(--muted);
-margin-bottom:4px
-}
-
-.detail-box strong{
-font-family:'Space Grotesk';
-font-size:.86rem
-}
-
-.benefits{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:8px;
-margin-bottom:23px
-}
-
-.benefit{
-font-size:.82rem;
-color:#b9c4cd;
-padding:8px 0
-}
-
-.benefit::before{
-content:"✓";
-color:var(--primary);
-font-weight:700;
-margin-right:7px
-}
-
-.front-info{
-margin-top:55px;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:16px
-}
-
-.info-card{
-padding:20px;
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:16px
-}
-
-.info-card-icon{
-font-size:1.4rem;
-margin-bottom:9px
-}
-
-.info-card h3{
-font-size:1rem;
-margin-bottom:5px
-}
-
-.info-card p{
-font-size:.82rem;
-color:var(--muted)
-}
-
-.dark-section{
-background:#060a0f;
-border-top:1px solid #111a22;
-border-bottom:1px solid #111a22
-}
-
-.process-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:17px
-}
-
-.process-card{
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:18px;
-padding:22px;
-position:relative
-}
-
-.process-number{
-font-family:'Space Grotesk';
-font-size:.72rem;
-color:var(--primary);
-margin-bottom:18px
-}
-
-.process-card h3{
-font-size:1rem;
-margin-bottom:6px
-}
-
-.process-card p{
-font-size:.8rem;
-color:var(--muted)
-}
-
-.checkout-overlay{
-position:fixed;
-inset:0;
-z-index:25000;
-background:rgba(2,5,8,.99);
-display:none;
-align-items:center;
-justify-content:center;
-padding:2px
-}
-
-.checkout-overlay.active{
-display:flex
-}
-
-.checkout-box{
-width:100%;
-height:99.7vh;
-max-width:1380px;
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:12px;
-display:flex;
-flex-direction:column;
-overflow:hidden;
-box-shadow:0 40px 120px rgba(0,0,0,.85)
-}
-
-.checkout-header{
-min-height:62px;
-padding:10px 15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-border-bottom:1px solid var(--line);
-flex-shrink:0
-}
-
-.checkout-title{
-font-family:'Space Grotesk';
-font-weight:700;
-font-size:1.05rem
-}
-
-.checkout-subtitle{
-font-size:.76rem;
-color:var(--muted);
-margin-top:2px
-}
-
-.close{
-width:40px;
-height:40px;
-border:1px solid var(--line);
-background:transparent;
-color:var(--text);
-border-radius:10px;
-font-size:1.2rem
-}
-
-.checkout-contact-box{
-padding:9px 12px;
-background:#091119;
-border-bottom:1px solid var(--line);
-flex-shrink:0
-}
-
-.checkout-contact-title{
-font-family:'Space Grotesk';
-font-weight:700;
-font-size:.78rem;
-margin-bottom:2px
-}
-
-.checkout-contact-text{
-font-size:.67rem;
-line-height:1.35;
-color:var(--muted);
-margin-bottom:7px
-}
-
-.checkout-contact-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:7px
-}
-
-.checkout-contact-item{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:7px;
-padding:7px 9px;
-background:var(--panel2);
-border:1px solid var(--line);
-border-radius:9px;
-min-width:0
-}
-
-.checkout-contact-info{
-min-width:0;
-display:flex;
-flex-direction:column;
-gap:1px
-}
-
-.checkout-contact-info small{
-font-size:.55rem;
-color:var(--muted);
-text-transform:uppercase;
-letter-spacing:.06em
-}
-
-.checkout-contact-info strong{
-font-size:.7rem;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis
-}
-
-.copy-contact{
-flex-shrink:0;
-border:1px solid rgba(25,199,154,.35);
-background:rgba(25,199,154,.06);
-color:var(--primary);
-border-radius:7px;
-padding:5px 7px;
-font-size:.6rem;
-font-weight:700
-}
-
-.checkout-contact-actions{
-display:flex;
-justify-content:flex-end;
-margin-top:6px
-}
-
-.restart-contacts{
-border:1px solid var(--line);
-background:transparent;
-color:var(--muted);
-border-radius:7px;
-padding:5px 9px;
-font-size:.59rem;
-font-weight:700
-}
-
-.checkout-user{
-padding:7px 10px;
-display:flex;
-gap:8px;
-border-bottom:1px solid var(--line);
-flex-shrink:0
-}
-
-.checkout-user-card{
-flex:1;
-background:var(--panel2);
-border:1px solid var(--line);
-border-radius:9px;
-padding:6px 10px
-}
-
-.checkout-user-card small{
-display:block;
-font-size:.56rem;
-text-transform:uppercase;
-color:var(--muted);
-letter-spacing:.08em
-}
-
-.checkout-user-card strong{
-display:block;
-font-size:.76rem;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis
-}
-
-.checkout-frame-wrap{
-flex:1;
-min-height:0;
-padding:3px;
-background:#030609
-}
-
-.checkout-frame{
-width:100%;
-height:100%;
-min-height:100%;
-border:1px solid var(--line);
-border-radius:8px;
-background:#fff
-}
-
-.checkout-footer{
-padding:7px;
-border-top:1px solid var(--line);
-background:var(--panel);
-display:flex;
-gap:7px;
-flex-shrink:0
-}
-
-.checkout-footer .btn{
-padding:11px
-}
-
-.paid{
-background:var(--primary);
-color:#03100b;
-font-size:.92rem
-}
-
-.checkout-back{
-background:transparent;
-border:1px solid var(--line);
-color:var(--text)
-}
-
-.analysis-overlay{
-position:fixed;
-inset:0;
-z-index:26000;
-background:#05080c;
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-overflow:auto
-}
-
-.analysis-overlay.active{
-display:flex
-}
-
-.analysis-box{
-width:100%;
-max-width:560px;
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:22px;
-padding:28px;
-box-shadow:0 35px 110px rgba(0,0,0,.7);
-text-align:center
-}
-
-.analysis-icon{
-width:78px;
-height:78px;
-border-radius:50%;
-margin:0 auto 18px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(25,199,154,.08);
-border:1px solid rgba(25,199,154,.3);
-color:var(--primary)
-}
-
-.analysis-box h2{
-font-family:'Space Grotesk';
-font-size:1.6rem;
-margin-bottom:7px
-}
-
-.analysis-box>p{
-font-size:.88rem;
-color:var(--muted)
-}
-
-.order-summary{
-margin:23px 0;
-padding:15px;
-background:var(--panel2);
-border:1px solid var(--line);
-border-radius:14px;
-text-align:left
-}
-
-.order-row{
-display:flex;
-justify-content:space-between;
-gap:20px;
-padding:9px 0;
-border-bottom:1px solid var(--line);
-font-size:.84rem
-}
-
-.order-row:last-child{
-border-bottom:0
-}
-
-.order-row span{
-color:var(--muted)
-}
-
-.security-note{
-padding:15px;
-background:rgba(57,140,255,.06);
-border:1px solid rgba(57,140,255,.18);
-border-radius:12px;
-text-align:left;
-margin-bottom:20px
-}
-
-.security-note strong{
-display:block;
-font-family:'Space Grotesk';
-font-size:.86rem;
-margin-bottom:4px
-}
-
-.security-note p{
-font-size:.77rem;
-color:var(--muted)
-}
-
-.analysis-steps{
-display:flex;
-flex-direction:column;
-gap:8px;
-margin-bottom:20px;
-text-align:left
-}
-
-.analysis-step{
-display:flex;
-align-items:center;
-gap:10px;
-padding:10px 12px;
-border-radius:10px;
-background:var(--panel2);
-font-size:.8rem;
-color:var(--muted)
-}
-
-.analysis-step.active{
-color:var(--text);
-border:1px solid rgba(25,199,154,.2)
-}
-
-.dot{
-width:9px;
-height:9px;
-border-radius:50%;
-background:var(--line);
-flex-shrink:0
-}
-
-.analysis-step.active .dot{
-background:var(--primary)
-}
-
-footer{
-border-top:1px solid var(--line);
-padding:32px 0
-}
-
-.footer{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-flex-wrap:wrap
-}
-
-footer p{
-font-size:.78rem;
-color:var(--muted)
-}
-
-.toast{
-position:fixed;
-left:50%;
-bottom:20px;
-z-index:40000;
-transform:translate(-50%,130px);
-background:#111b24;
-border:1px solid var(--line);
-border-radius:11px;
-padding:10px 16px;
-font-size:.82rem;
-transition:.25s
-}
-
-.toast.show{
-transform:translate(-50%,0)
+  width:32px;
+  height:32px;
+  border:3px solid #244b73;
+  border-top-color:var(--primary);
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  margin-bottom:14px;
 }
 
 @keyframes spin{
-to{transform:rotate(360deg)}
+  to{transform:rotate(360deg)}
 }
 
-@keyframes up{
-from{opacity:0;transform:translateY(15px)}
-to{opacity:1;transform:translateY(0)}
+.processing-bar{
+  width:190px;
+  height:4px;
+  background:#173552;
+  border-radius:5px;
+  overflow:hidden;
+  margin-top:15px;
 }
 
-@media(max-width:850px){
-.hero-grid{
-grid-template-columns:1fr;
-gap:50px
+.processing-bar div{
+  width:45%;
+  height:100%;
+  background:var(--primary);
+  animation:processBar 1.6s ease-in-out infinite;
 }
 
-.hero{
-padding:65px 0
+@keyframes processBar{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(450%)}
 }
 
-.process-grid{
-grid-template-columns:1fr 1fr
+.auth-back{
+  background:none;
+  border:0;
+  color:#829bb7;
+  font-size:11px;
+  padding:10px 0 3px;
+  cursor:pointer;
+}
+
+.auth-note{
+  background:#061a31;
+  border:1px solid #1b4165;
+  border-radius:11px;
+  padding:12px;
+  color:#829bb7;
+  font-size:10px;
+  line-height:1.55;
+  margin-bottom:14px;
+}
+
+.country-search{
+  margin-bottom:7px;
+}
+
+.country-list{
+  max-height:220px;
+  overflow-y:auto;
+  border:1px solid #244b73;
+  border-radius:10px;
+  background:#04162c;
+}
+
+.country-option{
+  padding:13px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:12px;
+  cursor:pointer;
+}
+
+.country-option:last-child{border-bottom:0}
+
+.country-option.selected{
+  background:rgba(239,68,68,.16);
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #17334f;
+  font-size:11px;
+}
+
+.summary-row:last-child{border-bottom:0}
+
+.summary-row span{color:#829bb7}
+
+.summary-row b{
+  text-align:right;
+  word-break:break-word;
+}
+
+.checkline{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  background:#061a31;
+  border:1px solid #1b4165;
+  border-radius:11px;
+  padding:12px;
+  margin:14px 0;
+  font-size:10px;
+  color:#a9bdd2;
+}
+
+.checkline input{
+  width:16px;
+  height:16px;
+  margin:0;
+}
+
+.account-welcome{
+  background:linear-gradient(145deg,#071d38,#092c51);
+  border:1px solid rgba(43,127,255,.22);
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+.account-welcome small{
+  color:#829bb7;
+  font-size:9px;
+}
+
+.account-welcome h2{
+  font-size:20px;
+  margin:5px 0;
+}
+
+.account-welcome p{
+  color:#91a9c0;
+  font-size:10px;
+  line-height:1.55;
+}
+
+.front-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:15px;
 }
 
 .front-info{
-grid-template-columns:1fr
-}
-}
-
-@media(max-width:600px){
-.container{
-padding:0 14px
+  background:#071d38;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  padding:13px;
 }
 
-.onboarding-box{
-padding:21px
+.front-info span{
+  display:block;
+  color:#829bb7;
+  font-size:9px;
+  margin-bottom:5px;
 }
 
-.hero h1{
-font-size:2.45rem
+.front-info b{
+  font-size:13px;
 }
 
-.hero-points{
-grid-template-columns:1fr
+.front-section{
+  background:#071d38;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:14px;
 }
 
-.virtual-card{
-padding:23px;
-border-radius:21px
+.front-section h3{
+  font-size:14px;
+  margin-bottom:7px;
 }
 
-.card-brand{
-font-size:.82rem
+.front-section>p{
+  color:#829bb7;
+  font-size:10px;
+  line-height:1.6;
 }
 
-.chip{
-width:48px;
-height:34px
+.front-guide{
+  display:flex;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #17334f;
+}
+
+.front-guide:last-child{border-bottom:0}
+
+.front-guide-number{
+  width:27px;
+  height:27px;
+  flex:0 0 27px;
+  border-radius:8px;
+  background:#0b3c72;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.front-guide b{
+  display:block;
+  font-size:11px;
+  margin-bottom:4px;
+}
+
+.front-guide span{
+  color:#829bb7;
+  font-size:9px;
+  line-height:1.5;
+}
+
+.blue-bottom{
+  background:linear-gradient(145deg,#0c3f82,#0759d9);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;
+  padding:18px;
+  margin-top:8px;
+}
+
+.blue-bottom h3{
+  font-size:15px;
+  margin-bottom:6px;
+}
+
+.blue-bottom p{
+  color:#c7daf0;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.presets{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin:8px 0;
+}
+
+.preset{
+  padding:10px 3px;
+  border-radius:9px;
+  background:#061a33;
+  color:#fff;
+  border:1px solid #24486c;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.preset.active{
+  background:var(--primary);
+  border-color:#fff3;
+}
+
+.card-visual{
+  background:linear-gradient(135deg,#182c43,#06162a);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:14px;
+  min-height:185px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 14px 35px rgba(0,0,0,.25);
+}
+
+.card-chip{
+  width:36px;
+  height:27px;
+  border-radius:6px;
+  background:linear-gradient(135deg,#aaa,#555);
 }
 
 .card-number{
-font-size:15px;
-letter-spacing:.13em
+  font-size:20px;
+  letter-spacing:2px;
 }
 
-.card-value{
-font-size:.68rem
+.card-meta{
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
 }
 
-.product-inner{
-padding:19px
+.card-meta small{
+  display:block;
+  color:#7189a5;
+  font-size:7px;
+  margin-bottom:3px;
 }
 
-.product-heading{
-display:block
+.saved-card{
+  border:1px solid rgba(37,229,138,.2);
+  background:rgba(5,39,34,.5);
+  border-radius:16px;
+  padding:14px;
 }
 
-.product-price{
-margin-top:8px
+.card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
 }
 
-.details-grid,
-.benefits{
-grid-template-columns:1fr
+.btn-secondary{
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  background:#102a44;
+  color:#fff;
+  border:1px solid #244b73;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.process-grid{
-grid-template-columns:1fr
+.withdraw-step{display:none}
+.withdraw-step.active{display:block}
+
+.withdraw-method{
+  border:1px solid #244b73;
+  border-radius:14px;
+  padding:14px;
+  background:#061a31;
+  cursor:pointer;
+  margin-bottom:10px;
 }
 
-.checkout-box{
-height:100vh;
-max-width:none;
-border-radius:0;
-border-left:0;
-border-right:0
+.withdraw-method.selected{
+  border-color:var(--primary);
+  background:rgba(239,68,68,.08);
 }
 
-.checkout-overlay{
-padding:0
+.withdraw-method-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.checkout-contact-box{
-padding:8px 8px
+.withdraw-card-mini{
+  font-size:15px;
+  letter-spacing:1px;
+  font-weight:bold;
+  margin:8px 0;
 }
 
-.checkout-contact-grid{
-grid-template-columns:1fr;
-gap:5px
+.withdraw-check{
+  width:18px;
+  height:18px;
+  border:1px solid #55728e;
+  border-radius:50%;
 }
 
-.checkout-contact-text{
-font-size:.62rem
+.withdraw-method.selected .withdraw-check{
+  background:var(--primary);
+  border-color:var(--primary);
+  box-shadow:inset 0 0 0 4px #061a31;
 }
 
-.checkout-contact-item{
-padding:6px 8px
+.account-section{margin-bottom:14px}
+
+.account-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid #17334f;
+  font-size:11px;
 }
 
-.checkout-contact-info strong{
-font-size:.67rem
+.account-row:last-child{border-bottom:0}
+
+.account-row span{color:#829bb7}
+
+.account-row b{
+  text-align:right;
+  max-width:60%;
+  word-break:break-word;
 }
 
-.checkout-user{
-display:grid;
-grid-template-columns:1fr 1fr
+.account-status{
+  display:inline-flex;
+  padding:4px 8px;
+  border-radius:20px;
+  background:rgba(37,229,138,.1);
+  color:#25e58a;
+  font-size:9px;
 }
 
-.checkout-frame-wrap{
-padding:2px
+.danger-btn{
+  background:#3b1418;
+  border:1px solid rgba(239,68,68,.3);
+  color:#ff8d95;
 }
 
-.checkout-footer{
-display:grid;
-grid-template-columns:1fr 1fr
+#session{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:none;
+  z-index:100;
 }
 
-.analysis-box{
-padding:21px
+#session.active{display:block}
+
+#notif{
+  position:fixed;
+  top:16px;
+  left:50%;
+  transform:translateX(-50%) translateY(-80px);
+  z-index:200;
+  background:rgba(7,29,56,.97);
+  border:1px solid var(--primary);
+  border-radius:14px;
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  transition:transform .35s ease;
+  max-width:90%;
 }
 
-.account-strip-inner{
-align-items:flex-start
+#notif.show{
+  transform:translateX(-50%) translateY(0);
 }
+
+#notif img{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  object-fit:cover;
+}
+
+/* =========================================================
+   FLUXO DE LEVANTAMENTO
+========================================================= */
+
+#withdrawProcess{
+  position:fixed;
+  inset:0;
+  z-index:250;
+  background:#0b1622;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+#withdrawProcess.show{
+  display:flex;
+}
+
+.withdraw-process-card{
+  width:100%;
+  max-width:390px;
+  background:#071d38;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:25px;
+  text-align:center;
+}
+
+.withdraw-process-step{
+  display:none;
+}
+
+.withdraw-process-step.active{
+  display:block;
+}
+
+.process-icon{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  margin:0 auto 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(239,68,68,.12);
+  border:1px solid rgba(239,68,68,.3);
+  color:#f87171;
+  font-size:25px;
+}
+
+.process-title{
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.process-description{
+  color:#829bb7;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.process-loader{
+  width:42px;
+  height:42px;
+  border:3px solid #244b73;
+  border-top-color:var(--primary);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:18px auto;
+}
+
+.process-line{
+  height:5px;
+  background:#173552;
+  border-radius:5px;
+  overflow:hidden;
+  margin-top:18px;
+}
+
+.process-line span{
+  display:block;
+  height:100%;
+  width:35%;
+  background:var(--primary);
+  animation:processLine 1.5s infinite ease-in-out;
+}
+
+@keyframes processLine{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(400%)}
+}
+
+.process-summary{
+  background:#061a31;
+  border:1px solid #1b4165;
+  border-radius:13px;
+  padding:13px;
+  margin-top:18px;
+  text-align:left;
+}
+
+.process-summary-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 0;
+  font-size:10px;
+  border-bottom:1px solid #17334f;
+}
+
+.process-summary-row:last-child{
+  border-bottom:0;
+}
+
+.process-summary-row span{
+  color:#829bb7;
+}
+
+.process-summary-row b{
+  text-align:right;
+}
+
+.process-done-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  margin:0 auto 17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(37,229,138,.12);
+  border:1px solid rgba(37,229,138,.35);
+  color:#25e58a;
+  font-size:34px;
+}
+
+.process-notice{
+  background:rgba(37,229,138,.07);
+  border:1px solid rgba(37,229,138,.2);
+  border-radius:12px;
+  padding:13px;
+  color:#a9bdd2;
+  font-size:10px;
+  line-height:1.6;
+  margin-top:16px;
+}
+
+.process-close{
+  margin-top:17px;
+  background:#102a44;
+  border:1px solid #244b73;
+}
+
+/* =========================================================
+   CONFIRMAÇÃO
+========================================================= */
+
+#confirm{
+  position:fixed;
+  inset:0;
+  z-index:280;
+  background:rgba(0,0,0,.78);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+#confirm.show{
+  display:flex;
+}
+
+.confirm-card{
+  width:100%;
+  max-width:340px;
+  background:#071d38;
+  border:1px solid rgba(37,229,138,.25);
+  border-radius:22px;
+  padding:25px;
+  text-align:center;
+}
+
+.confirm-success{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:rgba(37,229,138,.12);
+  border:1px solid rgba(37,229,138,.3);
+  color:#25e58a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 13px;
+  font-size:30px;
+}
+
+.confirm-title{
+  font-size:19px;
+  font-weight:bold;
+}
+
+.confirm-sub{
+  color:#829bb7;
+  font-size:11px;
+  line-height:1.6;
+  margin-top:7px;
+}
+
+.confirm-amount{
+  font-size:30px;
+  font-weight:bold;
+  color:#25e58a;
+  margin:13px 0;
+}
+
+.confirm-info{
+  background:#061a31;
+  border:1px solid #1b4165;
+  border-radius:12px;
+  padding:12px;
+  text-align:left;
+}
+
+.confirm-info div{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+  font-size:10px;
+  border-bottom:1px solid #17334f;
+}
+
+.confirm-info div:last-child{
+  border-bottom:0;
+}
+
+.confirm-info span{
+  color:#829bb7;
+}
+
+.confirm-info b{
+  text-align:right;
 }
 </style>
 </head>
 
-<body class="locked">
-
-<div id="processing" class="processing">
-<div class="spinner"></div>
-<div id="processingTitle" class="processing-title">Processando...</div>
-<div id="processingSub" class="processing-sub">Aguarde um momento</div>
-</div>
+<body>
+
+<div id="welcome">
+  <div class="welcome-inner">
+
+    <img class="welcome-logo"
+      src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png">
+
+    <div class="welcome-brand">famelack.</div>
+    <div class="welcome-sub">Watch • Earn • Withdraw</div>
+
+    <div class="welcome-hero">
+      <h1>Bienvenue sur famelack.</h1>
+      <p>
+        Une plateforme conçue pour vous permettre de découvrir des contenus,
+        suivre votre activité et gérer votre espace personnel depuis une seule
+        interface.
+      </p>
+    </div>
+
+    <div class="welcome-description">
+      <h2>Découvrez votre nouvel espace</h2>
+      <p>
+        Créez votre compte, configurez votre profil et découvrez progressivement
+        les différentes fonctions disponibles sur famelack. Votre espace
+        personnel vous permet de consulter vos informations, suivre votre
+        solde, gérer votre portefeuille et consulter votre historique.
+      </p>
+    </div>
+
+    <div class="welcome-info">
+      <div class="w-info">
+        <b>Votre compte</b>
+        <span>Un espace personnel avec vos informations et votre identité.</span>
+      </div>
+
+      <div class="w-info">
+        <b>Votre solde</b>
+        <span>Consultez votre valeur disponible directement depuis l'accueil.</span>
+      </div>
+
+      <div class="w-info">
+        <b>Votre activité</b>
+        <span>Suivez votre temps, vos sessions et les opérations enregistrées.</span>
+      </div>
+
+      <div class="w-info">
+        <b>Votre portefeuille</b>
+        <span>Gérez les informations nécessaires aux retraits.</span>
+      </div>
+    </div>
+
+    <div class="steps-title">Comment commencer ?</div>
+
+    <div class="welcome-step">
+      <div class="step-number">01</div>
+      <div>
+        <b>Créer votre compte</b>
+        <p>Commencez par sélectionner « Créer mon compte » et ouvrez votre espace personnel.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">02</div>
+      <div>
+        <b>Ajouter votre adresse e-mail</b>
+        <p>Indiquez une adresse e-mail valide afin d'associer votre identité à votre compte.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">03</div>
+      <div>
+        <b>Choisir votre nom d'utilisateur</b>
+        <p>Définissez le nom qui sera affiché dans votre espace personnel.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">04</div>
+      <div>
+        <b>Configurer votre profil</b>
+        <p>Complétez les informations de base nécessaires à la configuration de votre compte.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">05</div>
+      <div>
+        <b>Sélectionner votre pays</b>
+        <p>Choisissez votre pays afin de terminer la configuration régionale du profil.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">06</div>
+      <div>
+        <b>Vérifier vos informations</b>
+        <p>Avant de terminer, contrôlez les données saisies et confirmez leur exactitude.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">07</div>
+      <div>
+        <b>Accéder à votre espace</b>
+        <p>Après la création du compte, votre tableau de bord personnel devient accessible.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">08</div>
+      <div>
+        <b>Suivre votre activité</b>
+        <p>Consultez votre temps, vos sessions, vos opérations et les informations de votre compte.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">09</div>
+      <div>
+        <b>Consulter votre portefeuille</b>
+        <p>Ajoutez et gérez les informations nécessaires lorsque vous souhaitez utiliser la fonction de retrait.</p>
+      </div>
+    </div>
+
+    <div class="welcome-step">
+      <div class="step-number">10</div>
+      <div>
+        <b>Gérer vos retraits</b>
+        <p>Consultez votre solde disponible, sélectionnez une méthode enregistrée et suivez les étapes de demande de retrait.</p>
+      </div>
+    </div>
+
+    <div class="welcome-bottom">
+      <h3>Prêt à commencer ?</h3>
+      <p>
+        Faites défiler la page pour découvrir les informations importantes,
+        puis créez votre espace personnel lorsque vous êtes prêt.
+      </p>
 
-<div id="onboarding" class="overlay">
-<div class="onboarding-box">
-
-<div class="onboarding-progress">
-<span id="bar1" class="active"></span>
-<span id="bar2"></span>
-<span id="bar3"></span>
-<span id="bar4"></span>
-<span id="bar5"></span>
-<span id="bar6"></span>
+      <div class="welcome-actions">
+        <button class="btn" onclick="openWelcomeAuth()">Créer mon compte</button>
+        <button class="btn welcome-login" onclick="openWelcomeLogin()">J’ai déjà un compte</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div id="step1" class="onboarding-step active">
+<div id="login" style="display:none">
 
-<div class="onboarding-icon">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<rect x="1" y="4" width="22" height="16" rx="2"/>
-<line x1="1" y1="10" x2="23" y2="10"/>
-</svg>
-</div>
+  <div class="card">
 
-<h1>Cartões Virtuais</h1>
+    <img
+      src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png"
+      style="width:70px;height:70px;border-radius:17px;margin:0 auto 15px;display:block"
+    >
 
-<p class="onboarding-description">
-Comece configurando algumas informações básicas para personalizar a sua experiência.
-</p>
+    <h1 style="text-align:center;font-size:23px">famelack.</h1>
 
-<div class="features">
-<div class="feature"><span class="feature-check">✓</span> Escolha entre diferentes cartões virtuais</div>
-<div class="feature"><span class="feature-check">✓</span> Checkout integrado para cada opção</div>
-<div class="feature"><span class="feature-check">✓</span> Processo organizado por etapas</div>
-<div class="feature"><span class="feature-check">✓</span> Acompanhamento do pedido após o pagamento</div>
-</div>
+    <p style="text-align:center;color:#8da6c1;font-size:12px;margin-top:5px">
+      Watch • Earn • Withdraw
+    </p>
 
-<button class="btn btn-primary" onclick="nextStep(2)">
-Começar
-</button>
+    <p class="login-description">
+      Accédez à votre espace personnel ou commencez la création
+      d'un nouveau compte.
+    </p>
 
-</div>
+    <button class="btn" onclick="openAuth()" style="margin-top:20px">
+      Créer un compte / Se connecter
+    </button>
 
-<div id="step2" class="onboarding-step">
+  </div>
 
-<div class="onboarding-icon">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<rect x="3" y="5" width="18" height="14" rx="2"/>
-<polyline points="3 7 12 13 21 7"/>
-</svg>
 </div>
 
-<h2>Seu e-mail</h2>
+<div id="authFlow">
 
-<p class="onboarding-description">
-Informe um e-mail válido para identificar as informações do seu pedido.
-</p>
+  <div class="auth-card">
 
-<div class="field">
-<label>E-mail</label>
-<input id="emailInput" class="input" type="email" placeholder="seuemail@gmail.com" autocomplete="email">
-<div id="emailError" class="error hidden">Digite um e-mail válido.</div>
-</div>
+    <div class="auth-progress">
+      <span id="prog1" class="active"></span>
+      <span id="prog2"></span>
+      <span id="prog3"></span>
+      <span id="prog4"></span>
+      <span id="prog5"></span>
+      <span id="prog6"></span>
+      <span id="prog7"></span>
+    </div>
 
-<div class="onboarding-actions">
-<button class="btn btn-outline" onclick="nextStep(1)">Voltar</button>
-<button class="btn btn-primary" onclick="validateEmail()">Continuar</button>
-</div>
+    <div id="authProcessing" class="auth-processing">
+      <div class="spinner"></div>
+      <b id="processingText">Vérification...</b>
+      <small style="color:#829bb7;margin-top:6px">
+        Traitement sécurisé en cours
+      </small>
+      <div class="processing-bar"><div></div></div>
+    </div>
 
-</div>
+    <div class="auth-step active" id="auth1">
 
-<div id="step3" class="onboarding-step">
-
-<div class="onboarding-icon">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<circle cx="12" cy="12" r="9"/>
-<path d="M3 12h18"/>
-<path d="M12 3c3 3 3 15 0 18"/>
-<path d="M12 3c-3 3-3 15 0 18"/>
-</svg>
-</div>
+      <h1 style="font-size:21px;margin-bottom:8px">Bienvenue</h1>
 
-<h2>Escolha o país</h2>
-
-<p class="onboarding-description">
-Selecione o país onde pretende utilizar principalmente o serviço.
-</p>
-
-<div class="field">
-<label>País</label>
-
-<select id="countryInput" class="select">
-<option value="">Selecione o seu país</option>
-<option>África do Sul</option>
-<option>Angola</option>
-<option>Argentina</option>
-<option>Austrália</option>
-<option>Brasil</option>
-<option>Canadá</option>
-<option>China</option>
-<option>Egito</option>
-<option>Emirados Árabes Unidos</option>
-<option>Espanha</option>
-<option>Estados Unidos</option>
-<option>França</option>
-<option>Gana</option>
-<option>Índia</option>
-<option>Indonésia</option>
-<option>Itália</option>
-<option>Marrocos</option>
-<option>Nigéria</option>
-<option>Quénia</option>
-<option>Reino Unido</option>
-<option>Tanzânia</option>
-<option>Uganda</option>
-<option>Zâmbia</option>
-<option>Zimbabwe</option>
-<option>Moçambique</option>
-</select>
-
-<div id="countryError" class="error hidden">
-Selecione um país para continuar.
-</div>
-</div>
+      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+        Nous allons configurer votre compte étape par étape.
+        Commencez avec votre adresse e-mail.
+      </p>
 
-<div class="onboarding-actions">
-<button class="btn btn-outline" onclick="nextStep(2)">Voltar</button>
-<button class="btn btn-primary" onclick="validateCountry()">Continuar</button>
-</div>
+      <div class="auth-note">
+        Votre adresse e-mail sert à identifier votre espace personnel
+        et à retrouver votre compte.
+      </div>
 
-</div>
+      <label>Adresse e-mail</label>
+      <input id="lgEmail" type="email" placeholder="votre@email.com" autocomplete="email">
 
-<div id="step4" class="onboarding-step">
+      <button class="btn" onclick="authNext(1)">Continuer</button>
 
-<div class="onboarding-icon">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/>
-<circle cx="12" cy="9" r="2.5"/>
-</svg>
-</div>
+    </div>
 
-<h2>Região</h2>
-
-<p class="onboarding-description">
-Escolha a região ou província que corresponde à sua localização.
-</p>
-
-<div class="field">
-<label>Região / Província</label>
-
-<select id="regionInput" class="select">
-<option value="">Selecione uma opção</option>
-<option>Região Norte</option>
-<option>Região Centro</option>
-<option>Região Sul</option>
-<option>Capital / Região Metropolitana</option>
-<option>Outra região</option>
-</select>
-
-<div id="regionError" class="error hidden">
-Selecione uma região.
-</div>
-</div>
+    <div class="auth-step" id="auth2">
 
-<div class="onboarding-actions">
-<button class="btn btn-outline" onclick="nextStep(3)">Voltar</button>
-<button class="btn btn-primary" onclick="validateRegion()">Continuar</button>
-</div>
+      <h1 style="font-size:21px;margin-bottom:8px">Nom d'utilisateur</h1>
 
-</div>
+      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+        Choisissez le nom qui sera utilisé pour identifier
+        votre profil dans l'application.
+      </p>
 
-<div id="step5" class="onboarding-step">
-
-<div class="onboarding-icon">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M4 19h16"/>
-<path d="M5 16l4-5 3 3 5-7"/>
-<path d="M16 7h2v2"/>
-</svg>
-</div>
+      <label>Nom d'utilisateur</label>
+      <input id="lgName" maxlength="30" placeholder="Votre nom d'utilisateur">
 
-<h2>Objetivo de utilização</h2>
-
-<p class="onboarding-description">
-Indique como pretende utilizar principalmente o cartão virtual.
-</p>
-
-<div class="field">
-<label>Principal interesse</label>
-
-<select id="purposeInput" class="select">
-<option value="">Selecione uma opção</option>
-<option>Compras online</option>
-<option>Serviços digitais</option>
-<option>Publicidade e marketing</option>
-<option>Trabalho online</option>
-<option>Vendas online</option>
-<option>Transferências e pagamentos</option>
-<option>Uso pessoal</option>
-<option>Outro objetivo</option>
-</select>
-
-<div id="purposeError" class="error hidden">
-Selecione o seu principal interesse.
-</div>
-</div>
+      <div class="auth-note">
+        Utilisez un nom simple que vous pourrez reconnaître
+        facilement dans votre espace personnel.
+      </div>
 
-<div class="onboarding-actions">
-<button class="btn btn-outline" onclick="nextStep(4)">Voltar</button>
-<button class="btn btn-primary" onclick="validatePurpose()">Continuar</button>
-</div>
+      <button class="btn" onclick="authNext(2)">Continuer</button>
+      <button class="auth-back" onclick="authBack(2)">Retour</button>
 
-</div>
+    </div>
 
-<div id="step6" class="onboarding-step">
+    <div class="auth-step" id="auth3">
 
-<div class="onboarding-icon">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<circle cx="12" cy="8" r="4"/>
-<path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
-</svg>
-</div>
+      <h1 style="font-size:21px;margin-bottom:8px">Votre profil</h1>
 
-<h2>Finalizar perfil</h2>
+      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+        Ajoutez le nom qui sera présenté dans votre tableau de bord.
+      </p>
 
-<p class="onboarding-description">
-Informe o seu nome completo para concluir a configuração inicial.
-</p>
+      <label>Nom affiché</label>
+      <input id="lgDisplayName" placeholder="Nom du profil">
 
-<div class="field">
-<label>Nome completo</label>
+      <label>Type de compte</label>
 
-<input id="nameInput" class="input" type="text" placeholder="Digite seu nome completo" autocomplete="name">
+      <select id="lgType">
+        <option value="standard">Compte standard</option>
+        <option value="personal">Compte personnel</option>
+      </select>
 
-<div id="nameError" class="error hidden">
-Digite o seu nome completo.
-</div>
-</div>
+      <div class="auth-note">
+        Ces informations servent à personnaliser votre expérience
+        dans l'application.
+      </div>
 
-<button class="btn btn-primary" onclick="finishOnboarding()">
-Entrar na plataforma
-</button>
+      <button class="btn" onclick="authNext(3)">Continuer</button>
+      <button class="auth-back" onclick="authBack(3)">Retour</button>
 
-<button class="btn btn-outline" style="margin-top:9px" onclick="nextStep(5)">
-Voltar
-</button>
+    </div>
 
-</div>
+    <div class="auth-step" id="auth4">
 
-</div>
-</div>
+      <h1 style="font-size:21px;margin-bottom:8px">Votre pays</h1>
 
-<div class="account-strip">
-<div class="container">
-<div class="account-strip-inner">
+      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+        Sélectionnez votre pays de résidence pour compléter
+        les informations de votre profil.
+      </p>
 
-<div class="account-user">
-<div id="avatar" class="avatar">C</div>
+      <input class="country-search" id="countrySearch"
+        placeholder="Rechercher un pays..." oninput="filterCountries()">
 
-<div>
-<small>Bem-vindo</small>
-<strong id="accountName">Cliente</strong>
-</div>
-</div>
+      <div class="country-list" id="countryList"></div>
 
-<div class="account-status">
-Perfil configurado
-</div>
+      <button class="btn" onclick="authNext(4)" style="margin-top:12px">
+        Continuer
+      </button>
 
-</div>
-</div>
-</div>
+      <button class="auth-back" onclick="authBack(4)">Retour</button>
 
-<section class="hero">
-<div class="container">
-<div class="hero-grid">
+    </div>
 
-<div>
+    <div class="auth-step" id="auth5">
 
-<div class="badge">
-CARDSMZ • EXPERIÊNCIA DIGITAL
-</div>
+      <h1 style="font-size:21px;margin-bottom:8px">Configuration</h1>
 
-<h1>
-Tenha mais liberdade para fazer
-<span class="gradient">compras online</span>
-</h1>
+      <div class="auth-note">
+        Les informations présentées ci-dessous seront associées
+        à votre profil personnel.
+      </div>
 
-<p>
-Escolha o cartão virtual adequado ao seu objetivo, veja todos os detalhes antes de comprar e conclua o pagamento através do checkout correspondente.
-</p>
+      <div class="summary-row">
+        <span>E-mail</span>
+        <b id="sumEmail2">—</b>
+      </div>
 
-<div class="hero-points">
+      <div class="summary-row">
+        <span>Nom</span>
+        <b id="sumName2">—</b>
+      </div>
 
-<div class="hero-point">
-<strong>Cartões virtuais</strong>
-<span>Opções pensadas para diferentes necessidades.</span>
-</div>
+      <div class="summary-row">
+        <span>Pays</span>
+        <b id="sumCountry2">—</b>
+      </div>
 
-<div class="hero-point">
-<strong>Checkout integrado</strong>
-<span>O pagamento abre diretamente na plataforma.</span>
-</div>
+      <button class="btn" onclick="authNext(5)" style="margin-top:14px">
+        Continuer
+      </button>
 
-<div class="hero-point">
-<strong>Pedido organizado</strong>
-<span>Acompanhe o processo depois do pagamento.</span>
-</div>
+      <button class="auth-back" onclick="authBack(5)">Retour</button>
 
-<div class="hero-point">
-<strong>Experiência simples</strong>
-<span>Escolha, pague e acompanhe a análise.</span>
-</div>
+    </div>
 
-</div>
+    <div class="auth-step" id="auth6">
 
-<a href="#cartoes" class="btn btn-primary" style="max-width:290px">
-Explorar cartões
-</a>
+      <h1 style="font-size:21px;margin-bottom:8px">Sécurité du compte</h1>
 
-</div>
+      <p style="color:#829bb7;font-size:11px;line-height:1.6">
+        Vérifiez les informations avant la création définitive
+        de votre espace.
+      </p>
 
-<div class="card-stage">
+      <div class="auth-note" style="margin-top:14px">
+        Vérifiez attentivement votre adresse e-mail,
+        votre nom d'utilisateur et votre pays.
+      </div>
 
-<div class="virtual-card" style="background:linear-gradient(135deg,#16465b,#102333 55%,#080d14)">
+      <div class="checkline">
+        <input type="checkbox" id="securityCheck">
+        <span>J'ai vérifié mes informations et je souhaite continuer.</span>
+      </div>
 
-<div class="card-top">
+      <button class="btn" onclick="authNext(6)">
+        Vérifier les informations
+      </button>
 
-<div>
-<div class="card-brand">CardsMZ</div>
-<div class="card-sub">Virtual Card</div>
-</div>
+      <button class="auth-back" onclick="authBack(6)">Retour</button>
 
-<div class="chip"></div>
+    </div>
 
-</div>
+    <div class="auth-step" id="auth7">
 
-<div class="card-number">
-4821 •••• •••• 3047
-</div>
+      <h1 style="font-size:21px;margin-bottom:8px">Confirmation finale</h1>
 
-<div class="card-bottom">
+      <p style="color:#829bb7;font-size:11px;line-height:1.6">
+        Toutes les informations sont prêtes. Confirmez pour
+        créer votre espace famelack.
+      </p>
 
-<div>
-<div class="card-label">Titular</div>
-<div class="card-value">CARD MEMBER</div>
-</div>
+      <div class="summary-row">
+        <span>E-mail</span>
+        <b id="sumEmail">—</b>
+      </div>
 
-<div>
-<div class="card-label">Validade</div>
-<div class="card-value">09/28</div>
-</div>
+      <div class="summary-row">
+        <span>Nom d'utilisateur</span>
+        <b id="sumName">—</b>
+      </div>
 
-</div>
+      <div class="summary-row">
+        <span>Pays</span>
+        <b id="sumCountry">—</b>
+      </div>
 
-</div>
-</div>
-</div>
-</div>
-</section>
+      <div class="checkline">
+        <input type="checkbox" id="confirmData">
+        <span>Je confirme que les informations saisies sont correctes.</span>
+      </div>
 
-<section style="padding-top:20px">
-<div class="container">
+      <button class="btn" onclick="finishAuth()">
+        Créer mon compte
+      </button>
 
-<div class="section-head">
-<h2>Uma experiência pensada para você</h2>
-<p>Tenha as informações essenciais antes de escolher o seu cartão.</p>
-</div>
+      <button class="auth-back" onclick="authBack(7)">
+        Modifier
+      </button>
 
-<div class="front-info">
+    </div>
 
-<div class="info-card">
-<div class="info-card-icon">01</div>
-<h3>Escolha com clareza</h3>
-<p>Compare preço, características, limites e vantagens antes de selecionar uma opção.</p>
-</div>
+  </div>
 
-<div class="info-card">
-<div class="info-card-icon">02</div>
-<h3>Pagamento integrado</h3>
-<p>Cada cartão possui o seu próprio checkout para facilitar a conclusão da compra.</p>
 </div>
 
-<div class="info-card">
-<div class="info-card-icon">03</div>
-<h3>Análise do pedido</h3>
-<p>Depois de indicar que pagou, o pedido passa para a etapa de análise.</p>
-</div>
+<div class="app" id="app" style="display:none">
 
-</div>
-</div>
-</section>
-
-<section id="cartoes">
-<div class="container">
-
-<div class="section-head">
-<h2>
-Escolha o seu
-<span class="gradient">cartão virtual</span>
-</h2>
-
-<p>
-Conheça as opções disponíveis e escolha a que melhor corresponde ao seu objetivo.
-</p>
-</div>
+  <header class="topbar">
 
-<div class="cards-area">
+    <div class="brand">
 
-<div class="product">
-<div class="product-inner">
+      <img
+        src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png"
+        class="logo"
+      >
 
-<div class="product-card">
+      <div>
+        famelack.
+        <br>
+        <small style="color:#7894b4;font-size:8px">
+          Watch • Earn • Withdraw
+        </small>
+      </div>
 
-<div class="virtual-card" style="background:linear-gradient(135deg,#174961,#10283a 55%,#080e15)">
+    </div>
 
-<div class="card-top">
-<div>
-<div class="card-brand">CardsMZ</div>
-<div class="card-sub">Virtual Basic</div>
-</div>
-<div class="chip"></div>
-</div>
+    <div style="text-align:right">
 
-<div class="card-number">
-4821 •••• •••• 1023
-</div>
+      <div style="color:#8ca5c1;font-size:10px" id="topTime">
+        --:--:--
+      </div>
 
-<div class="card-bottom">
+      <div style="font-weight:bold" id="topMoney">
+        US$ 0.00
+      </div>
 
-<div>
-<div class="card-label">Titular</div>
-<div class="card-value">CARD MEMBER</div>
-</div>
+    </div>
 
-<div>
-<div class="card-label">Validade</div>
-<div class="card-value">03/27</div>
-</div>
+  </header>
 
-</div>
-</div>
-</div>
+  <section class="page active" id="home">
 
-<div class="product-heading">
+    <div class="account-welcome">
 
-<div>
-<h3>Cartão Básico</h3>
-<div class="product-type">Plano inicial</div>
-</div>
+      <small>ESPACE PERSONNEL</small>
 
-<div class="product-price">
-350 <small>MZN</small>
-</div>
+      <h2>
+        Bonjour, <span id="frontName">Utilisateur</span>
+      </h2>
 
-</div>
+      <p>
+        Bienvenue dans votre espace famelack. Consultez votre
+        activité, votre solde et les principales informations
+        de votre compte depuis cette page.
+      </p>
 
-<p class="product-description">
-Uma opção inicial para quem procura uma solução virtual para compras e serviços digitais.
-</p>
+    </div>
 
-<div class="details-grid">
+    <div class="box balance">
 
-<div class="detail-box">
-<small>Categoria</small>
-<strong>Básico</strong>
-</div>
+      <div class="label">Solde total</div>
 
-<div class="detail-box">
-<small>Valor</small>
-<strong>350 MZN</strong>
-</div>
+      <div class="big" id="balance"
+        onclick="editBalance()"
+        title="Cliquer pour modifier">
+        US$ 0.00
+      </div>
 
-<div class="detail-box">
-<small>Limite indicado</small>
-<strong>2.000 MZN</strong>
-</div>
+      <div class="green" id="today">
+        + US$ 0.00 aujourd'hui
+      </div>
 
-<div class="detail-box">
-<small>Recarga mínima</small>
-<strong>200 MZN</strong>
-</div>
+      <div class="stats">
 
-</div>
+        <div class="stat">
+          <small>Temps</small>
+          <b id="hTime">00h 00m</b>
+        </div>
 
-<div class="benefits">
+        <div class="stat">
+          <small>Sessions</small>
+          <b id="views">0</b>
+        </div>
 
-<div class="benefit">Compras online</div>
-<div class="benefit">Serviços digitais</div>
-<div class="benefit">Processo simplificado</div>
-<div class="benefit">Acompanhamento do pedido</div>
+        <div class="stat">
+          <small>État</small>
+          <b class="green">Prêt</b>
+        </div>
 
-</div>
+      </div>
 
-<button
-class="btn btn-primary"
-onclick="openCheckout(
-'Cartão Básico',
-'350 MZN',
-'https://ratixpay.co.mz/checkout.html?produto=C6AHBL7X2'
-)">
-Comprar este cartão
-</button>
+    </div>
 
-</div>
-</div>
+    <div class="front-grid">
 
-<div class="product recommended">
-<div class="product-inner">
+      <div class="front-info">
+        <span>COMPTE</span>
+        <b id="frontAccountId">—</b>
+      </div>
 
-<div class="tag">
-RECOMENDADO
-</div>
+      <div class="front-info">
+        <span>PAYS</span>
+        <b id="frontCountry">—</b>
+      </div>
 
-<div class="product-card">
+      <div class="front-info">
+        <span>GAINS</span>
+        <b id="frontEarnings">US$ 0.00</b>
+      </div>
 
-<div class="virtual-card" style="background:linear-gradient(135deg,#1b242e,#0c1117 55%,#05070a)">
+      <div class="front-info">
+        <span>RETRAITS</span>
+        <b id="frontWithdrawals">US$ 0.00</b>
+      </div>
 
-<div class="card-top">
+    </div>
 
-<div>
-<div class="card-brand">CardsMZ</div>
-<div class="card-sub">Virtual Premium</div>
-</div>
+    <div class="front-section">
 
-<div class="chip"></div>
+      <h3>Votre espace famelack</h3>
 
-</div>
+      <p>
+        Cette page rassemble les informations essentielles de votre
+        compte. Utilisez les différentes sections de l'application
+        pour gérer votre portefeuille, consulter votre historique
+        et effectuer les opérations disponibles.
+      </p>
 
-<div class="card-number">
-5392 •••• •••• 7814
-</div>
+    </div>
 
-<div class="card-bottom">
+    <div class="title">Guide de démarrage</div>
 
-<div>
-<div class="card-label">Titular</div>
-<div class="card-value">CARD MEMBER</div>
-</div>
+    <div class="front-section">
 
-<div>
-<div class="card-label">Validade</div>
-<div class="card-value">11/28</div>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">01</div>
+        <div>
+          <b>Configurez votre compte</b>
+          <span>Vérifiez que votre nom, votre e-mail et votre pays sont correctement enregistrés.</span>
+        </div>
+      </div>
 
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">02</div>
+        <div>
+          <b>Découvrez votre tableau de bord</b>
+          <span>Votre solde et vos principales statistiques sont affichés directement sur l'accueil.</span>
+        </div>
+      </div>
 
-</div>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">03</div>
+        <div>
+          <b>Commencez une session</b>
+          <span>Utilisez le bouton de démarrage lorsque vous souhaitez lancer une nouvelle session.</span>
+        </div>
+      </div>
 
-<div class="product-heading">
+      <div class="front-guide">
+        <div class="front-guide-number">04</div>
+        <div>
+          <b>Suivez votre activité</b>
+          <span>Le temps et les sessions enregistrées sont automatiquement présentés dans votre espace.</span>
+        </div>
+      </div>
 
-<div>
-<h3>Cartão Premium</h3>
-<div class="product-type">Plano intermediário</div>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">05</div>
+        <div>
+          <b>Consultez vos gains</b>
+          <span>Votre valeur disponible est affichée dans le solde et dans l'historique des opérations.</span>
+        </div>
+      </div>
 
-<div class="product-price">
-250 <small>MZN</small>
-</div>
+    </div>
 
-</div>
+    <div class="title">Comment fonctionne le retrait ?</div>
 
-<p class="product-description">
-Uma opção mais completa para quem procura maior capacidade de utilização e uma experiência premium.
-</p>
+    <div class="front-section">
 
-<div class="details-grid">
+      <div class="front-guide">
+        <div class="front-guide-number">01</div>
+        <div>
+          <b>Vérifiez votre solde</b>
+          <span>Consultez le montant actuellement disponible avant de commencer une demande.</span>
+        </div>
+      </div>
 
-<div class="detail-box">
-<small>Categoria</small>
-<strong>Premium</strong>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">02</div>
+        <div>
+          <b>Configurez votre portefeuille</b>
+          <span>Ajoutez une méthode de retrait dans l'onglet Portefeuille.</span>
+        </div>
+      </div>
 
-<div class="detail-box">
-<small>Valor</small>
-<strong>250 MZN</strong>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">03</div>
+        <div>
+          <b>Choisissez le montant</b>
+          <span>Sélectionnez le montant souhaité selon votre solde disponible.</span>
+        </div>
+      </div>
 
-<div class="detail-box">
-<small>Limite indicado</small>
-<strong>10.000 MZN</strong>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">04</div>
+        <div>
+          <b>Vérifiez les informations</b>
+          <span>Contrôlez la méthode et les informations affichées avant de confirmer.</span>
+        </div>
+      </div>
 
-<div class="detail-box">
-<small>Recarga mínima</small>
-<strong>500 MZN</strong>
-</div>
+      <div class="front-guide">
+        <div class="front-guide-number">05</div>
+        <div>
+          <b>Confirmez la demande</b>
+          <span>Après confirmation, l'opération apparaît dans votre historique.</span>
+        </div>
+      </div>
 
-</div>
+    </div>
 
-<div class="benefits">
+    <div class="front-section">
 
-<div class="benefit">Maior limite indicado</div>
-<div class="benefit">Compras online</div>
-<div class="benefit">Serviços digitais</div>
-<div class="benefit">Experiência premium</div>
+      <h3>Informations importantes</h3>
 
-</div>
+      <p>
+        Consultez toujours les informations affichées dans votre compte
+        avant d'effectuer une opération. Les données de votre portefeuille
+        doivent être correctement renseignées et les informations sensibles
+        sont masquées après leur enregistrement.
+      </p>
 
-<button
-class="btn btn-primary"
-onclick="openCheckout(
-'Cartão Premium',
-'250 MZN',
-'https://ratixpay.co.mz/checkout.html?produto=QSP3ABA9M'
-)">
-Comprar este cartão
-</button>
+    </div>
 
-</div>
-</div>
+    <button class="btn start" onclick="start()">
+      COMMENCER MAINTENANT
+    </button>
 
-</div>
-</div>
-</section>
-
-<section class="dark-section">
-<div class="container">
-
-<div class="section-head">
-<h2>
-Como funciona o
-<span class="gradient">processo</span>
-</h2>
-
-<p>
-Tudo organizado em etapas para tornar a experiência mais simples.
-</p>
-</div>
+    <div class="title">Derniers gains</div>
 
-<div class="process-grid">
+    <div class="box" id="recent">
+      <span style="color:#8198b4;font-size:11px">
+        Aucun gain enregistré.
+      </span>
+    </div>
 
-<div class="process-card">
-<div class="process-number">ETAPA 01</div>
-<h3>Escolha</h3>
-<p>Selecione o cartão que corresponde ao seu objetivo e veja os seus detalhes.</p>
-</div>
+    <div class="blue-bottom">
 
-<div class="process-card">
-<div class="process-number">ETAPA 02</div>
-<h3>Checkout</h3>
-<p>Clique em comprar e o checkout será aberto numa área ampla da plataforma.</p>
-</div>
+      <h3>Votre espace est prêt</h3>
 
-<div class="process-card">
-<div class="process-number">ETAPA 03</div>
-<h3>Pagamento</h3>
-<p>Conclua o pagamento seguindo as instruções apresentadas no checkout.</p>
-</div>
+      <p>
+        Continuez à explorer famelack pour consulter votre activité,
+        gérer votre portefeuille et suivre les informations de votre compte.
+      </p>
 
-<div class="process-card">
-<div class="process-number">ETAPA 04</div>
-<h3>Análise</h3>
-<p>Depois de indicar que pagou, o pedido entra na etapa de análise.</p>
-</div>
+    </div>
 
-</div>
-</div>
-</section>
+  </section>
 
-<div id="checkoutOverlay" class="checkout-overlay">
+  <section class="page" id="wallet">
 
-<div class="checkout-box">
+    <div class="title">Portefeuille</div>
 
-<div class="checkout-header">
+    <div id="walletCardArea"></div>
 
-<div>
-<div class="checkout-title">Finalizar pagamento</div>
-<div id="checkoutSubtitle" class="checkout-subtitle">
-Cartão selecionado
-</div>
-</div>
+    <div class="box" id="walletFormBox">
 
-<button class="close" onclick="closeCheckout()">
-×
-</button>
+      <div style="font-size:13px;font-weight:bold;margin-bottom:14px">
+        Carte pour les retraits
+      </div>
 
-</div>
+      <label>Nom du titulaire</label>
+      <input id="cName" placeholder="Nom du titulaire">
 
-<div class="checkout-contact-box">
+      <label>Numéro de carte</label>
+      <input id="cNum" maxlength="19" inputmode="numeric"
+        placeholder="0000 0000 0000 0000">
 
-<div class="checkout-contact-title">
-Adicione este e-mail e este número de WhatsApp
-</div>
+      <label>Date d'expiration</label>
+      <input id="cExp" maxlength="5" placeholder="MM/AA">
 
-<div class="checkout-contact-text">
-Adicione os contactos oficiais de atendimento indicados pela sua equipa para facilitar a validação do pagamento e do cartão.
-</div>
+      <label>CVV</label>
+      <input id="cCvv" type="password" maxlength="4"
+        inputmode="numeric" placeholder="•••">
 
-<div class="checkout-contact-grid">
+      <label>NIB (facultatif)</label>
+      <input id="cNib" placeholder="NIB">
 
-<div class="checkout-contact-item">
+      <label>Pays</label>
 
-<div class="checkout-contact-info">
-<small>E-mail de atendimento</small>
-<strong id="checkoutTeamEmail">contacto oficial</strong>
-</div>
+      <select id="cCountry">
+        <option>Brésil</option>
+        <option>Afrique du Sud</option>
+        <option>Portugal</option>
+        <option>Allemagne</option>
+        <option>États-Unis</option>
+      </select>
 
-<button
-type="button"
-class="copy-contact"
-onclick="copyCheckoutContact('email')">
-Copiar
-</button>
+      <button class="btn" onclick="saveWallet()">
+        Enregistrer la carte
+      </button>
 
-</div>
+    </div>
 
-<div class="checkout-contact-item">
+  </section>
 
-<div class="checkout-contact-info">
-<small>Número de WhatsApp</small>
-<strong id="checkoutTeamNumber">número oficial</strong>
-</div>
+  <section class="page" id="withdraw">
 
-<button
-type="button"
-class="copy-contact"
-onclick="copyCheckoutContact('number')">
-Copiar
-</button>
+    <div class="title">Retrait</div>
 
-</div>
+    <div class="box balance">
 
-</div>
+      <div class="label">Solde disponible</div>
 
-<div class="checkout-contact-actions">
-<button
-type="button"
-class="restart-contacts"
-onclick="restartCheckoutContacts()">
-Reiniciar contactos
-</button>
-</div>
+      <div class="big" id="wBal">
+        US$ 0.00
+      </div>
 
-</div>
+      <div class="green">
+        Disponible pour retrait
+      </div>
 
-<div class="checkout-user">
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        background:#061a31;
+        border:1px solid #1b4165;
+        border-radius:11px;
+        padding:10px;
+        margin-top:10px;
+        font-size:11px
+      ">
+        <span>Retrait minimum</span>
+        <b>US$ 1.00</b>
+      </div>
 
-<div class="checkout-user-card">
-<small>Produto</small>
-<strong id="checkoutProduct">—</strong>
-</div>
+      <div id="withdrawStep1" class="withdraw-step active">
 
-<div class="checkout-user-card">
-<small>Valor</small>
-<strong id="checkoutPrice">—</strong>
-</div>
+        <div class="label" style="margin-top:12px">
+          Montant du retrait
+        </div>
 
-</div>
+        <div class="presets">
 
-<div class="checkout-frame-wrap">
+          <button class="preset active" onclick="setAmt(1,this)">
+            $1
+          </button>
 
-<iframe
-id="checkoutFrame"
-class="checkout-frame"
-title="Checkout de pagamento"
-loading="eager"
-referrerpolicy="strict-origin-when-cross-origin">
-</iframe>
+          <button class="preset" onclick="setAmt(5,this)">
+            $5
+          </button>
 
-</div>
+          <button class="preset" onclick="setAmt(10,this)">
+            $10
+          </button>
 
-<div class="checkout-footer">
+          <button class="preset" onclick="setAmt(0,this)">
+            Autre
+          </button>
 
-<button
-class="btn checkout-back"
-onclick="closeCheckout()">
-Voltar
-</button>
+        </div>
 
-<button
-class="btn paid"
-onclick="markPaid()">
-Já paguei
-</button>
+        <input id="wAmt" type="number" value="1" min="1">
 
-</div>
+        <div class="title" style="margin-top:18px">
+          Méthode de retrait
+        </div>
 
-</div>
-</div>
+        <div id="withdrawMethods"></div>
 
-<div id="analysisOverlay" class="analysis-overlay">
+        <button class="btn" id="withdrawContinue"
+          onclick="withdrawContinue()" disabled>
+          Continuer
+        </button>
 
-<div class="analysis-box">
+      </div>
 
-<div class="analysis-icon">
-<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<circle cx="12" cy="12" r="9"/>
-<path d="M12 7v5l3 2"/>
-</svg>
-</div>
+      <div id="withdrawStep2" class="withdraw-step">
 
-<h2>Pedido em análise</h2>
+        <div class="title">Confirmer les données</div>
 
-<p>
-A indicação de pagamento foi recebida. O pedido está agora no processo de análise.
-</p>
+        <div class="box" style="background:#061a31;margin:0">
 
-<div class="order-summary">
+          <div class="summary-row">
+            <span>Montant</span>
+            <b id="wdConfirmAmount">US$ 0.00</b>
+          </div>
 
-<div class="order-row">
-<span>Cartão</span>
-<strong id="analysisProduct">—</strong>
-</div>
+          <div class="summary-row">
+            <span>Carte</span>
+            <b id="wdConfirmCard">—</b>
+          </div>
 
-<div class="order-row">
-<span>Valor</span>
-<strong id="analysisPrice">—</strong>
-</div>
+          <div class="summary-row">
+            <span>Titulaire</span>
+            <b id="wdConfirmName">—</b>
+          </div>
 
-<div class="order-row">
-<span>Nome</span>
-<strong id="analysisName">—</strong>
-</div>
+          <div class="summary-row">
+            <span>Expiration</span>
+            <b id="wdConfirmExp">—</b>
+          </div>
 
-<div class="order-row">
-<span>E-mail</span>
-<strong id="analysisEmail">—</strong>
-</div>
+        </div>
 
-<div class="order-row">
-<span>País</span>
-<strong id="analysisCountry">—</strong>
-</div>
+        <button class="btn" onclick="confirmWithdraw()" style="margin-top:14px">
+          Confirmer le retrait
+        </button>
 
-</div>
+        <button class="auth-back" onclick="backWithdraw()">
+          Modifier
+        </button>
 
-<div class="security-note">
+      </div>
 
-<strong>Apoio e confirmação</strong>
+    </div>
 
-<p>
-Para sua segurança, nunca envie PIN, senha, palavra-passe ou códigos de segurança.
-A confirmação deve ocorrer apenas através do processo oficial.
-</p>
+  </section>
 
-</div>
+  <section class="page" id="history">
 
-<div class="analysis-steps">
+    <div class="title">Historique</div>
 
-<div id="analysisStep1" class="analysis-step active">
-<span class="dot"></span>
-Pagamento indicado como concluído
-</div>
+    <div class="box" id="hList">
+      <span style="color:#8198b4;font-size:11px">
+        Votre historique apparaîtra ici.
+      </span>
+    </div>
 
-<div id="analysisStep2" class="analysis-step active">
-<span class="dot"></span>
-Pedido enviado para análise
-</div>
+  </section>
 
-<div id="analysisStep3" class="analysis-step">
-<span class="dot"></span>
-Análise do pedido
-</div>
+  <section class="page" id="account">
 
-<div id="analysisStep4" class="analysis-step">
-<span class="dot"></span>
-Aprovação do cartão virtual
-</div>
+    <div class="title">Mon compte</div>
+
+    <div class="box account-section">
+
+      <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
+        Profil
+      </div>
+
+      <div style="color:#829bb7;font-size:10px;margin-bottom:8px">
+        Informations de votre compte
+      </div>
+
+      <div class="account-row">
+        <span>Nom d'utilisateur</span>
+        <b id="accName">—</b>
+      </div>
+
+      <div class="account-row">
+        <span>E-mail</span>
+        <b id="accEmail">—</b>
+      </div>
+
+      <div class="account-row">
+        <span>Pays</span>
+        <b id="accCountry">—</b>
+      </div>
+
+      <div class="account-row">
+        <span>ID du compte</span>
+        <b id="accId">—</b>
+      </div>
+
+      <div class="account-row">
+        <span>Date de création</span>
+        <b id="accCreated">—</b>
+      </div>
+
+      <div class="account-row">
+        <span>État du compte</span>
+        <b><span class="account-status">Actif</span></b>
+      </div>
+
+    </div>
 
+    <div class="box account-section">
+
+      <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
+        Activité
+      </div>
+
+      <div class="account-row">
+        <span>Sessions</span>
+        <b id="accIds">0</b>
+      </div>
+
+      <div class="account-row">
+        <span>Gains</span>
+        <b id="accEarnings">US$ 0.00</b>
+      </div>
+
+      <div class="account-row">
+        <span>Solde</span>
+        <b id="accBalance">US$ 0.00</b>
+      </div>
+
+      <div class="account-row">
+        <span>Retraits</span>
+        <b id="accWithdrawals">US$ 0.00</b>
+      </div>
+
+      <div class="account-row">
+        <span>Carte enregistrée</span>
+        <b id="accCard">Aucune</b>
+      </div>
+
+    </div>
+
+    <div class="box account-section">
+
+      <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
+        Sécurité
+      </div>
+
+      <div class="account-row">
+        <span>Accès</span>
+        <b>Protégé</b>
+      </div>
+
+      <div class="account-row">
+        <span>Données sensibles</span>
+        <b>Masquées</b>
+      </div>
+
+    </div>
+
+    <button class="btn" onclick="logout()" style="margin-bottom:9px">
+      Se déconnecter
+    </button>
+
+    <button class="btn btn-secondary"
+      onclick="createNewAccount()" style="margin-bottom:9px">
+      Créer un nouveau compte
+    </button>
+
+    <button class="btn danger-btn" onclick="deleteAccount()">
+      Supprimer le compte
+    </button>
+
+  </section>
+
+  <nav class="nav">
+
+    <button class="active" onclick="openPage('home',this)">
+      Accueil
+    </button>
+
+    <button onclick="openPage('wallet',this)">
+      Portefeuille
+    </button>
+
+    <button onclick="openPage('withdraw',this)">
+      Retrait
+    </button>
+
+    <button onclick="openPage('account',this)">
+      Compte
+    </button>
+
+  </nav>
+
 </div>
+
+<div id="session">
+
+  <div style="
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:60px;
+    background:#04162c;
+    border-bottom:1px solid #1b466e;
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    gap:10px
+  ">
+
+    <button
+      onclick="finish()"
+      style="
+        width:40px;
+        height:40px;
+        border:0;
+        border-radius:10px;
+        background:#172f49;
+        color:#fff;
+        font-size:22px
+      "
+    >
+      ×
+    </button>
+
+    <div style="flex:1">
+      <small style="color:#819bb8;font-size:8px">
+        SESSION ACTIVE
+      </small>
+
+      <div id="sTime" style="font-weight:bold">
+        00:00:00
+      </div>
+    </div>
+
+    <div style="text-align:right">
+      <small style="color:#819bb8;font-size:8px">
+        GAINS
+      </small>
+
+      <div id="sMoney"
+        style="font-weight:bold;color:#25e58a">
+        US$ 0.00
+      </div>
+    </div>
 
-<button class="btn btn-primary" onclick="analyzeOrder()">
-Analisar pedido
-</button>
+  </div>
 
-<button class="btn btn-outline" style="margin-top:9px" onclick="closeAnalysis()">
-Voltar
-</button>
+  <iframe
+    src="about:blank"
+    id="frame"
+    style="
+      position:absolute;
+      top:60px;
+      left:0;
+      width:100%;
+      height:calc(100% - 60px);
+      border:0
+    "
+  ></iframe>
 
+  <div
+    id="pendingMsg"
+    style="
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      background:#071d38;
+      border:1px solid #315779;
+      border-radius:12px;
+      padding:16px 22px;
+      display:none;
+      text-align:center
+    "
+  >
+    <b>En attente de l'approbation de l'administrateur...</b>
+    <br>
+    <small style="color:#8da6c1">
+      Le site sera activé dans quelques instants.
+    </small>
+  </div>
+
 </div>
+
+<div id="notif">
+
+  <img src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png">
+
+  <span id="notifTxt"></span>
+
 </div>
 
-<footer>
+<!-- =======================================================
+     PROCESSAMENTO DO LEVANTAMENTO
+======================================================= -->
 
-<div class="container">
+<div id="withdrawProcess">
 
-<div class="footer">
+  <div class="withdraw-process-card">
 
-<strong class="gradient">
-CardsMZ
-</strong>
+    <div class="withdraw-process-step active" id="wp1">
 
-<p>
-© 2026 CardsMZ. Todos os direitos reservados.
-</p>
+      <div class="process-icon">
+        ↻
+      </div>
 
-</div>
+      <div class="process-title">
+        Préparation du retrait
+      </div>
+
+      <div class="process-description">
+        Votre demande est en cours de préparation.
+      </div>
+
+      <div class="process-summary">
+        <div class="process-summary-row">
+          <span>Montant</span>
+          <b id="wpAmount1">US$ 0.00</b>
+        </div>
+
+        <div class="process-summary-row">
+          <span>Carte</span>
+          <b id="wpCard1">—</b>
+        </div>
+      </div>
+
+      <div class="process-loader"></div>
+
+      <div class="process-line">
+        <span></span>
+      </div>
+
+    </div>
+
+    <div class="withdraw-process-step" id="wp2">
+
+      <div class="process-icon">
+        ✓
+      </div>
+
+      <div class="process-title">
+        Vérification des informations
+      </div>
+
+      <div class="process-description">
+        Vérification des informations de la demande
+        et de la méthode de retrait sélectionnée.
+      </div>
+
+      <div class="process-summary">
+
+        <div class="process-summary-row">
+          <span>Montant</span>
+          <b id="wpAmount2">US$ 0.00</b>
+        </div>
+
+        <div class="process-summary-row">
+          <span>Titulaire</span>
+          <b id="wpName2">—</b>
+        </div>
+
+        <div class="process-summary-row">
+          <span>Carte</span>
+          <b id="wpCard2">—</b>
+        </div>
+
+      </div>
+
+      <div class="process-loader"></div>
+
+    </div>
+
+    <div class="withdraw-process-step" id="wp3">
+
+      <div class="process-icon">
+        …
+      </div>
+
+      <div class="process-title">
+        Enregistrement de la demande
+      </div>
+
+      <div class="process-description">
+        La demande de retrait est enregistrée dans
+        l'historique de votre compte.
+      </div>
+
+      <div class="process-loader"></div>
+
+      <div class="process-line">
+        <span></span>
+      </div>
+
+    </div>
+
+    <div class="withdraw-process-step" id="wp4">
+
+      <div class="process-done-icon">
+        ✓
+      </div>
+
+      <div class="process-title">
+        Demande enregistrée
+      </div>
+
+      <div class="process-description">
+        Votre demande de retrait a été enregistrée et
+        le traitement peut maintenant être suivi depuis
+        votre historique.
+      </div>
+
+      <div class="process-summary">
+
+        <div class="process-summary-row">
+          <span>Montant</span>
+          <b id="wpAmount4">US$ 0.00</b>
+        </div>
+
+        <div class="process-summary-row">
+          <span>Carte</span>
+          <b id="wpCard4">—</b>
+        </div>
+
+        <div class="process-summary-row">
+          <span>État</span>
+          <b class="green">Enregistré</b>
+        </div>
+
+      </div>
+
+      <div class="process-notice">
+        La demande a été enregistrée localement dans
+        votre compte. Cette interface ne confirme pas
+        l'envoi réel de fonds vers la carte.
+      </div>
+
+      <button class="btn process-close"
+        onclick="finishWithdrawProcess()">
+        Continuer
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
-</footer>
 
-<div id="toast" class="toast"></div>
+<!-- =======================================================
+     CONFIRMATION FINALE
+======================================================= -->
+
+<div id="confirm">
+
+  <div class="confirm-card">
+
+    <div class="confirm-success">
+      ✓
+    </div>
+
+    <div class="confirm-title">
+      Retrait enregistré
+    </div>
+
+    <div class="confirm-sub">
+      Votre demande de retrait a été traitée par
+      l'application et enregistrée dans votre historique.
+    </div>
+
+    <div id="confirmAmt" class="confirm-amount">
+      US$ 0.00
+    </div>
+
+    <div class="confirm-info">
+
+      <div>
+        <span>Carte</span>
+        <b id="confirmCard">—</b>
+      </div>
+
+      <div>
+        <span>État</span>
+        <b style="color:#25e58a">Enregistré</b>
+      </div>
+
+      <div>
+        <span>Référence</span>
+        <b id="confirmRef">—</b>
+      </div>
+
+    </div>
+
+    <button
+      class="btn"
+      style="margin-top:16px"
+      onclick="closeConfirm()"
+    >
+      Fermer
+    </button>
+
+  </div>
+
+</div>
 
 <script>
 
-let userName='';
-let userEmail='';
-let userCountry='';
-let userRegion='';
-let userPurpose='';
+const CONFIG={
+  app_name:"famelack.",
+  tagline:"Watch • Earn • Withdraw",
+  language:"fr",
+  primary_color:"#ef4444",
+  background_color:"#0b1622",
+  app_icon:"https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png",
+  reward_amount:0.02,
+  reward_interval:30,
+  min_withdraw:1,
+  session_domain:"https://famelack.com",
+  countries:[
+    "Brésil",
+    "Afrique du Sud",
+    "Portugal",
+    "Allemagne",
+    "États-Unis",
+    "France",
+    "Espagne",
+    "Italie",
+    "Belgique",
+    "Pays-Bas",
+    "Royaume-Uni",
+    "Suisse",
+    "Canada",
+    "Australie"
+  ],
+  sites_pending:false,
+  nib_required:false,
+  notif_message:"Félicitations ! Vous venez de gagner {valor}."
+};
 
-let selectedProduct='';
-let selectedPrice='';
-let selectedCheckout='';
 
-const checkoutContacts = [
-{
-number:'+258 84 000 0111',
-email:'aldis.manuel11@example.com'
-},
-{
-number:'+258 85 000 0122',
-email:'aldis.alberto12@example.com'
-},
-{
-number:'+258 86 000 0133',
-email:'aldis.daniel13@example.com'
-},
-{
-number:'+258 87 000 0144',
-email:'aldis.silva14@example.com'
-},
-{
-number:'+258 84 000 0155',
-email:'aldis.luis15@example.com'
-},
-{
-number:'+258 85 000 0166',
-email:'aldis.antonio16@example.com'
-},
-{
-number:'+258 86 000 0177',
-email:'aldis.joao17@example.com'
-},
-{
-number:'+258 87 000 0188',
-email:'aldis.samuel18@example.com'
-},
-{
-number:'+258 84 000 0199',
-email:'aldis.domingos19@example.com'
-},
-{
-number:'+258 85 000 0200',
-email:'aldis.ismael20@example.com'
-},
-{
-number:'+258 86 000 0211',
-email:'aldis.augusto21@example.com'
-},
-{
-number:'+258 87 000 0222',
-email:'aldis.mateus22@example.com'
-},
-{
-number:'+258 84 000 0233',
-email:'aldis.pedro23@example.com'
-},
-{
-number:'+258 85 000 0244',
-email:'aldis.carlos24@example.com'
-},
-{
-number:'+258 86 000 0255',
-email:'aldis.jorge25@example.com'
-},
-{
-number:'+258 87 000 0266',
-email:'aldis.mario26@example.com'
-},
-{
-number:'+258 84 000 0277',
-email:'aldis.victor27@example.com'
-},
-{
-number:'+258 85 000 0288',
-email:'aldis.edson28@example.com'
-},
-{
-number:'+258 86 000 0299',
-email:'aldis.ernesto29@example.com'
-},
-{
-number:'+258 87 000 0300',
-email:'aldis.ricardo30@example.com'
-}
-];
+/* =========================================================
+   ESTADO PERSISTENTE
+========================================================= */
 
-let checkoutContactIndex=0;
+let user=JSON.parse(localStorage.getItem("nv_user")||"null");
 
-const processing=
-document.getElementById('processing');
+/*
+   O saldo é sempre carregado do localStorage.
+   Assim, quando o utilizador edita o saldo, o valor permanece
+   mesmo depois de fechar e abrir a aplicação.
+*/
+let balance=Number(localStorage.getItem("nv_balance")||0);
 
-const onboarding=
-document.getElementById('onboarding');
+let seconds=Number(localStorage.getItem("nv_seconds")||0);
+let views=Number(localStorage.getItem("nv_views")||0);
 
-const checkoutOverlay=
-document.getElementById('checkoutOverlay');
+let history=JSON.parse(localStorage.getItem("nv_history")||"[]");
 
-const analysisOverlay=
-document.getElementById('analysisOverlay');
+let savedCard=JSON.parse(localStorage.getItem("nv_card")||"null");
 
-function wait(ms){
-return new Promise(resolve=>setTimeout(resolve,ms));
-}
+let withdrawals=Number(localStorage.getItem("nv_withdrawals")||0);
 
-async function processScreen(title,sub,time=700){
+let running=false;
+let interval=null;
 
-document.getElementById('processingTitle').textContent=title;
+let authStep=1;
+let selectedCountry="";
+let selectedWithdrawCard=false;
 
-document.getElementById('processingSub').textContent=sub;
+let pendingWithdrawAmount=0;
+let pendingWithdrawReference="";
 
-processing.classList.add('active');
 
-await wait(time);
+const money=v=>"US$ "+Number(v||0).toFixed(2);
 
-processing.classList.remove('active');
-}
 
-async function nextStep(step){
+/* =========================================================
+   SALVAR TUDO
+========================================================= */
 
-await processScreen(
-'Preparando...',
-'Carregando a próxima etapa'
-);
+function saveState(){
 
-document.querySelectorAll('.onboarding-step')
-.forEach(el=>el.classList.remove('active'));
-
-document.getElementById('step'+step)
-.classList.add('active');
-
-document.querySelectorAll('.onboarding-progress span')
-.forEach(el=>el.classList.remove('active'));
-
-for(let i=1;i<=step;i++){
-document.getElementById('bar'+i)
-.classList.add('active');
-}
+  localStorage.setItem("nv_balance",String(balance));
+  localStorage.setItem("nv_seconds",String(seconds));
+  localStorage.setItem("nv_views",String(views));
+  localStorage.setItem("nv_history",JSON.stringify(history));
+  localStorage.setItem("nv_withdrawals",String(withdrawals));
 
 }
 
-function validateEmail(){
 
-const email=document
-.getElementById('emailInput')
-.value
-.trim();
+/* =========================================================
+   EDITAR SALDO
+========================================================= */
 
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+function editBalance(){
+
+  const current=Number(balance||0);
+
+  const value=prompt(
+    "Modifier le solde total (US$) :",
+    current.toFixed(2)
+  );
+
+  if(value===null)return;
+
+  const cleaned=value
+    .replace(",",".")
+    .replace(/[^0-9.-]/g,"");
+
+  const newBalance=Number(cleaned);
+
+  if(!Number.isFinite(newBalance)||newBalance<0){
+
+    alert("Veuillez saisir un montant valide.");
+
+    return;
+  }
+
+  /*
+    O valor editado é gravado imediatamente.
+    Não é resetado quando a sessão começa.
+  */
+  balance=newBalance;
+
+  saveState();
+  update();
+
+  notify("Solde enregistré : "+money(balance));
+
+}
+
+
+/* =========================================================
+   WELCOME / AUTH
+========================================================= */
+
+function openWelcomeAuth(){
+
+  document.getElementById("welcome").style.display="none";
+  document.getElementById("login").style.display="none";
+
+  openAuth();
+
+}
+
+
+function openWelcomeLogin(){
+
+  document.getElementById("welcome").style.display="none";
+  document.getElementById("login").style.display="flex";
+
+}
+
+
+function showApp(){
+
+  const hasUser=!!user;
+
+  document.getElementById("welcome").style.display=
+    hasUser?"none":"block";
+
+  document.getElementById("login").style.display="none";
+
+  document.getElementById("app").style.display=
+    hasUser?"block":"none";
+
+  if(hasUser){
+
+    update();
+    renderWallet();
+    renderWithdrawMethods();
+    renderAccount();
+
+  }
+
+}
+
+
+function openAuth(){
+
+  document.getElementById("login").style.display="none";
+  document.getElementById("welcome").style.display="none";
+  document.getElementById("authFlow").style.display="flex";
+
+  authStep=1;
+
+  showAuthStep(1);
+
+  document.getElementById("lgEmail").value=user?.email||"";
+  document.getElementById("lgName").value=user?.name||"";
+  document.getElementById("lgDisplayName").value=user?.displayName||"";
+
+  selectedCountry=user?.country||"";
+
+  renderCountries();
+
+}
+
+
+function showAuthStep(step){
+
+  authStep=step;
+
+  document
+    .querySelectorAll(".auth-step")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .getElementById("auth"+step)
+    .classList.add("active");
+
+  for(let i=1;i<=7;i++){
+
+    document
+      .getElementById("prog"+i)
+      .classList.toggle("active",i<=step);
+
+  }
+
+  const email=document.getElementById("lgEmail").value.trim();
+  const name=document.getElementById("lgName").value.trim();
+
+  if(step===5){
+
+    document.getElementById("sumEmail2").textContent=email||"—";
+    document.getElementById("sumName2").textContent=name||"—";
+    document.getElementById("sumCountry2").textContent=
+      selectedCountry||"—";
+
+  }
+
+  if(step===7){
+
+    document.getElementById("sumEmail").textContent=email||"—";
+    document.getElementById("sumName").textContent=name||"—";
+    document.getElementById("sumCountry").textContent=
+      selectedCountry||"—";
+
+  }
+
+}
+
+
+function processAuth(callback,text){
+
+  const p=document.getElementById("authProcessing");
+
+  document.getElementById("processingText").textContent=text;
+
+  p.classList.add("show");
+
+  setTimeout(()=>{
+
+    p.classList.remove("show");
+
+    callback();
+
+  },1500);
+
+}
+
+
+function authNext(step){
+
+  if(step===1){
+
+    const email=document.getElementById("lgEmail").value.trim();
+    const input=document.getElementById("lgEmail");
+
+    if(!email||!input.checkValidity()){
+
+      input.focus();
+      return;
+
+    }
+
+    processAuth(
+      ()=>showAuthStep(2),
+      "Vérification de l'adresse e-mail..."
+    );
+
+    return;
+
+  }
+
+  if(step===2){
+
+    const name=document.getElementById("lgName").value.trim();
+
+    if(!name){
+
+      document.getElementById("lgName").focus();
+      return;
+
+    }
+
+    processAuth(
+      ()=>showAuthStep(3),
+      "Enregistrement du nom d'utilisateur..."
+    );
+
+    return;
+
+  }
+
+  if(step===3){
+
+    const display=document
+      .getElementById("lgDisplayName")
+      .value
+      .trim();
+
+    if(!display){
+
+      document.getElementById("lgDisplayName").focus();
+      return;
+
+    }
+
+    processAuth(
+      ()=>showAuthStep(4),
+      "Configuration du profil..."
+    );
+
+    return;
+
+  }
+
+  if(step===4){
+
+    if(!selectedCountry){
+
+      document.getElementById("countrySearch").focus();
+      return;
+
+    }
+
+    processAuth(
+      ()=>showAuthStep(5),
+      "Validation du pays..."
+    );
+
+    return;
+
+  }
+
+  if(step===5){
+
+    processAuth(
+      ()=>showAuthStep(6),
+      "Préparation de la sécurité du compte..."
+    );
+
+    return;
+
+  }
+
+  if(step===6){
+
+    if(!document.getElementById("securityCheck").checked){
+
+      alert("Veuillez vérifier les informations avant de continuer.");
+      return;
+
+    }
+
+    processAuth(
+      ()=>showAuthStep(7),
+      "Vérification finale..."
+    );
+
+  }
+
+}
+
+
+function authBack(step){
+
+  if(step>1){
+    showAuthStep(step-1);
+  }
+
+}
+
+
+function renderCountries(){
+
+  const list=document.getElementById("countryList");
+
+  list.innerHTML=CONFIG.countries.map(c=>
+
+    '<div class="country-option '+
+    (c===selectedCountry?"selected":"")+
+    '" onclick="selectCountry(\''+
+    c.replace(/'/g,"\\'")+
+    '\')">'+
+    escapeHtml(c)+
+    '</div>'
+
+  ).join("");
+
+}
+
+
+function filterCountries(){
+
+  const q=document
+    .getElementById("countrySearch")
+    .value
+    .toLowerCase()
+    .trim();
+
+  document
+    .querySelectorAll(".country-option")
+    .forEach(el=>{
+
+      el.style.display=
+        el.textContent.toLowerCase().includes(q)
+        ?"block"
+        :"none";
+
+    });
+
+}
+
+
+function selectCountry(country){
+
+  selectedCountry=country;
+
+  renderCountries();
+
+}
+
+
+function finishAuth(){
+
+  const check=document.getElementById("confirmData");
+
+  if(!check.checked){
+
+    alert("Veuillez confirmer que vos informations sont correctes.");
+    return;
+
+  }
+
+  processAuth(()=>{
+
+    const old=user;
+
+    user={
+
+      email:document.getElementById("lgEmail").value.trim(),
+
+      name:document.getElementById("lgName").value.trim(),
+
+      displayName:document
+        .getElementById("lgDisplayName")
+        .value
+        .trim(),
+
+      type:document.getElementById("lgType").value,
+
+      country:selectedCountry,
+
+      id:old?.id||
+        ("FM-"+Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase()),
+
+      createdAt:old?.createdAt||
+        new Date().toISOString()
+
+    };
+
+    localStorage.setItem(
+      "nv_user",
+      JSON.stringify(user)
+    );
+
+    document.getElementById("authFlow").style.display="none";
+    document.getElementById("login").style.display="none";
+    document.getElementById("welcome").style.display="none";
+    document.getElementById("app").style.display="block";
+
+    /*
+      Não alteramos o saldo aqui.
+      O saldo existente continua exatamente como estava.
+    */
+    update();
+    renderWallet();
+    renderWithdrawMethods();
+    renderAccount();
+
+    notify("Bienvenue sur famelack.");
+
+  },"Création sécurisée de votre compte...");
+
+}
+
+
+/* =========================================================
+   NOTIFICAÇÃO
+========================================================= */
+
+function notify(msg){
+
+  const n=document.getElementById("notif");
+
+  document.getElementById("notifTxt").textContent=msg;
+
+  n.classList.add("show");
+
+  setTimeout(
+    ()=>n.classList.remove("show"),
+    4500
+  );
+
+}
+
+
+/* =========================================================
+   ATUALIZAÇÃO DA INTERFACE
+========================================================= */
+
+function update(){
+
+  document.getElementById("balance").textContent=money(balance);
+  document.getElementById("topMoney").textContent=money(balance);
+  document.getElementById("wBal").textContent=money(balance);
+
+  document.getElementById("today").textContent=
+    "+ "+money(balance)+" aujourd'hui";
+
+  const h=Math.floor(seconds/3600);
+  const m=Math.floor((seconds%3600)/60);
+  const sec=seconds%60;
+
+  const ts=
+    String(h).padStart(2,"0")+":"+
+    String(m).padStart(2,"0")+":"+
+    String(sec).padStart(2,"0");
+
+  document.getElementById("topTime").textContent=ts;
+  document.getElementById("sTime").textContent=ts;
+  document.getElementById("sMoney").textContent=money(balance);
+
+  document.getElementById("hTime").textContent=
+    String(h).padStart(2,"0")+
+    "h "+
+    String(m).padStart(2,"0")+
+    "m";
+
+  document.getElementById("views").textContent=views;
+
+  if(user){
+
+    const earnings=history
+      .filter(x=>x.type!=="withdrawal")
+      .reduce(
+        (s,x)=>s+Number(x.value||0),
+        0
+      );
+
+    document.getElementById("frontName").textContent=
+      user.displayName||
+      user.name||
+      "Utilisateur";
+
+    document.getElementById("frontAccountId").textContent=
+      user.id||"—";
+
+    document.getElementById("frontCountry").textContent=
+      user.country||"—";
+
+    document.getElementById("frontEarnings").textContent=
+      money(earnings);
+
+    document.getElementById("frontWithdrawals").textContent=
+      money(withdrawals);
+
+  }
+
+  render();
+  renderAccount();
+
+}
+
+
+/* =========================================================
+   SESSÃO / GANHOS
+========================================================= */
+
+function reallyStart(){
+
+  document.getElementById("frame").src=
+    CONFIG.session_domain;
+
+  running=true;
+
+  interval=setInterval(()=>{
+
+    seconds++;
+
+    if(seconds%CONFIG.reward_interval===0){
+
+      /*
+        O ganho é ADICIONADO ao saldo atual.
+        Nunca substitui o saldo editado anteriormente.
+      */
+      balance=
+        Number(balance)+
+        Number(CONFIG.reward_amount);
+
+      views++;
+
+      history.push({
+
+        value:CONFIG.reward_amount,
+
+        duration:CONFIG.reward_interval,
+
+        time:new Date().toLocaleTimeString("fr-FR"),
+
+        type:"earning"
+
+      });
+
+      saveState();
+
+      notify(
+        CONFIG.notif_message
+          .replace(
+            "{valor}",
+            money(CONFIG.reward_amount)
+          )
+      );
+
+    }
+
+    /*
+      Atualiza a interface sem alterar o saldo.
+    */
+    update();
+
+  },1000);
+
+  update();
+
+}
+
+
+function start(){
+
+  document
+    .getElementById("session")
+    .classList.add("active");
+
+  document.getElementById("pendingMsg").style.display=
+    CONFIG.sites_pending
+    ?"block"
+    :"none";
+
+  if(running)return;
+
+  if(CONFIG.sites_pending){
+
+    setTimeout(()=>{
+
+      document.getElementById("pendingMsg").style.display="none";
+
+      reallyStart();
+
+    },2000);
+
+  }else{
+
+    reallyStart();
+
+  }
+
+}
+
+
+function finish(){
+
+  running=false;
+
+  clearInterval(interval);
+
+  interval=null;
+
+  saveState();
+
+  document
+    .getElementById("session")
+    .classList.remove("active");
+
+  document.getElementById("frame").src="about:blank";
+
+  update();
+
+}
+
+
+/* =========================================================
+   PÁGINAS
+========================================================= */
+
+function openPage(p,b){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .getElementById(p)
+    .classList.add("active");
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  b.classList.add("active");
+
+  if(p==="wallet")renderWallet();
+
+  if(p==="withdraw"){
+
+    /*
+      Sempre mostra o saldo persistente atual ao entrar
+      novamente na página de levantamento.
+    */
+    update();
+    renderWithdrawMethods();
+
+  }
+
+  if(p==="account")renderAccount();
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   CARTÃO
+========================================================= */
+
+function formatCardNumber(v){
+
+  return v
+    .replace(/\D/g,"")
+    .slice(0,16)
+    .replace(/(.{4})/g,"$1 ")
+    .trim();
+
+}
+
 
 document
-.getElementById('emailError')
-.classList.remove('hidden');
+  .getElementById("cNum")
+  .addEventListener("input",function(){
 
-return;
-}
+    this.value=formatCardNumber(this.value);
 
-document
-.getElementById('emailError')
-.classList.add('hidden');
+  });
 
-userEmail=email;
-
-nextStep(3);
-}
-
-function validateCountry(){
-
-const value=document
-.getElementById('countryInput')
-.value;
-
-if(!value){
 
 document
-.getElementById('countryError')
-.classList.remove('hidden');
+  .getElementById("cExp")
+  .addEventListener("input",function(){
 
-return;
-}
+    let v=this.value
+      .replace(/\D/g,"")
+      .slice(0,4);
 
-document
-.getElementById('countryError')
-.classList.add('hidden');
+    if(v.length>2)
+      v=v.slice(0,2)+"/"+v.slice(2);
 
-userCountry=value;
+    this.value=v;
 
-nextStep(4);
-}
+  });
 
-function validateRegion(){
 
-const value=document
-.getElementById('regionInput')
-.value;
+function saveWallet(){
 
-if(!value){
+  const name=document.getElementById("cName").value.trim();
 
-document
-.getElementById('regionError')
-.classList.remove('hidden');
+  const num=document
+    .getElementById("cNum")
+    .value
+    .replace(/\s/g,"");
 
-return;
-}
+  const exp=document.getElementById("cExp").value.trim();
 
-document
-.getElementById('regionError')
-.classList.add('hidden');
+  const cvv=document.getElementById("cCvv").value.trim();
 
-userRegion=value;
+  const nib=document.getElementById("cNib").value.trim();
 
-nextStep(5);
-}
+  const country=document.getElementById("cCountry").value;
 
-function validatePurpose(){
+  if(!name||num.length<12||!exp||cvv.length<3){
 
-const value=document
-.getElementById('purposeInput')
-.value;
+    alert("Veuillez remplir correctement les données de la carte.");
 
-if(!value){
+    return;
 
-document
-.getElementById('purposeError')
-.classList.remove('hidden');
+  }
 
-return;
-}
+  if(CONFIG.nib_required&&!nib){
 
-document
-.getElementById('purposeError')
-.classList.add('hidden');
+    alert("Veuillez renseigner le NIB.");
 
-userPurpose=value;
+    return;
 
-nextStep(6);
-}
+  }
 
-async function finishOnboarding(){
+  savedCard={
 
-const name=document
-.getElementById('nameInput')
-.value
-.trim();
+    last4:num.slice(-4),
 
-if(!name){
+    name:name,
 
-document
-.getElementById('nameError')
-.classList.remove('hidden');
+    exp:exp,
 
-return;
-}
+    country:country,
 
-document
-.getElementById('nameError')
-.classList.add('hidden');
+    nib:nib
 
-userName=name;
+  };
 
-await processScreen(
-'Finalizando configuração...',
-'Preparando a plataforma'
-);
+  localStorage.setItem(
+    "nv_card",
+    JSON.stringify(savedCard)
+  );
 
-onboarding.classList.add('hidden');
+  document.getElementById("cCvv").value="";
+  document.getElementById("cNum").value="";
+  document.getElementById("cExp").value="";
+  document.getElementById("cName").value="";
+  document.getElementById("cNib").value="";
 
-document.body.classList.remove('locked');
+  renderWallet();
+  renderWithdrawMethods();
+  renderAccount();
 
-updateAccount();
-
-window.scrollTo({
-top:0,
-behavior:'smooth'
-});
-}
-
-function updateAccount(){
-
-document.getElementById('accountName').textContent=
-userName || 'Cliente';
-
-document.getElementById('avatar').textContent=
-userName
-? userName.charAt(0).toUpperCase()
-: 'C';
-}
-
-function openCheckout(product,price,url){
-
-selectedProduct=product;
-selectedPrice=price;
-selectedCheckout=url;
-
-document.getElementById('checkoutSubtitle').textContent=
-product+' — '+price;
-
-document.getElementById('checkoutProduct').textContent=
-product;
-
-document.getElementById('checkoutPrice').textContent=
-price;
-
-document.getElementById('checkoutFrame').src=url;
-
-renderCheckoutContact();
-
-checkoutOverlay.classList.add('active');
-
-document.body.classList.add('locked');
-}
-
-function closeCheckout(){
-
-checkoutOverlay.classList.remove('active');
-
-document.getElementById('checkoutFrame').src='about:blank';
-
-document.body.classList.remove('locked');
-}
-
-function renderCheckoutContact(){
-
-const contact=
-checkoutContacts[checkoutContactIndex];
-
-const email=
-document.getElementById('checkoutTeamEmail');
-
-const number=
-document.getElementById('checkoutTeamNumber');
-
-if(email){
-email.textContent=contact.email;
-}
-
-if(number){
-number.textContent=contact.number;
-}
+  notify("Carte enregistrée avec succès.");
 
 }
 
-function restartCheckoutContacts(){
 
-checkoutContactIndex++;
+function renderWallet(){
 
-if(checkoutContactIndex>=checkoutContacts.length){
-checkoutContactIndex=0;
-}
+  const area=document.getElementById("walletCardArea");
+  const form=document.getElementById("walletFormBox");
 
-renderCheckoutContact();
+  if(!savedCard){
 
-showToast(
-'Novo contacto de atendimento disponível.'
-);
+    area.innerHTML=
+      '<div class="box">'+
+      '<div style="font-size:13px;font-weight:bold;margin-bottom:5px">'+
+      'Carte pour les retraits'+
+      '</div>'+
+      '<div style="font-size:10px;color:#829bb7;line-height:1.5">'+
+      'Ajoutez une carte pour pouvoir effectuer des retraits. '+
+      'Les données sensibles resteront masquées après l’enregistrement.'+
+      '</div>'+
+      '</div>';
 
-}
+    form.style.display="block";
 
-async function copyCheckoutContact(type){
+    return;
 
-const contact=
-checkoutContacts[checkoutContactIndex];
+  }
 
-const value=
-type==='email'
-? contact.email
-: contact.number;
+  area.innerHTML=
+    '<div class="card-visual">'+
+      '<div class="card-chip"></div>'+
+      '<div class="card-number">•••• •••• •••• '+savedCard.last4+'</div>'+
+      '<div class="card-meta">'+
+        '<div><small>TITULAIRE</small>'+
+        escapeHtml(savedCard.name).toUpperCase()+
+        '</div>'+
+        '<div><small>VALIDITÉ</small>'+
+        escapeHtml(savedCard.exp)+
+        '</div>'+
+      '</div>'+
+    '</div>'+
 
-try{
+    '<div class="saved-card">'+
+      '<div style="font-size:12px;font-weight:bold">Carte enregistrée</div>'+
+      '<div style="color:#25e58a;font-size:9px;margin-top:4px">'+
+      'Données sensibles protégées'+
+      '</div>'+
+      '<div style="color:#829bb7;font-size:10px;margin-top:8px">'+
+      '•••• •••• •••• '+savedCard.last4+
+      '</div>'+
+      '<div class="card-actions">'+
+        '<button class="btn-secondary" onclick="editWallet()">Modifier</button>'+
+        '<button class="btn-secondary" onclick="replaceWallet()">Remplacer</button>'+
+      '</div>'+
+    '</div>';
 
-await navigator.clipboard.writeText(value);
-
-showToast(
-type==='email'
-? 'E-mail copiado.'
-: 'Número de WhatsApp copiado.'
-);
-
-}catch(error){
-
-const textarea=
-document.createElement('textarea');
-
-textarea.value=value;
-
-textarea.style.position='fixed';
-textarea.style.opacity='0';
-
-document.body.appendChild(textarea);
-
-textarea.select();
-
-document.execCommand('copy');
-
-textarea.remove();
-
-showToast(
-type==='email'
-? 'E-mail copiado.'
-: 'Número de WhatsApp copiado.'
-);
+  form.style.display="none";
 
 }
 
-}
 
-/* PAGAMENTO */
+function editWallet(){
 
-function markPaid(){
+  document.getElementById("walletFormBox").style.display="block";
 
-window.location.href='https://hello-world--matinaalia20.replit.app/';
+  document.getElementById("cName").value=savedCard.name||"";
+  document.getElementById("cExp").value=savedCard.exp||"";
+  document.getElementById("cCountry").value=savedCard.country||"Brésil";
+  document.getElementById("cNib").value=savedCard.nib||"";
 
-}
-
-async function analyzeOrder(){
-
-await processScreen(
-'Analisando pedido...',
-'Verificando as informações da solicitação',
-1800
-);
-
-document
-.getElementById('analysisStep3')
-.classList.add('active');
-
-showToast(
-'Pedido enviado para análise.'
-);
-
-await wait(1000);
-
-document
-.getElementById('analysisStep4')
-.classList.add('active');
-
-showToast(
-'Pedido continua em análise.'
-);
+  document.getElementById("cNum").focus();
 
 }
 
-function closeAnalysis(){
 
-analysisOverlay.classList.remove('active');
+function replaceWallet(){
 
-document.body.classList.remove('locked');
+  if(confirm("Remplacer la carte enregistrée ?")){
 
-window.scrollTo({
-top:0,
-behavior:'smooth'
-});
+    savedCard=null;
 
-}
+    localStorage.removeItem("nv_card");
 
-function showToast(message){
+    renderWallet();
+    renderWithdrawMethods();
+    renderAccount();
 
-const toast=
-document.getElementById('toast');
-
-toast.textContent=message;
-
-toast.classList.add('show');
-
-setTimeout(()=>{
-toast.classList.remove('show');
-},2500);
+  }
 
 }
 
-document.addEventListener('keydown',function(e){
 
-if(e.key==='Escape'){
+/* =========================================================
+   MÉTODOS DE LEVANTAMENTO
+========================================================= */
 
-if(checkoutOverlay.classList.contains('active')){
-closeCheckout();
+function renderWithdrawMethods(){
+
+  const area=document.getElementById("withdrawMethods");
+
+  if(!savedCard){
+
+    area.innerHTML=
+      '<div class="box" style="text-align:center;background:#061a31">'+
+      '<div style="font-size:13px;font-weight:bold">Aucune carte disponible</div>'+
+      '<div style="font-size:10px;color:#829bb7;line-height:1.5;margin:6px 0 13px">'+
+      'Ajoutez une carte dans le Portefeuille pour pouvoir effectuer un retrait.'+
+      '</div>'+
+      '<button class="btn" onclick="openWalletFromWithdraw()">Ajouter une carte</button>'+
+      '</div>';
+
+    document.getElementById("withdrawContinue").disabled=true;
+
+    selectedWithdrawCard=false;
+
+    return;
+
+  }
+
+  area.innerHTML=
+    '<div class="withdraw-method '+
+    (selectedWithdrawCard?"selected":"")+
+    '" onclick="selectWithdrawCard()">'+
+
+      '<div class="withdraw-method-head">'+
+
+        '<div style="font-size:10px;color:#829bb7">'+
+        'Carte enregistrée'+
+        '</div>'+
+
+        '<div class="withdraw-check"></div>'+
+
+      '</div>'+
+
+      '<div class="withdraw-card-mini">'+
+      '•••• '+savedCard.last4+
+      '</div>'+
+
+      '<div style="display:flex;justify-content:space-between;color:#829bb7;font-size:9px">'+
+        '<span>'+escapeHtml(savedCard.name)+'</span>'+
+        '<span>'+escapeHtml(savedCard.exp)+'</span>'+
+      '</div>'+
+
+      '<div style="font-size:9px;color:#829bb7;margin-top:9px">'+
+      'Sélectionner cette carte'+
+      '</div>'+
+
+    '</div>';
+
+  document.getElementById("withdrawContinue").disabled=
+    !selectedWithdrawCard;
+
 }
 
+
+function selectWithdrawCard(){
+
+  selectedWithdrawCard=true;
+
+  renderWithdrawMethods();
+
 }
 
-});
 
-document.getElementById('emailInput')
-.addEventListener('keydown',function(e){
+function openWalletFromWithdraw(){
 
-if(e.key==='Enter'){
-validateEmail();
+  const buttons=document.querySelectorAll(".nav button");
+
+  openPage("wallet",buttons[1]);
+
 }
 
-});
 
-document.getElementById('nameInput')
-.addEventListener('keydown',function(e){
+/* =========================================================
+   ESCOLHER MONTANTE
+========================================================= */
 
-if(e.key==='Enter'){
-finishOnboarding();
+function setAmt(v,b){
+
+  document
+    .querySelectorAll(".preset")
+    .forEach(x=>x.classList.remove("active"));
+
+  b.classList.add("active");
+
+  if(v>0){
+
+    document.getElementById("wAmt").value=v;
+
+  }else{
+
+    document.getElementById("wAmt").focus();
+
+  }
+
 }
 
-});
 
-renderCheckoutContact();
+/* =========================================================
+   PASSO 1 -> PASSO 2
+========================================================= */
+
+function withdrawContinue(){
+
+  const a=Number(
+    document.getElementById("wAmt").value
+  );
+
+  if(!selectedWithdrawCard){
+
+    alert("Sélectionnez une carte pour continuer.");
+    return;
+
+  }
+
+  if(a<CONFIG.min_withdraw){
+
+    alert(
+      "Retrait minimum : "+
+      money(CONFIG.min_withdraw)
+    );
+
+    return;
+
+  }
+
+  if(a>balance){
+
+    alert("Solde insuffisant.");
+    return;
+
+  }
+
+  document.getElementById("wdConfirmAmount").textContent=
+    money(a);
+
+  document.getElementById("wdConfirmCard").textContent=
+    "•••• "+savedCard.last4;
+
+  document.getElementById("wdConfirmName").textContent=
+    savedCard.name;
+
+  document.getElementById("wdConfirmExp").textContent=
+    savedCard.exp;
+
+  document
+    .getElementById("withdrawStep1")
+    .classList.remove("active");
+
+  document
+    .getElementById("withdrawStep2")
+    .classList.add("active");
+
+}
+
+
+/* =========================================================
+   VOLTAR
+========================================================= */
+
+function backWithdraw(){
+
+  document
+    .getElementById("withdrawStep2")
+    .classList.remove("active");
+
+  document
+    .getElementById("withdrawStep1")
+    .classList.add("active");
+
+}
+
+
+/* =========================================================
+   CONFIRMAR LEVANTAMENTO
+========================================================= */
+
+function confirmWithdraw(){
+
+  const a=Number(
+    document.getElementById("wAmt").value
+  );
+
+  if(
+    a<CONFIG.min_withdraw||
+    a>balance||
+    !savedCard
+  ){
+
+    backWithdraw();
+    return;
+
+  }
+
+  /*
+    Guardamos o valor para o fluxo de processamento.
+    O saldo NÃO é alterado ainda.
+  */
+  pendingWithdrawAmount=a;
+
+  pendingWithdrawReference=
+    "FM-"+Date.now()
+      .toString(36)
+      .toUpperCase();
+
+  document.getElementById("wpAmount1").textContent=money(a);
+  document.getElementById("wpAmount2").textContent=money(a);
+  document.getElementById("wpAmount4").textContent=money(a);
+
+  document.getElementById("wpCard1").textContent=
+    "•••• "+savedCard.last4;
+
+  document.getElementById("wpCard2").textContent=
+    "•••• "+savedCard.last4;
+
+  document.getElementById("wpCard4").textContent=
+    "•••• "+savedCard.last4;
+
+  document.getElementById("wpName2").textContent=
+    savedCard.name;
+
+  showWithdrawProcess();
+
+}
+
+
+/* =========================================================
+   FLUXO: PROCESSAMENTO + 3 ABAS
+========================================================= */
+
+function showWithdrawProcess(){
+
+  document
+    .querySelectorAll(".withdraw-process-step")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .getElementById("wp1")
+    .classList.add("active");
+
+  document
+    .getElementById("withdrawProcess")
+    .classList.add("show");
+
+  /*
+    Primeira tela.
+  */
+  setTimeout(()=>{
+
+    document
+      .querySelectorAll(".withdraw-process-step")
+      .forEach(x=>x.classList.remove("active"));
+
+    document
+      .getElementById("wp2")
+      .classList.add("active");
+
+  },2200);
+
+  /*
+    Segunda tela.
+  */
+  setTimeout(()=>{
+
+    document
+      .querySelectorAll(".withdraw-process-step")
+      .forEach(x=>x.classList.remove("active"));
+
+    document
+      .getElementById("wp3")
+      .classList.add("active");
+
+  },4400);
+
+  /*
+    Terceira tela.
+  */
+  setTimeout(()=>{
+
+    document
+      .querySelectorAll(".withdraw-process-step")
+      .forEach(x=>x.classList.remove("active"));
+
+    document
+      .getElementById("wp4")
+      .classList.add("active");
+
+    completeWithdrawalLocally();
+
+  },6600);
+
+}
+
+
+/* =========================================================
+   CONCLUSÃO DO LEVANTAMENTO
+========================================================= */
+
+function completeWithdrawalLocally(){
+
+  const a=Number(pendingWithdrawAmount);
+
+  /*
+    Só agora o valor é descontado do saldo.
+    O saldo anteriormente editado continua persistente.
+  */
+  if(a<=0||a>balance)return;
+
+  balance-=a;
+
+  withdrawals+=a;
+
+  history.push({
+
+    value:-a,
+
+    duration:0,
+
+    time:new Date().toLocaleTimeString("fr-FR"),
+
+    type:"withdrawal",
+
+    status:"registered",
+
+    reference:pendingWithdrawReference,
+
+    card:"•••• "+savedCard.last4
+
+  });
+
+  /*
+    Persistência imediata:
+    ao fechar/reabrir a aplicação, o novo saldo permanece.
+  */
+  saveState();
+
+  document.getElementById("confirmAmt").textContent=
+    money(a);
+
+  document.getElementById("confirmCard").textContent=
+    "•••• "+savedCard.last4;
+
+  document.getElementById("confirmRef").textContent=
+    pendingWithdrawReference;
+
+  update();
+
+}
+
+
+/* =========================================================
+   FECHAR PROCESSAMENTO
+========================================================= */
+
+function finishWithdrawProcess(){
+
+  document
+    .getElementById("withdrawProcess")
+    .classList.remove("show");
+
+  document
+    .getElementById("confirm")
+    .classList.add("show");
+
+}
+
+
+/* =========================================================
+   CONFIRMAÇÃO FINAL
+========================================================= */
+
+function closeConfirm(){
+
+  document
+    .getElementById("confirm")
+    .classList.remove("show");
+
+  pendingWithdrawAmount=0;
+  pendingWithdrawReference="";
+
+  selectedWithdrawCard=false;
+
+  document
+    .getElementById("withdrawStep2")
+    .classList.remove("active");
+
+  document
+    .getElementById("withdrawStep1")
+    .classList.add("active");
+
+  renderWithdrawMethods();
+
+  update();
+
+}
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
+
+function render(){
+
+  const r=document.getElementById("recent");
+  const l=document.getElementById("hList");
+
+  if(!history.length){
+
+    r.innerHTML=
+      '<span style="color:#8198b4;font-size:11px">'+
+      'Aucun gain enregistré.'+
+      '</span>';
+
+    l.innerHTML=
+      '<span style="color:#8198b4;font-size:11px">'+
+      'Votre historique apparaîtra ici.'+
+      '</span>';
+
+    return;
+
+  }
+
+  const html=history
+    .slice()
+    .reverse()
+    .map(i=>{
+
+      if(i.type==="withdrawal"){
+
+        return `
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:10px 0;
+            border-bottom:1px solid #17334f;
+            font-size:11px
+          ">
+            <span>
+              Retrait
+              <br>
+              <small style="
+                color:#7189a5;
+                font-size:9px
+              ">
+                ${escapeHtml(i.time)}
+              </small>
+            </span>
+
+            <b style="color:#f87171">
+              -${money(Math.abs(i.value))}
+            </b>
+          </div>
+        `;
+
+      }
+
+      return `
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          padding:10px 0;
+          border-bottom:1px solid #17334f;
+          font-size:11px
+        ">
+          <span>
+            Session de ${Number(i.duration||0)}s
+            <br>
+            <small style="
+              color:#7189a5;
+              font-size:9px
+            ">
+              ${escapeHtml(i.time)}
+            </small>
+          </span>
+
+          <b class="green">
+            +${money(i.value)}
+          </b>
+        </div>
+      `;
+
+    })
+    .join("");
+
+  r.innerHTML=html;
+  l.innerHTML=html;
+
+}
+
+
+/* =========================================================
+   CONTA
+========================================================= */
+
+function renderAccount(){
+
+  if(!user)return;
+
+  document.getElementById("accName").textContent=
+    user.name||"—";
+
+  document.getElementById("accEmail").textContent=
+    user.email||"—";
+
+  document.getElementById("accCountry").textContent=
+    user.country||"—";
+
+  document.getElementById("accId").textContent=
+    user.id||"—";
+
+  if(user.createdAt){
+
+    document.getElementById("accCreated").textContent=
+      new Date(user.createdAt)
+        .toLocaleDateString("fr-FR");
+
+  }
+
+  document.getElementById("accIds").textContent=
+    views;
+
+  document.getElementById("accEarnings").textContent=
+    money(
+      history
+        .filter(x=>x.type!=="withdrawal")
+        .reduce(
+          (s,x)=>s+Number(x.value||0),
+          0
+        )
+    );
+
+  document.getElementById("accBalance").textContent=
+    money(balance);
+
+  document.getElementById("accWithdrawals").textContent=
+    money(withdrawals);
+
+  document.getElementById("accCard").textContent=
+    savedCard
+      ?"•••• "+savedCard.last4
+      :"Aucune";
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+  if(!confirm("Voulez-vous vraiment vous déconnecter ?"))
+    return;
+
+  user=null;
+
+  localStorage.removeItem("nv_user");
+
+  document.getElementById("app").style.display="none";
+  document.getElementById("login").style.display="flex";
+
+}
+
+
+/* =========================================================
+   NOVO CONTA
+========================================================= */
+
+function createNewAccount(){
+
+  if(!confirm("Créer un nouveau compte ?"))
+    return;
+
+  user=null;
+
+  localStorage.removeItem("nv_user");
+
+  document.getElementById("app").style.display="none";
+  document.getElementById("login").style.display="none";
+  document.getElementById("welcome").style.display="block";
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   APAGAR CONTA
+========================================================= */
+
+function deleteAccount(){
+
+  if(!confirm(
+    "Supprimer définitivement ce compte et ses données locales ?"
+  ))
+    return;
+
+  user=null;
+  savedCard=null;
+  balance=0;
+  seconds=0;
+  views=0;
+  withdrawals=0;
+  history=[];
+
+  localStorage.removeItem("nv_user");
+  localStorage.removeItem("nv_card");
+  localStorage.removeItem("nv_balance");
+  localStorage.removeItem("nv_seconds");
+  localStorage.removeItem("nv_views");
+  localStorage.removeItem("nv_history");
+  localStorage.removeItem("nv_withdrawals");
+
+  document.getElementById("app").style.display="none";
+  document.getElementById("login").style.display="none";
+  document.getElementById("welcome").style.display="block";
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   SEGURANÇA DE TEXTO
+========================================================= */
+
+function escapeHtml(str){
+
+  return String(str||"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+showApp();
 
 </script>
 
