@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>Fcoin.</title>
+<title>MODE EARN Daju non</title>
 
 <style>
 :root{
@@ -22,7 +22,7 @@ body{
   min-height:100vh;
 }
 
-button,input,select{font:inherit}
+button,input,select,textarea{font:inherit}
 
 .app{
   max-width:480px;
@@ -90,7 +90,6 @@ button,input,select{font:inherit}
   font-size:32px;
   font-weight:bold;
   margin:6px 0;
-  cursor:pointer;
 }
 
 .green{color:#25e58a}
@@ -536,7 +535,9 @@ label{
   cursor:pointer;
 }
 
-.country-option:last-child{border-bottom:0}
+.country-option:last-child{
+  border-bottom:0;
+}
 
 .country-option.selected{
   background:rgba(239,68,68,.16);
@@ -750,6 +751,7 @@ label{
 .card-meta{
   display:flex;
   justify-content:space-between;
+  gap:15px;
   font-size:10px;
 }
 
@@ -758,6 +760,11 @@ label{
   color:#7189a5;
   font-size:7px;
   margin-bottom:3px;
+}
+
+.card-meta>div{
+  max-width:50%;
+  word-break:break-word;
 }
 
 .saved-card{
@@ -903,250 +910,68 @@ label{
   object-fit:cover;
 }
 
-/* =========================================================
-   FLUXO DE LEVANTAMENTO
-========================================================= */
-
-#withdrawProcess{
-  position:fixed;
-  inset:0;
-  z-index:250;
-  background:#0b1622;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-#withdrawProcess.show{
-  display:flex;
-}
-
-.withdraw-process-card{
-  width:100%;
-  max-width:390px;
-  background:#071d38;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:22px;
-  padding:25px;
-  text-align:center;
-}
-
-.withdraw-process-step{
-  display:none;
-}
-
-.withdraw-process-step.active{
-  display:block;
-}
-
-.process-icon{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  margin:0 auto 18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(239,68,68,.12);
-  border:1px solid rgba(239,68,68,.3);
-  color:#f87171;
-  font-size:25px;
-}
-
-.process-title{
-  font-size:19px;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-.process-description{
-  color:#829bb7;
-  font-size:11px;
-  line-height:1.6;
-}
-
-.process-loader{
-  width:42px;
-  height:42px;
-  border:3px solid #244b73;
-  border-top-color:var(--primary);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:18px auto;
-}
-
-.process-line{
-  height:5px;
-  background:#173552;
-  border-radius:5px;
-  overflow:hidden;
-  margin-top:18px;
-}
-
-.process-line span{
-  display:block;
-  height:100%;
-  width:35%;
-  background:var(--primary);
-  animation:processLine 1.5s infinite ease-in-out;
-}
-
-@keyframes processLine{
-  0%{transform:translateX(-120%)}
-  100%{transform:translateX(400%)}
-}
-
-.process-summary{
-  background:#061a31;
-  border:1px solid #1b4165;
-  border-radius:13px;
-  padding:13px;
-  margin-top:18px;
-  text-align:left;
-}
-
-.process-summary-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:8px 0;
-  font-size:10px;
-  border-bottom:1px solid #17334f;
-}
-
-.process-summary-row:last-child{
-  border-bottom:0;
-}
-
-.process-summary-row span{
-  color:#829bb7;
-}
-
-.process-summary-row b{
-  text-align:right;
-}
-
-.process-done-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  margin:0 auto 17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(37,229,138,.12);
-  border:1px solid rgba(37,229,138,.35);
-  color:#25e58a;
-  font-size:34px;
-}
-
-.process-notice{
-  background:rgba(37,229,138,.07);
-  border:1px solid rgba(37,229,138,.2);
-  border-radius:12px;
-  padding:13px;
-  color:#a9bdd2;
-  font-size:10px;
-  line-height:1.6;
-  margin-top:16px;
-}
-
-.process-close{
-  margin-top:17px;
-  background:#102a44;
-  border:1px solid #244b73;
-}
-
-/* =========================================================
-   CONFIRMAÇÃO
-========================================================= */
-
 #confirm{
   position:fixed;
   inset:0;
-  z-index:280;
-  background:rgba(0,0,0,.78);
+  z-index:150;
+  background:rgba(0,0,0,.7);
   display:none;
   align-items:center;
   justify-content:center;
   padding:24px;
 }
 
-#confirm.show{
-  display:flex;
-}
+#confirm.show{display:flex}
 
 .confirm-card{
   width:100%;
-  max-width:340px;
-  background:#071d38;
-  border:1px solid rgba(37,229,138,.25);
-  border-radius:22px;
-  padding:25px;
+  max-width:320px;
+  background:#1a0e10;
+  border:1px solid rgba(239,68,68,.3);
+  border-radius:20px;
+  padding:24px;
   text-align:center;
 }
 
-.confirm-success{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  background:rgba(37,229,138,.12);
-  border:1px solid rgba(37,229,138,.3);
-  color:#25e58a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto 13px;
-  font-size:30px;
-}
-
-.confirm-title{
-  font-size:19px;
-  font-weight:bold;
-}
-
-.confirm-sub{
-  color:#829bb7;
-  font-size:11px;
-  line-height:1.6;
-  margin-top:7px;
-}
-
-.confirm-amount{
-  font-size:30px;
-  font-weight:bold;
-  color:#25e58a;
-  margin:13px 0;
-}
-
-.confirm-info{
+.payment-link-box{
   background:#061a31;
   border:1px solid #1b4165;
   border-radius:12px;
   padding:12px;
-  text-align:left;
+  margin-bottom:14px;
 }
 
-.confirm-info div{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:7px 0;
-  font-size:10px;
-  border-bottom:1px solid #17334f;
-}
-
-.confirm-info div:last-child{
-  border-bottom:0;
-}
-
-.confirm-info span{
+.payment-link-box p{
   color:#829bb7;
+  font-size:10px;
+  line-height:1.55;
 }
 
-.confirm-info b{
-  text-align:right;
+.payment-error{
+  display:none;
+  color:#ff8d95;
+  background:rgba(239,68,68,.08);
+  border:1px solid rgba(239,68,68,.25);
+  border-radius:10px;
+  padding:10px;
+  font-size:10px;
+  line-height:1.5;
+  margin-bottom:10px;
+}
+
+.payment-error.show{
+  display:block;
+}
+
+.card-link-info{
+  margin-top:12px;
+  border-top:1px solid #17334f;
+  padding-top:10px;
+}
+
+.card-link-info .summary-row{
+  padding:8px 0;
+  font-size:10px;
 }
 </style>
 </head>
@@ -1159,11 +984,11 @@ label{
     <img class="welcome-logo"
       src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png">
 
-    <div class="welcome-brand">famelack.</div>
+    <div class="welcome-brand">MODE EARN Daju non</div>
     <div class="welcome-sub">Watch • Earn • Withdraw</div>
 
     <div class="welcome-hero">
-      <h1>Bienvenue sur famelack.</h1>
+      <h1>Bienvenue sur MODE EARN Daju non</h1>
       <p>
         Une plateforme conçue pour vous permettre de découvrir des contenus,
         suivre votre activité et gérer votre espace personnel depuis une seule
@@ -1175,7 +1000,7 @@ label{
       <h2>Découvrez votre nouvel espace</h2>
       <p>
         Créez votre compte, configurez votre profil et découvrez progressivement
-        les différentes fonctions disponibles sur Fcoin. Votre espace
+        les différentes fonctions disponibles sur MODE EARN Daju non. Votre espace
         personnel vous permet de consulter vos informations, suivre votre
         solde, gérer votre portefeuille et consulter votre historique.
       </p>
@@ -1273,7 +1098,7 @@ label{
       <div class="step-number">09</div>
       <div>
         <b>Consulter votre portefeuille</b>
-        <p>Ajoutez et gérez les informations nécessaires lorsque vous souhaitez utiliser la fonction de retrait.</p>
+        <p>Adicione e gere as informações necessárias quando quiser utilizar a função de retrait.</p>
       </div>
     </div>
 
@@ -1293,8 +1118,13 @@ label{
       </p>
 
       <div class="welcome-actions">
-        <button class="btn" onclick="openWelcomeAuth()">Créer mon compte</button>
-        <button class="btn welcome-login" onclick="openWelcomeLogin()">J’ai déjà un compte</button>
+        <button class="btn" onclick="openWelcomeAuth()">
+          Créer mon compte
+        </button>
+
+        <button class="btn welcome-login" onclick="openWelcomeLogin()">
+          J’ai déjà un compte
+        </button>
       </div>
     </div>
 
@@ -1310,7 +1140,7 @@ label{
       style="width:70px;height:70px;border-radius:17px;margin:0 auto 15px;display:block"
     >
 
-    <h1 style="text-align:center;font-size:23px">Fcoin.</h1>
+    <h1 style="text-align:center;font-size:23px">MODE EARN Daju non</h1>
 
     <p style="text-align:center;color:#8da6c1;font-size:12px;margin-top:5px">
       Watch • Earn • Withdraw
@@ -1344,19 +1174,29 @@ label{
     </div>
 
     <div id="authProcessing" class="auth-processing">
+
       <div class="spinner"></div>
+
       <b id="processingText">Vérification...</b>
+
       <small style="color:#829bb7;margin-top:6px">
         Traitement sécurisé en cours
       </small>
-      <div class="processing-bar"><div></div></div>
+
+      <div class="processing-bar">
+        <div></div>
+      </div>
+
     </div>
 
     <div class="auth-step active" id="auth1">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Bienvenue</h1>
+      <img class="auth-logo"
+        src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png">
 
-      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+      <h1 class="auth-title">Bienvenue</h1>
+
+      <p class="auth-sub">
         Nous allons configurer votre compte étape par étape.
         Commencez avec votre adresse e-mail.
       </p>
@@ -1367,44 +1207,60 @@ label{
       </div>
 
       <label>Adresse e-mail</label>
-      <input id="lgEmail" type="email" placeholder="votre@email.com" autocomplete="email">
 
-      <button class="btn" onclick="authNext(1)">Continuer</button>
+      <input id="lgEmail" type="email"
+        placeholder="votre@email.com"
+        autocomplete="email">
+
+      <button class="btn" onclick="authNext(1)">
+        Continuer
+      </button>
 
     </div>
 
     <div class="auth-step" id="auth2">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Nom d'utilisateur</h1>
+      <h1 class="auth-title">Nom d'utilisateur</h1>
 
-      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+      <p class="auth-sub">
         Choisissez le nom qui sera utilisé pour identifier
         votre profil dans l'application.
       </p>
 
       <label>Nom d'utilisateur</label>
-      <input id="lgName" maxlength="30" placeholder="Votre nom d'utilisateur">
+
+      <input id="lgName"
+        maxlength="30"
+        placeholder="Votre nom d'utilisateur"
+        autocomplete="username">
 
       <div class="auth-note">
         Utilisez un nom simple que vous pourrez reconnaître
         facilement dans votre espace personnel.
       </div>
 
-      <button class="btn" onclick="authNext(2)">Continuer</button>
-      <button class="auth-back" onclick="authBack(2)">Retour</button>
+      <button class="btn" onclick="authNext(2)">
+        Continuer
+      </button>
+
+      <button class="auth-back" onclick="authBack(2)">
+        Retour
+      </button>
 
     </div>
 
     <div class="auth-step" id="auth3">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Votre profil</h1>
+      <h1 class="auth-title">Votre profil</h1>
 
-      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+      <p class="auth-sub">
         Ajoutez le nom qui sera présenté dans votre tableau de bord.
       </p>
 
       <label>Nom affiché</label>
-      <input id="lgDisplayName" placeholder="Nom du profil">
+
+      <input id="lgDisplayName"
+        placeholder="Nom du profil">
 
       <label>Type de compte</label>
 
@@ -1418,22 +1274,29 @@ label{
         dans l'application.
       </div>
 
-      <button class="btn" onclick="authNext(3)">Continuer</button>
-      <button class="auth-back" onclick="authBack(3)">Retour</button>
+      <button class="btn" onclick="authNext(3)">
+        Continuer
+      </button>
+
+      <button class="auth-back" onclick="authBack(3)">
+        Retour
+      </button>
 
     </div>
 
     <div class="auth-step" id="auth4">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Votre pays</h1>
+      <h1 class="auth-title">Votre pays</h1>
 
-      <p style="color:#829bb7;font-size:11px;line-height:1.6;margin-bottom:14px">
+      <p class="auth-sub">
         Sélectionnez votre pays de résidence pour compléter
         les informations de votre profil.
       </p>
 
-      <input class="country-search" id="countrySearch"
-        placeholder="Rechercher un pays..." oninput="filterCountries()">
+      <input class="country-search"
+        id="countrySearch"
+        placeholder="Rechercher un pays..."
+        oninput="filterCountries()">
 
       <div class="country-list" id="countryList"></div>
 
@@ -1441,13 +1304,20 @@ label{
         Continuer
       </button>
 
-      <button class="auth-back" onclick="authBack(4)">Retour</button>
+      <button class="auth-back" onclick="authBack(4)">
+        Retour
+      </button>
 
     </div>
 
     <div class="auth-step" id="auth5">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Configuration</h1>
+      <h1 class="auth-title">Configuration</h1>
+
+      <p class="auth-sub">
+        Votre espace est presque prêt. Vérifiez les dernières
+        informations de configuration.
+      </p>
 
       <div class="auth-note">
         Les informations présentées ci-dessous seront associées
@@ -1473,44 +1343,50 @@ label{
         Continuer
       </button>
 
-      <button class="auth-back" onclick="authBack(5)">Retour</button>
+      <button class="auth-back" onclick="authBack(5)">
+        Retour
+      </button>
 
     </div>
 
     <div class="auth-step" id="auth6">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Sécurité du compte</h1>
+      <h1 class="auth-title">Sécurité du compte</h1>
 
-      <p style="color:#829bb7;font-size:11px;line-height:1.6">
-        Vérifiez les informations avant la création définitive
-        de votre espace.
+      <p class="auth-sub">
+        Prenez un moment pour vérifier les informations
+        avant la création définitive de votre espace.
       </p>
 
-      <div class="auth-note" style="margin-top:14px">
+      <div class="auth-note">
         Vérifiez attentivement votre adresse e-mail,
         votre nom d'utilisateur et votre pays.
       </div>
 
       <div class="checkline">
         <input type="checkbox" id="securityCheck">
-        <span>J'ai vérifié mes informations et je souhaite continuer.</span>
+        <span>
+          J'ai vérifié mes informations et je souhaite continuer.
+        </span>
       </div>
 
       <button class="btn" onclick="authNext(6)">
         Vérifier les informations
       </button>
 
-      <button class="auth-back" onclick="authBack(6)">Retour</button>
+      <button class="auth-back" onclick="authBack(6)">
+        Retour
+      </button>
 
     </div>
 
     <div class="auth-step" id="auth7">
 
-      <h1 style="font-size:21px;margin-bottom:8px">Confirmation finale</h1>
+      <h1 class="auth-title">Confirmation finale</h1>
 
-      <p style="color:#829bb7;font-size:11px;line-height:1.6">
+      <p class="auth-sub">
         Toutes les informations sont prêtes. Confirmez pour
-        créer votre espace Fcoin.
+        créer votre espace MODE EARN Daju non.
       </p>
 
       <div class="summary-row">
@@ -1530,7 +1406,9 @@ label{
 
       <div class="checkline">
         <input type="checkbox" id="confirmData">
-        <span>Je confirme que les informations saisies sont correctes.</span>
+        <span>
+          Je confirme que les informations saisies sont correctes.
+        </span>
       </div>
 
       <button class="btn" onclick="finishAuth()">
@@ -1549,592 +1427,562 @@ label{
 
 <div class="app" id="app" style="display:none">
 
-  <header class="topbar">
+<header class="topbar">
 
-    <div class="brand">
+  <div class="brand">
 
-      <img
-        src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png"
-        class="logo"
-      >
+    <img
+      src="https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png"
+      class="logo">
 
+    <div>
+      MODE EARN Daju non
+      <br>
+      <small style="color:#7894b4;font-size:8px">
+        Watch • Earn • Withdraw
+      </small>
+    </div>
+
+  </div>
+
+  <div style="text-align:right">
+
+    <div style="color:#8ca5c1;font-size:10px" id="topTime">
+      --:--:--
+    </div>
+
+    <div style="font-weight:bold" id="topMoney">
+      US$ 0.00
+    </div>
+
+  </div>
+
+</header>
+
+<section class="page active" id="home">
+
+  <div class="account-welcome">
+
+    <small>ESPACE PERSONNEL</small>
+
+    <h2>
+      Bonjour, <span id="frontName">Utilisateur</span>
+    </h2>
+
+    <p>
+      Bienvenue dans votre espace MODE EARN Daju non. Consultez votre
+      activité, votre solde et les principales informations
+      de votre compte depuis cette page.
+    </p>
+
+  </div>
+
+  <div class="box balance">
+
+    <div class="label">Solde total</div>
+
+    <!-- ÚNICA ALTERAÇÃO VISUAL: clicar no saldo para adicionar um valor -->
+    <div class="big" id="balance"
+         onclick="addManualBalance()"
+         style="cursor:pointer"
+         title="Cliquer pour ajouter un solde">
+      US$ 0.00
+    </div>
+
+    <div class="green" id="today">
+      + US$ 0.00 aujourd'hui
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <small>Temps</small>
+        <b id="hTime">00h 00m</b>
+      </div>
+
+      <div class="stat">
+        <small>Sessions</small>
+        <b id="views">0</b>
+      </div>
+
+      <div class="stat">
+        <small>État</small>
+        <b class="green">Prêt</b>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="front-grid">
+
+    <div class="front-info">
+      <span>COMPTE</span>
+      <b id="frontAccountId">—</b>
+    </div>
+
+    <div class="front-info">
+      <span>PAYS</span>
+      <b id="frontCountry">—</b>
+    </div>
+
+    <div class="front-info">
+      <span>GAINS</span>
+      <b id="frontEarnings">US$ 0.00</b>
+    </div>
+
+    <div class="front-info">
+      <span>RETRAITS</span>
+      <b id="frontWithdrawals">US$ 0.00</b>
+    </div>
+
+  </div>
+
+  <div class="front-section">
+
+    <h3>Votre espace MODE EARN Daju non</h3>
+
+    <p>
+      Cette page rassemble les informations essentielles de votre
+      compte. Utilisez les différentes sections de l'application
+      pour gérer votre portefeuille, consulter votre historique
+      et effectuer les opérations disponibles.
+    </p>
+
+  </div>
+
+  <div class="title">Guide de démarrage</div>
+
+  <div class="front-section">
+
+    <div class="front-guide">
+      <div class="front-guide-number">01</div>
       <div>
-        Fcoin.
-        <br>
-        <small style="color:#7894b4;font-size:8px">
-          Watch • Earn • Withdraw
-        </small>
+        <b>Configurez votre compte</b>
+        <span>Vérifiez que votre nom, votre e-mail et votre pays sont correctement enregistrés.</span>
       </div>
-
     </div>
 
-    <div style="text-align:right">
-
-      <div style="color:#8ca5c1;font-size:10px" id="topTime">
-        --:--:--
+    <div class="front-guide">
+      <div class="front-guide-number">02</div>
+      <div>
+        <b>Découvrez votre tableau de bord</b>
+        <span>Votre solde et vos principales statistiques sont affichés directement sur l'accueil.</span>
       </div>
-
-      <div style="font-weight:bold" id="topMoney">
-        US$ 0.00
-      </div>
-
     </div>
 
-  </header>
+    <div class="front-guide">
+      <div class="front-guide-number">03</div>
+      <div>
+        <b>Commencez une session</b>
+        <span>Utilisez le bouton de démarrage lorsque vous souhaitez lancer une nouvelle session.</span>
+      </div>
+    </div>
 
-  <section class="page active" id="home">
+    <div class="front-guide">
+      <div class="front-guide-number">04</div>
+      <div>
+        <b>Suivez votre activité</b>
+        <span>Le temps et les sessions enregistrées sont automatiquement présentés dans votre espace.</span>
+      </div>
+    </div>
 
-    <div class="account-welcome">
+    <div class="front-guide">
+      <div class="front-guide-number">05</div>
+      <div>
+        <b>Consultez vos gains</b>
+        <span>Votre valeur disponible est affichée dans le solde et dans l'historique des opérations.</span>
+      </div>
+    </div>
 
-      <small>ESPACE PERSONNEL</small>
+  </div>
 
-      <h2>
-        Bonjour, <span id="frontName">Utilisateur</span>
-      </h2>
+  <div class="title">Comment fonctionne le retrait ?</div>
+
+  <div class="front-section">
+
+    <div class="front-guide">
+      <div class="front-guide-number">01</div>
+      <div>
+        <b>Vérifiez votre solde</b>
+        <span>Consultez le montant actuellement disponible avant de commencer une demande.</span>
+      </div>
+    </div>
+
+    <div class="front-guide">
+      <div class="front-guide-number">02</div>
+      <div>
+        <b>Configurez votre portefeuille</b>
+        <span>Ajoutez une méthode de retrait dans l'onglet Portefeuille.</span>
+      </div>
+    </div>
+
+    <div class="front-guide">
+      <div class="front-guide-number">03</div>
+      <div>
+        <b>Choisissez le montant</b>
+        <span>Sélectionnez le montant souhaité selon votre solde disponible.</span>
+      </div>
+    </div>
+
+    <div class="front-guide">
+      <div class="front-guide-number">04</div>
+      <div>
+        <b>Vérifiez les informations</b>
+        <span>Contrôlez la méthode et les informations affichées avant de confirmer.</span>
+      </div>
+    </div>
+
+    <div class="front-guide">
+      <div class="front-guide-number">05</div>
+      <div>
+        <b>Confirmez la demande</b>
+        <span>Après confirmation, l'opération apparaît dans votre historique.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="front-section">
+
+    <h3>Informations importantes</h3>
+
+    <p>
+      Consultez toujours les informations affichées dans votre compte
+      avant d'effectuer une opération. Les données de votre portefeuille
+      doivent être correctement renseignées et les informations sensibles
+      sont masquées après leur enregistrement.
+    </p>
+
+  </div>
+
+  <button class="btn start" onclick="start()">
+    COMMENCER MAINTENANT
+  </button>
+
+  <div class="title">Derniers gains</div>
+
+  <div class="box" id="recent">
+    <span style="color:#8198b4;font-size:11px">
+      Aucun gain enregistré.
+    </span>
+  </div>
+
+  <div class="blue-bottom">
+
+    <h3>Votre espace est prêt</h3>
+
+    <p>
+      Continuez à explorer MODE EARN Daju non pour consulter votre activité,
+      gérer votre portefeuille et suivre les informations de votre compte.
+    </p>
+
+  </div>
+
+</section>
+
+<section class="page" id="wallet">
+
+  <div class="title">Portefeuille</div>
+
+  <div id="walletCardArea"></div>
+
+  <div class="box" id="walletFormBox">
+
+    <div style="font-size:13px;font-weight:bold;margin-bottom:14px">
+      Carte pour les retraits
+    </div>
+
+    <div class="payment-link-box">
+
+      <div style="font-size:12px;font-weight:bold;margin-bottom:6px">
+        Ajouter avec un lien de paiement
+      </div>
 
       <p>
-        Bienvenue dans votre espace Fcoin. Consultez votre
-        activité, votre solde et les principales informations
-        de votre compte depuis cette page.
+        Collez ici le lien de paiement contenant les informations
+        nécessaires à l'affichage de votre carte.
       </p>
 
     </div>
 
-    <div class="box balance">
+    <label>Lien de paiement</label>
 
-      <div class="label">Solde total</div>
+    <input
+      id="paymentLink"
+      type="url"
+      placeholder="https://..."
+      autocomplete="off"
+      inputmode="url"
+    >
 
-      <div class="big" id="balance"
-        onclick="editBalance()"
-        title="Cliquer pour modifier">
-        US$ 0.00
-      </div>
-
-      <div class="green" id="today">
-        + US$ 0.00 aujourd'hui
-      </div>
-
-      <div class="stats">
-
-        <div class="stat">
-          <small>Temps</small>
-          <b id="hTime">00h 00m</b>
-        </div>
-
-        <div class="stat">
-          <small>Sessions</small>
-          <b id="views">0</b>
-        </div>
-
-        <div class="stat">
-          <small>État</small>
-          <b class="green">Prêt</b>
-        </div>
-
-      </div>
-
+    <div id="paymentLinkError" class="payment-error">
+      Link incorrect
     </div>
 
-    <div class="front-grid">
-
-      <div class="front-info">
-        <span>COMPTE</span>
-        <b id="frontAccountId">—</b>
-      </div>
-
-      <div class="front-info">
-        <span>PAYS</span>
-        <b id="frontCountry">—</b>
-      </div>
-
-      <div class="front-info">
-        <span>GAINS</span>
-        <b id="frontEarnings">US$ 0.00</b>
-      </div>
-
-      <div class="front-info">
-        <span>RETRAITS</span>
-        <b id="frontWithdrawals">US$ 0.00</b>
-      </div>
-
-    </div>
-
-    <div class="front-section">
-
-      <h3>Votre espace Fcoin</h3>
-
-      <p>
-        Cette page rassemble les informations essentielles de votre
-        compte. Utilisez les différentes sections de l'application
-        pour gérer votre portefeuille, consulter votre historique
-        et effectuer les opérations disponibles.
-      </p>
-
-    </div>
-
-    <div class="title">Guide de démarrage</div>
-
-    <div class="front-section">
-
-      <div class="front-guide">
-        <div class="front-guide-number">01</div>
-        <div>
-          <b>Configurez votre compte</b>
-          <span>Vérifiez que votre nom, votre e-mail et votre pays sont correctement enregistrés.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">02</div>
-        <div>
-          <b>Découvrez votre tableau de bord</b>
-          <span>Votre solde et vos principales statistiques sont affichés directement sur l'accueil.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">03</div>
-        <div>
-          <b>Commencez une session</b>
-          <span>Utilisez le bouton de démarrage lorsque vous souhaitez lancer une nouvelle session.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">04</div>
-        <div>
-          <b>Suivez votre activité</b>
-          <span>Le temps et les sessions enregistrées sont automatiquement présentés dans votre espace.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">05</div>
-        <div>
-          <b>Consultez vos gains</b>
-          <span>Votre valeur disponible est affichée dans le solde et dans l'historique des opérations.</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="title">Comment fonctionne le retrait ?</div>
-
-    <div class="front-section">
-
-      <div class="front-guide">
-        <div class="front-guide-number">01</div>
-        <div>
-          <b>Vérifiez votre solde</b>
-          <span>Consultez le montant actuellement disponible avant de commencer une demande.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">02</div>
-        <div>
-          <b>Configurez votre portefeuille</b>
-          <span>Ajoutez une méthode de retrait dans l'onglet Portefeuille.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">03</div>
-        <div>
-          <b>Choisissez le montant</b>
-          <span>Sélectionnez le montant souhaité selon votre solde disponible.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">04</div>
-        <div>
-          <b>Vérifiez les informations</b>
-          <span>Contrôlez la méthode et les informations affichées avant de confirmer.</span>
-        </div>
-      </div>
-
-      <div class="front-guide">
-        <div class="front-guide-number">05</div>
-        <div>
-          <b>Confirmez la demande</b>
-          <span>Après confirmation, l'opération apparaît dans votre historique.</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="front-section">
-
-      <h3>Informations importantes</h3>
-
-      <p>
-        Consultez toujours les informations affichées dans votre compte
-        avant d'effectuer une opération. Les données de votre portefeuille
-        doivent être correctement renseignées et les informations sensibles
-        sont masquées après leur enregistrement.
-      </p>
-
-    </div>
-
-    <button class="btn start" onclick="start()">
-      COMMENCER MAINTENANT
+    <button class="btn" onclick="savePaymentLink()">
+      Vérifier et enregistrer
     </button>
 
-    <div class="title">Derniers gains</div>
-
-    <div class="box" id="recent">
-      <span style="color:#8198b4;font-size:11px">
-        Aucun gain enregistré.
-      </span>
+    <div style="color:#829bb7;font-size:9px;line-height:1.5;margin-top:10px">
+      Le lien doit contenir les informations nécessaires à la création
+      de l'affichage de la carte. Les données sensibles ne sont pas
+      enregistrées.
     </div>
 
-    <div class="blue-bottom">
+  </div>
 
-      <h3>Votre espace est prêt</h3>
+</section>
 
-      <p>
-        Continuez à explorer Fcoin pour consulter votre activité,
-        gérer votre portefeuille et suivre les informations de votre compte.
-      </p>
+<section class="page" id="withdraw">
 
+  <div class="title">Retrait</div>
+
+  <div class="box balance">
+
+    <div class="label">Solde disponible</div>
+
+    <div class="big" id="wBal">
+      US$ 0.00
     </div>
 
-  </section>
+    <div class="green">
+      Disponible pour retrait
+    </div>
 
-  <section class="page" id="wallet">
+    <div style="display:flex;justify-content:space-between;background:#061a31;border:1px solid #1b4165;border-radius:11px;padding:10px;margin-top:10px;font-size:11px">
+      <span>Retrait minimum</span>
+      <b>US$ 1.00</b>
+    </div>
 
-    <div class="title">Portefeuille</div>
+    <div id="withdrawStep1" class="withdraw-step active">
 
-    <div id="walletCardArea"></div>
-
-    <div class="box" id="walletFormBox">
-
-      <div style="font-size:13px;font-weight:bold;margin-bottom:14px">
-        Carte pour les retraits
+      <div class="label" style="margin-top:12px">
+        Montant du retrait
       </div>
 
-      <label>Nom du titulaire</label>
-      <input id="cName" placeholder="Nom du titulaire">
+      <div class="presets">
+        <button class="preset active" onclick="setAmt(1,this)">$1</button>
+        <button class="preset" onclick="setAmt(5,this)">$5</button>
+        <button class="preset" onclick="setAmt(10,this)">$10</button>
+        <button class="preset" onclick="setAmt(0,this)">Autre</button>
+      </div>
 
-      <label>Numéro de carte</label>
-      <input id="cNum" maxlength="19" inputmode="numeric"
-        placeholder="0000 0000 0000 0000">
+      <input id="wAmt" type="number" value="1" min="1">
 
-      <label>Date d'expiration</label>
-      <input id="cExp" maxlength="5" placeholder="MM/AA">
+      <div class="title" style="margin-top:18px">
+        Méthode de retrait
+      </div>
 
-      <label>CVV</label>
-      <input id="cCvv" type="password" maxlength="4"
-        inputmode="numeric" placeholder="•••">
+      <div id="withdrawMethods"></div>
 
-      <label>NIB (facultatif)</label>
-      <input id="cNib" placeholder="NIB">
-
-      <label>Pays</label>
-
-      <select id="cCountry">
-        <option>Brésil</option>
-        <option>Afrique du Sud</option>
-        <option>Portugal</option>
-        <option>Allemagne</option>
-        <option>États-Unis</option>
-      </select>
-
-      <button class="btn" onclick="saveWallet()">
-        Enregistrer la carte
+      <button
+        class="btn"
+        id="withdrawContinue"
+        onclick="withdrawContinue()"
+        disabled
+      >
+        Continuer
       </button>
 
     </div>
 
-  </section>
+    <div id="withdrawStep2" class="withdraw-step">
 
-  <section class="page" id="withdraw">
-
-    <div class="title">Retrait</div>
-
-    <div class="box balance">
-
-      <div class="label">Solde disponible</div>
-
-      <div class="big" id="wBal">
-        US$ 0.00
+      <div class="title">
+        Confirmer les données
       </div>
 
-      <div class="green">
-        Disponible pour retrait
-      </div>
+      <div class="box" style="background:#061a31;margin:0">
 
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        background:#061a31;
-        border:1px solid #1b4165;
-        border-radius:11px;
-        padding:10px;
-        margin-top:10px;
-        font-size:11px
-      ">
-        <span>Retrait minimum</span>
-        <b>US$ 1.00</b>
-      </div>
-
-      <div id="withdrawStep1" class="withdraw-step active">
-
-        <div class="label" style="margin-top:12px">
-          Montant du retrait
+        <div class="summary-row">
+          <span>Montant</span>
+          <b id="wdConfirmAmount">US$ 0.00</b>
         </div>
 
-        <div class="presets">
-
-          <button class="preset active" onclick="setAmt(1,this)">
-            $1
-          </button>
-
-          <button class="preset" onclick="setAmt(5,this)">
-            $5
-          </button>
-
-          <button class="preset" onclick="setAmt(10,this)">
-            $10
-          </button>
-
-          <button class="preset" onclick="setAmt(0,this)">
-            Autre
-          </button>
-
+        <div class="summary-row">
+          <span>Carte</span>
+          <b id="wdConfirmCard">—</b>
         </div>
 
-        <input id="wAmt" type="number" value="1" min="1">
-
-        <div class="title" style="margin-top:18px">
-          Méthode de retrait
+        <div class="summary-row">
+          <span>Titulaire</span>
+          <b id="wdConfirmName">—</b>
         </div>
 
-        <div id="withdrawMethods"></div>
-
-        <button class="btn" id="withdrawContinue"
-          onclick="withdrawContinue()" disabled>
-          Continuer
-        </button>
-
-      </div>
-
-      <div id="withdrawStep2" class="withdraw-step">
-
-        <div class="title">Confirmer les données</div>
-
-        <div class="box" style="background:#061a31;margin:0">
-
-          <div class="summary-row">
-            <span>Montant</span>
-            <b id="wdConfirmAmount">US$ 0.00</b>
-          </div>
-
-          <div class="summary-row">
-            <span>Carte</span>
-            <b id="wdConfirmCard">—</b>
-          </div>
-
-          <div class="summary-row">
-            <span>Titulaire</span>
-            <b id="wdConfirmName">—</b>
-          </div>
-
-          <div class="summary-row">
-            <span>Expiration</span>
-            <b id="wdConfirmExp">—</b>
-          </div>
-
+        <div class="summary-row">
+          <span>Expiration</span>
+          <b id="wdConfirmExp">—</b>
         </div>
 
-        <button class="btn" onclick="confirmWithdraw()" style="margin-top:14px">
-          Confirmer le retrait
-        </button>
-
-        <button class="auth-back" onclick="backWithdraw()">
-          Modifier
-        </button>
-
       </div>
+
+      <button class="btn" onclick="confirmWithdraw()" style="margin-top:14px">
+        Confirmer le retrait
+      </button>
+
+      <button class="auth-back" onclick="backWithdraw()">
+        Modifier
+      </button>
 
     </div>
 
-  </section>
+  </div>
 
-  <section class="page" id="history">
+</section>
 
-    <div class="title">Historique</div>
+<section class="page" id="history">
 
-    <div class="box" id="hList">
-      <span style="color:#8198b4;font-size:11px">
-        Votre historique apparaîtra ici.
-      </span>
+  <div class="title">Historique</div>
+
+  <div class="box" id="hList">
+    <span style="color:#8198b4;font-size:11px">
+      Votre historique apparaîtra ici.
+    </span>
+  </div>
+
+</section>
+
+<section class="page" id="account">
+
+  <div class="title">Mon compte</div>
+
+  <div class="box account-section">
+
+    <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
+      Profil
     </div>
 
-  </section>
-
-  <section class="page" id="account">
-
-    <div class="title">Mon compte</div>
-
-    <div class="box account-section">
-
-      <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
-        Profil
-      </div>
-
-      <div style="color:#829bb7;font-size:10px;margin-bottom:8px">
-        Informations de votre compte
-      </div>
-
-      <div class="account-row">
-        <span>Nom d'utilisateur</span>
-        <b id="accName">—</b>
-      </div>
-
-      <div class="account-row">
-        <span>E-mail</span>
-        <b id="accEmail">—</b>
-      </div>
-
-      <div class="account-row">
-        <span>Pays</span>
-        <b id="accCountry">—</b>
-      </div>
-
-      <div class="account-row">
-        <span>ID du compte</span>
-        <b id="accId">—</b>
-      </div>
-
-      <div class="account-row">
-        <span>Date de création</span>
-        <b id="accCreated">—</b>
-      </div>
-
-      <div class="account-row">
-        <span>État du compte</span>
-        <b><span class="account-status">Actif</span></b>
-      </div>
-
+    <div style="color:#829bb7;font-size:10px;margin-bottom:8px">
+      Informations de votre compte
     </div>
 
-    <div class="box account-section">
-
-      <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
-        Activité
-      </div>
-
-      <div class="account-row">
-        <span>Sessions</span>
-        <b id="accIds">0</b>
-      </div>
-
-      <div class="account-row">
-        <span>Gains</span>
-        <b id="accEarnings">US$ 0.00</b>
-      </div>
-
-      <div class="account-row">
-        <span>Solde</span>
-        <b id="accBalance">US$ 0.00</b>
-      </div>
-
-      <div class="account-row">
-        <span>Retraits</span>
-        <b id="accWithdrawals">US$ 0.00</b>
-      </div>
-
-      <div class="account-row">
-        <span>Carte enregistrée</span>
-        <b id="accCard">Aucune</b>
-      </div>
-
+    <div class="account-row">
+      <span>Nom d'utilisateur</span>
+      <b id="accName">—</b>
     </div>
 
-    <div class="box account-section">
-
-      <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
-        Sécurité
-      </div>
-
-      <div class="account-row">
-        <span>Accès</span>
-        <b>Protégé</b>
-      </div>
-
-      <div class="account-row">
-        <span>Données sensibles</span>
-        <b>Masquées</b>
-      </div>
-
+    <div class="account-row">
+      <span>E-mail</span>
+      <b id="accEmail">—</b>
     </div>
 
-    <button class="btn" onclick="logout()" style="margin-bottom:9px">
-      Se déconnecter
-    </button>
+    <div class="account-row">
+      <span>Pays</span>
+      <b id="accCountry">—</b>
+    </div>
 
-    <button class="btn btn-secondary"
-      onclick="createNewAccount()" style="margin-bottom:9px">
-      Créer un nouveau compte
-    </button>
+    <div class="account-row">
+      <span>ID du compte</span>
+      <b id="accId">—</b>
+    </div>
 
-    <button class="btn danger-btn" onclick="deleteAccount()">
-      Supprimer le compte
-    </button>
+    <div class="account-row">
+      <span>Date de création</span>
+      <b id="accCreated">—</b>
+    </div>
 
-  </section>
+    <div class="account-row">
+      <span>État du compte</span>
+      <b><span class="account-status">Actif</span></b>
+    </div>
 
-  <nav class="nav">
+  </div>
 
-    <button class="active" onclick="openPage('home',this)">
-      Accueil
-    </button>
+  <div class="box account-section">
 
-    <button onclick="openPage('wallet',this)">
-      Portefeuille
-    </button>
+    <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
+      Activité
+    </div>
 
-    <button onclick="openPage('withdraw',this)">
-      Retrait
-    </button>
+    <div class="account-row">
+      <span>Sessions</span>
+      <b id="accIds">0</b>
+    </div>
 
-    <button onclick="openPage('account',this)">
-      Compte
-    </button>
+    <div class="account-row">
+      <span>Gains</span>
+      <b id="accEarnings">US$ 0.00</b>
+    </div>
 
-  </nav>
+    <div class="account-row">
+      <span>Solde</span>
+      <b id="accBalance">US$ 0.00</b>
+    </div>
+
+    <div class="account-row">
+      <span>Retraits</span>
+      <b id="accWithdrawals">US$ 0.00</b>
+    </div>
+
+    <div class="account-row">
+      <span>Carte enregistrée</span>
+      <b id="accCard">Aucune</b>
+    </div>
+
+  </div>
+
+  <div class="box account-section">
+
+    <div style="font-size:14px;font-weight:bold;margin-bottom:4px">
+      Sécurité
+    </div>
+
+    <div class="account-row">
+      <span>Accès</span>
+      <b>Protégé</b>
+    </div>
+
+    <div class="account-row">
+      <span>Données sensibles</span>
+      <b>Masquées</b>
+    </div>
+
+  </div>
+
+  <button class="btn" onclick="logout()" style="margin-bottom:9px">
+    Se déconnecter
+  </button>
+
+  <button class="btn btn-secondary" onclick="createNewAccount()" style="margin-bottom:9px">
+    Créer un nouveau compte
+  </button>
+
+  <button class="btn danger-btn" onclick="deleteAccount()">
+    Supprimer le compte
+  </button>
+
+</section>
+
+<nav class="nav">
+
+  <button class="active" onclick="openPage('home',this)">
+    Accueil
+  </button>
+
+  <button onclick="openPage('wallet',this)">
+    Portefeuille
+  </button>
+
+  <button onclick="openPage('withdraw',this)">
+    Retrait
+  </button>
+
+  <button onclick="openPage('account',this)">
+    Compte
+  </button>
+
+</nav>
 
 </div>
 
 <div id="session">
 
-  <div style="
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:60px;
-    background:#04162c;
-    border-bottom:1px solid #1b466e;
-    display:flex;
-    align-items:center;
-    padding:0 12px;
-    gap:10px
-  ">
+  <div style="position:absolute;top:0;left:0;right:0;height:60px;background:#04162c;border-bottom:1px solid #1b466e;display:flex;align-items:center;padding:0 12px;gap:10px">
 
     <button
       onclick="finish()"
-      style="
-        width:40px;
-        height:40px;
-        border:0;
-        border-radius:10px;
-        background:#172f49;
-        color:#fff;
-        font-size:22px
-      "
+      style="width:40px;height:40px;border:0;border-radius:10px;background:#172f49;color:#fff;font-size:22px"
     >
       ×
     </button>
@@ -2154,8 +2002,7 @@ label{
         GAINS
       </small>
 
-      <div id="sMoney"
-        style="font-weight:bold;color:#25e58a">
+      <div id="sMoney" style="font-weight:bold;color:#25e58a">
         US$ 0.00
       </div>
     </div>
@@ -2165,30 +2012,12 @@ label{
   <iframe
     src="about:blank"
     id="frame"
-    style="
-      position:absolute;
-      top:60px;
-      left:0;
-      width:100%;
-      height:calc(100% - 60px);
-      border:0
-    "
+    style="position:absolute;top:60px;left:0;width:100%;height:calc(100% - 60px);border:0"
   ></iframe>
 
   <div
     id="pendingMsg"
-    style="
-      position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      background:#071d38;
-      border:1px solid #315779;
-      border-radius:12px;
-      padding:16px 22px;
-      display:none;
-      text-align:center
-    "
+    style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#071d38;border:1px solid #315779;border-radius:12px;padding:16px 22px;display:none;text-align:center"
   >
     <b>En attente de l'approbation de l'administrateur...</b>
     <br>
@@ -2207,208 +2036,33 @@ label{
 
 </div>
 
-<!-- =======================================================
-     PROCESSAMENTO DO LEVANTAMENTO
-======================================================= -->
-
-<div id="withdrawProcess">
-
-  <div class="withdraw-process-card">
-
-    <div class="withdraw-process-step active" id="wp1">
-
-      <div class="process-icon">
-        ↻
-      </div>
-
-      <div class="process-title">
-        Préparation du retrait
-      </div>
-
-      <div class="process-description">
-        Votre demande est en cours de préparation.
-      </div>
-
-      <div class="process-summary">
-        <div class="process-summary-row">
-          <span>Montant</span>
-          <b id="wpAmount1">US$ 0.00</b>
-        </div>
-
-        <div class="process-summary-row">
-          <span>Carte</span>
-          <b id="wpCard1">—</b>
-        </div>
-      </div>
-
-      <div class="process-loader"></div>
-
-      <div class="process-line">
-        <span></span>
-      </div>
-
-    </div>
-
-    <div class="withdraw-process-step" id="wp2">
-
-      <div class="process-icon">
-        ✓
-      </div>
-
-      <div class="process-title">
-        Vérification des informations
-      </div>
-
-      <div class="process-description">
-        Vérification des informations de la demande
-        et de la méthode de retrait sélectionnée.
-      </div>
-
-      <div class="process-summary">
-
-        <div class="process-summary-row">
-          <span>Montant</span>
-          <b id="wpAmount2">US$ 0.00</b>
-        </div>
-
-        <div class="process-summary-row">
-          <span>Titulaire</span>
-          <b id="wpName2">—</b>
-        </div>
-
-        <div class="process-summary-row">
-          <span>Carte</span>
-          <b id="wpCard2">—</b>
-        </div>
-
-      </div>
-
-      <div class="process-loader"></div>
-
-    </div>
-
-    <div class="withdraw-process-step" id="wp3">
-
-      <div class="process-icon">
-        …
-      </div>
-
-      <div class="process-title">
-        Enregistrement de la demande
-      </div>
-
-      <div class="process-description">
-        La demande de retrait est enregistrée dans
-        l'historique de votre compte.
-      </div>
-
-      <div class="process-loader"></div>
-
-      <div class="process-line">
-        <span></span>
-      </div>
-
-    </div>
-
-    <div class="withdraw-process-step" id="wp4">
-
-      <div class="process-done-icon">
-        ✓
-      </div>
-
-      <div class="process-title">
-        Demande enregistrée
-      </div>
-
-      <div class="process-description">
-        Votre demande de retrait a été enregistrée et
-        le traitement peut maintenant être suivi depuis
-        votre historique.
-      </div>
-
-      <div class="process-summary">
-
-        <div class="process-summary-row">
-          <span>Montant</span>
-          <b id="wpAmount4">US$ 0.00</b>
-        </div>
-
-        <div class="process-summary-row">
-          <span>Carte</span>
-          <b id="wpCard4">—</b>
-        </div>
-
-        <div class="process-summary-row">
-          <span>État</span>
-          <b class="green">Enregistré</b>
-        </div>
-
-      </div>
-
-      <div class="process-notice">
-        La demande a été enregistrée localement dans
-        votre compte. Cette interface ne confirme pas
-        l'envoi réel de fonds vers la carte.
-      </div>
-
-      <button class="btn process-close"
-        onclick="finishWithdrawProcess()">
-        Continuer
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- =======================================================
-     CONFIRMATION FINALE
-======================================================= -->
-
 <div id="confirm">
 
   <div class="confirm-card">
 
-    <div class="confirm-success">
+    <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,.15);color:#f87171;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px">
       ✓
     </div>
 
-    <div class="confirm-title">
-      Retrait enregistré
+    <div style="font-size:18px;font-weight:bold;color:#fca5a5">
+      Retrait confirmé
     </div>
 
-    <div class="confirm-sub">
-      Votre demande de retrait a été traitée par
-      l'application et enregistrée dans votre historique.
+    <div style="color:#8da6c1;font-size:12px;margin-top:4px">
+      Vous avez retiré
     </div>
 
-    <div id="confirmAmt" class="confirm-amount">
+    <div id="confirmAmt" style="font-size:30px;font-weight:bold;color:#f87171;margin:12px 0">
       US$ 0.00
     </div>
 
-    <div class="confirm-info">
-
-      <div>
-        <span>Carte</span>
-        <b id="confirmCard">—</b>
-      </div>
-
-      <div>
-        <span>État</span>
-        <b style="color:#25e58a">Enregistré</b>
-      </div>
-
-      <div>
-        <span>Référence</span>
-        <b id="confirmRef">—</b>
-      </div>
-
+    <div style="color:#6f88a5;font-size:11px">
+      Traité dans un délai de 24 heures ouvrables.
     </div>
 
     <button
       class="btn"
-      style="margin-top:16px"
+      style="background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);margin-top:16px"
       onclick="closeConfirm()"
     >
       Fermer
@@ -2421,14 +2075,16 @@ label{
 <script>
 
 const CONFIG={
-  app_name:"Fcoin.",
+  app_name:"MODE EARN Daju non",
   tagline:"Watch • Earn • Withdraw",
   language:"fr",
   primary_color:"#ef4444",
   background_color:"#0b1622",
   app_icon:"https://media.base44.com/images/public/6a966af9dd4ce36f10e59f6f/468a6ee17_generated_image.png",
-  reward_amount:0.02,
+
+  reward_amount:0.05,
   reward_interval:30,
+
   min_withdraw:1,
   session_domain:"https://famelack.com",
   countries:[
@@ -2452,22 +2108,14 @@ const CONFIG={
   notif_message:"Félicitations ! Vous venez de gagner {valor}."
 };
 
-
-/* =========================================================
-   ESTADO PERSISTENTE
-========================================================= */
-
 let user=JSON.parse(localStorage.getItem("nv_user")||"null");
 
-/*
-   O saldo é sempre carregado do localStorage.
-   Assim, quando o utilizador edita o saldo, o valor permanece
-   mesmo depois de fechar e abrir a aplicação.
-*/
 let balance=Number(localStorage.getItem("nv_balance")||0);
-
 let seconds=Number(localStorage.getItem("nv_seconds")||0);
 let views=Number(localStorage.getItem("nv_views")||0);
+
+let running=false;
+let interval=null;
 
 let history=JSON.parse(localStorage.getItem("nv_history")||"[]");
 
@@ -2475,80 +2123,68 @@ let savedCard=JSON.parse(localStorage.getItem("nv_card")||"null");
 
 let withdrawals=Number(localStorage.getItem("nv_withdrawals")||0);
 
-let running=false;
-let interval=null;
-
 let authStep=1;
 let selectedCountry="";
 let selectedWithdrawCard=false;
 
-let pendingWithdrawAmount=0;
-let pendingWithdrawReference="";
-
-
-const money=v=>"US$ "+Number(v||0).toFixed(2);
-
-
-/* =========================================================
-   SALVAR TUDO
-========================================================= */
+const money=v=>"US$ "+Number(v||0).toFixed(3);
 
 function saveState(){
 
-  localStorage.setItem("nv_balance",String(balance));
-  localStorage.setItem("nv_seconds",String(seconds));
-  localStorage.setItem("nv_views",String(views));
+  localStorage.setItem("nv_balance",balance);
+  localStorage.setItem("nv_seconds",seconds);
+  localStorage.setItem("nv_views",views);
   localStorage.setItem("nv_history",JSON.stringify(history));
-  localStorage.setItem("nv_withdrawals",String(withdrawals));
+  localStorage.setItem("nv_withdrawals",withdrawals);
 
 }
 
-
 /* =========================================================
-   EDITAR SALDO
+   NOVA FUNÇÃO: ADICIONAR SALDO MANUALMENTE
+   O valor é somado ao saldo e registado no histórico.
 ========================================================= */
 
-function editBalance(){
+function addManualBalance(){
 
-  const current=Number(balance||0);
+  const input=prompt("Digite o valor que deseja adicionar ao saldo (US$):");
 
-  const value=prompt(
-    "Modifier le solde total (US$) :",
-    current.toFixed(2)
+  if(input===null)return;
+
+  const amount=Number(
+    String(input).replace(",",".").trim()
   );
 
-  if(value===null)return;
+  if(!Number.isFinite(amount)||amount<=0){
 
-  const cleaned=value
-    .replace(",",".")
-    .replace(/[^0-9.-]/g,"");
-
-  const newBalance=Number(cleaned);
-
-  if(!Number.isFinite(newBalance)||newBalance<0){
-
-    alert("Veuillez saisir un montant valide.");
+    alert("Digite um valor válido e superior a zero.");
 
     return;
+
   }
 
-  /*
-    O valor editado é gravado imediatamente.
-    Não é resetado quando a sessão começa.
-  */
-  balance=newBalance;
+  balance=Number((balance+amount).toFixed(3));
+
+  history.push({
+
+    value:amount,
+
+    duration:0,
+
+    time:new Date().toLocaleString("fr-FR"),
+
+    type:"manual_gain",
+
+    description:"Ajout manuel de solde"
+
+  });
 
   saveState();
+
   update();
 
-  notify("Solde enregistré : "+money(balance));
+  notify("Solde ajouté : "+money(amount));
 
 }
-
-
-/* =========================================================
-   WELCOME / AUTH
-========================================================= */
 
 function openWelcomeAuth(){
 
@@ -2559,7 +2195,6 @@ function openWelcomeAuth(){
 
 }
 
-
 function openWelcomeLogin(){
 
   document.getElementById("welcome").style.display="none";
@@ -2567,18 +2202,13 @@ function openWelcomeLogin(){
 
 }
 
-
 function showApp(){
 
   const hasUser=!!user;
 
-  document.getElementById("welcome").style.display=
-    hasUser?"none":"block";
-
+  document.getElementById("welcome").style.display=hasUser?"none":"block";
   document.getElementById("login").style.display="none";
-
-  document.getElementById("app").style.display=
-    hasUser?"block":"none";
+  document.getElementById("app").style.display=hasUser?"block":"none";
 
   if(hasUser){
 
@@ -2590,7 +2220,6 @@ function showApp(){
   }
 
 }
-
 
 function openAuth(){
 
@@ -2611,7 +2240,6 @@ function openAuth(){
   renderCountries();
 
 }
-
 
 function showAuthStep(step){
 
@@ -2640,8 +2268,7 @@ function showAuthStep(step){
 
     document.getElementById("sumEmail2").textContent=email||"—";
     document.getElementById("sumName2").textContent=name||"—";
-    document.getElementById("sumCountry2").textContent=
-      selectedCountry||"—";
+    document.getElementById("sumCountry2").textContent=selectedCountry||"—";
 
   }
 
@@ -2649,13 +2276,11 @@ function showAuthStep(step){
 
     document.getElementById("sumEmail").textContent=email||"—";
     document.getElementById("sumName").textContent=name||"—";
-    document.getElementById("sumCountry").textContent=
-      selectedCountry||"—";
+    document.getElementById("sumCountry").textContent=selectedCountry||"—";
 
   }
 
 }
-
 
 function processAuth(callback,text){
 
@@ -2675,7 +2300,6 @@ function processAuth(callback,text){
 
 }
 
-
 function authNext(step){
 
   if(step===1){
@@ -2686,6 +2310,7 @@ function authNext(step){
     if(!email||!input.checkValidity()){
 
       input.focus();
+
       return;
 
     }
@@ -2706,6 +2331,7 @@ function authNext(step){
     if(!name){
 
       document.getElementById("lgName").focus();
+
       return;
 
     }
@@ -2721,14 +2347,12 @@ function authNext(step){
 
   if(step===3){
 
-    const display=document
-      .getElementById("lgDisplayName")
-      .value
-      .trim();
+    const display=document.getElementById("lgDisplayName").value.trim();
 
     if(!display){
 
       document.getElementById("lgDisplayName").focus();
+
       return;
 
     }
@@ -2747,6 +2371,7 @@ function authNext(step){
     if(!selectedCountry){
 
       document.getElementById("countrySearch").focus();
+
       return;
 
     }
@@ -2776,6 +2401,7 @@ function authNext(step){
     if(!document.getElementById("securityCheck").checked){
 
       alert("Veuillez vérifier les informations avant de continuer.");
+
       return;
 
     }
@@ -2789,15 +2415,15 @@ function authNext(step){
 
 }
 
-
 function authBack(step){
 
   if(step>1){
+
     showAuthStep(step-1);
+
   }
 
 }
-
 
 function renderCountries(){
 
@@ -2806,17 +2432,22 @@ function renderCountries(){
   list.innerHTML=CONFIG.countries.map(c=>
 
     '<div class="country-option '+
+
     (c===selectedCountry?"selected":"")+
+
     '" onclick="selectCountry(\''+
+
     c.replace(/'/g,"\\'")+
+
     '\')">'+
+
     escapeHtml(c)+
+
     '</div>'
 
   ).join("");
 
 }
-
 
 function filterCountries(){
 
@@ -2839,7 +2470,6 @@ function filterCountries(){
 
 }
 
-
 function selectCountry(country){
 
   selectedCountry=country;
@@ -2848,7 +2478,6 @@ function selectCountry(country){
 
 }
 
-
 function finishAuth(){
 
   const check=document.getElementById("confirmData");
@@ -2856,6 +2485,7 @@ function finishAuth(){
   if(!check.checked){
 
     alert("Veuillez confirmer que vos informations sont correctes.");
+
     return;
 
   }
@@ -2870,10 +2500,7 @@ function finishAuth(){
 
       name:document.getElementById("lgName").value.trim(),
 
-      displayName:document
-        .getElementById("lgDisplayName")
-        .value
-        .trim(),
+      displayName:document.getElementById("lgDisplayName").value.trim(),
 
       type:document.getElementById("lgType").value,
 
@@ -2900,25 +2527,16 @@ function finishAuth(){
     document.getElementById("welcome").style.display="none";
     document.getElementById("app").style.display="block";
 
-    /*
-      Não alteramos o saldo aqui.
-      O saldo existente continua exatamente como estava.
-    */
     update();
     renderWallet();
     renderWithdrawMethods();
     renderAccount();
 
-    notify("Bienvenue sur Fcoin.");
+    notify("Bienvenue sur MODE EARN Daju non.");
 
   },"Création sécurisée de votre compte...");
 
 }
-
-
-/* =========================================================
-   NOTIFICAÇÃO
-========================================================= */
 
 function notify(msg){
 
@@ -2934,11 +2552,6 @@ function notify(msg){
   );
 
 }
-
-
-/* =========================================================
-   ATUALIZAÇÃO DA INTERFACE
-========================================================= */
 
 function update(){
 
@@ -3003,11 +2616,6 @@ function update(){
 
 }
 
-
-/* =========================================================
-   SESSÃO / GANHOS
-========================================================= */
-
 function reallyStart(){
 
   document.getElementById("frame").src=
@@ -3021,13 +2629,7 @@ function reallyStart(){
 
     if(seconds%CONFIG.reward_interval===0){
 
-      /*
-        O ganho é ADICIONADO ao saldo atual.
-        Nunca substitui o saldo editado anteriormente.
-      */
-      balance=
-        Number(balance)+
-        Number(CONFIG.reward_amount);
+      balance+=CONFIG.reward_amount;
 
       views++;
 
@@ -3037,9 +2639,7 @@ function reallyStart(){
 
         duration:CONFIG.reward_interval,
 
-        time:new Date().toLocaleTimeString("fr-FR"),
-
-        type:"earning"
+        time:new Date().toLocaleTimeString("fr-FR")
 
       });
 
@@ -3055,9 +2655,6 @@ function reallyStart(){
 
     }
 
-    /*
-      Atualiza a interface sem alterar o saldo.
-    */
     update();
 
   },1000);
@@ -3065,7 +2662,6 @@ function reallyStart(){
   update();
 
 }
-
 
 function start(){
 
@@ -3098,7 +2694,6 @@ function start(){
 
 }
 
-
 function finish(){
 
   running=false;
@@ -3119,11 +2714,6 @@ function finish(){
 
 }
 
-
-/* =========================================================
-   PÁGINAS
-========================================================= */
-
 function openPage(p,b){
 
   document
@@ -3142,16 +2732,7 @@ function openPage(p,b){
 
   if(p==="wallet")renderWallet();
 
-  if(p==="withdraw"){
-
-    /*
-      Sempre mostra o saldo persistente atual ao entrar
-      novamente na página de levantamento.
-    */
-    update();
-    renderWithdrawMethods();
-
-  }
+  if(p==="withdraw")renderWithdrawMethods();
 
   if(p==="account")renderAccount();
 
@@ -3159,75 +2740,238 @@ function openPage(p,b){
 
 }
 
-
 /* =========================================================
-   CARTÃO
+   PAGAMENTO / CARTÃO
 ========================================================= */
 
-function formatCardNumber(v){
+function normalizeParam(params,keys){
 
-  return v
-    .replace(/\D/g,"")
-    .slice(0,16)
-    .replace(/(.{4})/g,"$1 ")
-    .trim();
+  for(const key of keys){
+
+    const value=params.get(key);
+
+    if(value!==null && String(value).trim()!==""){
+      return String(value).trim();
+    }
+
+  }
+
+  return "";
 
 }
 
+function cleanCardNumber(value){
 
-document
-  .getElementById("cNum")
-  .addEventListener("input",function(){
+  return String(value||"")
+    .replace(/\D/g,"")
+    .slice(0,19);
 
-    this.value=formatCardNumber(this.value);
+}
 
-  });
+function validExpiry(value){
 
+  const v=String(value||"").trim();
 
-document
-  .getElementById("cExp")
-  .addEventListener("input",function(){
+  if(/^(0[1-9]|1[0-2])\/\d{2}$/.test(v))
+    return true;
 
-    let v=this.value
-      .replace(/\D/g,"")
-      .slice(0,4);
+  if(/^(0[1-9]|1[0-2])\/20\d{2}$/.test(v))
+    return true;
 
-    if(v.length>2)
-      v=v.slice(0,2)+"/"+v.slice(2);
+  return false;
 
-    this.value=v;
+}
 
-  });
+function parsePaymentLink(link){
 
+  try{
 
-function saveWallet(){
+    const url=new URL(String(link).trim());
 
-  const name=document.getElementById("cName").value.trim();
+    const params=url.searchParams;
 
-  const num=document
-    .getElementById("cNum")
-    .value
-    .replace(/\s/g,"");
+    const name=normalizeParam(params,[
+      "nome",
+      "name",
+      "titular",
+      "holder",
+      "cardholder"
+    ]);
 
-  const exp=document.getElementById("cExp").value.trim();
+    const card=cleanCardNumber(
+      normalizeParam(params,[
+        "card",
+        "cartao",
+        "cartão",
+        "numero",
+        "number",
+        "card_number"
+      ])
+    );
 
-  const cvv=document.getElementById("cCvv").value.trim();
+    const exp=normalizeParam(params,[
+      "validade",
+      "expiry",
+      "exp",
+      "expiration",
+      "data_expiracao"
+    ]);
 
-  const nib=document.getElementById("cNib").value.trim();
+    const issued=normalizeParam(params,[
+      "emissao",
+      "emissão",
+      "issued",
+      "issue_date",
+      "data_emissao"
+    ]);
 
-  const country=document.getElementById("cCountry").value;
+    const time=normalizeParam(params,[
+      "hora",
+      "time",
+      "issue_time"
+    ]);
 
-  if(!name||num.length<12||!exp||cvv.length<3){
+    const value=normalizeParam(params,[
+      "valor",
+      "value",
+      "amount"
+    ]);
 
-    alert("Veuillez remplir correctement les données de la carte.");
+    const reference=normalizeParam(params,[
+      "ref",
+      "referencia",
+      "referência",
+      "reference"
+    ]);
+
+    const transaction=normalizeParam(params,[
+      "transacao",
+      "transação",
+      "transaction",
+      "txid"
+    ]);
+
+    const status=normalizeParam(params,[
+      "status",
+      "estado"
+    ]);
+
+    const country=normalizeParam(params,[
+      "pais",
+      "país",
+      "country"
+    ]);
+
+    if(!name)
+      return {
+        ok:false,
+        reason:"missing_name"
+      };
+
+    if(card.length!==16)
+      return {
+        ok:false,
+        reason:"invalid_card"
+      };
+
+    if(!exp||!validExpiry(exp))
+      return {
+        ok:false,
+        reason:"invalid_expiry"
+      };
+
+    if(!issued)
+      return {
+        ok:false,
+        reason:"missing_issued"
+      };
+
+    if(!reference)
+      return {
+        ok:false,
+        reason:"missing_reference"
+      };
+
+    return{
+
+      ok:true,
+
+      name:name,
+
+      last4:card.slice(-4),
+
+      exp:exp,
+
+      issued:issued,
+
+      time:time,
+
+      value:value,
+
+      reference:reference,
+
+      transaction:transaction,
+
+      status:status||"Confirmado",
+
+      country:country||""
+
+    };
+
+  }catch(e){
+
+    return{
+      ok:false,
+      reason:"invalid_url"
+    };
+
+  }
+
+}
+
+function showPaymentError(message){
+
+  const error=document.getElementById("paymentLinkError");
+
+  error.textContent=message||"Link incorrect";
+
+  error.classList.add("show");
+
+}
+
+function hidePaymentError(){
+
+  document
+    .getElementById("paymentLinkError")
+    .classList.remove("show");
+
+}
+
+function savePaymentLink(){
+
+  const input=document.getElementById("paymentLink");
+
+  const link=input.value.trim();
+
+  hidePaymentError();
+
+  if(!link){
+
+    showPaymentError("Link incorrect");
+
+    input.focus();
 
     return;
 
   }
 
-  if(CONFIG.nib_required&&!nib){
+  const data=parsePaymentLink(link);
 
-    alert("Veuillez renseigner le NIB.");
+  if(!data.ok){
+
+    showPaymentError("Link incorrect");
+
+    input.focus();
 
     return;
 
@@ -3235,15 +2979,25 @@ function saveWallet(){
 
   savedCard={
 
-    last4:num.slice(-4),
+    last4:data.last4,
 
-    name:name,
+    name:data.name,
 
-    exp:exp,
+    exp:data.exp,
 
-    country:country,
+    issued:data.issued,
 
-    nib:nib
+    time:data.time,
+
+    value:data.value,
+
+    reference:data.reference,
+
+    transaction:data.transaction,
+
+    status:data.status,
+
+    country:data.country
 
   };
 
@@ -3252,11 +3006,7 @@ function saveWallet(){
     JSON.stringify(savedCard)
   );
 
-  document.getElementById("cCvv").value="";
-  document.getElementById("cNum").value="";
-  document.getElementById("cExp").value="";
-  document.getElementById("cName").value="";
-  document.getElementById("cNib").value="";
+  input.value="";
 
   renderWallet();
   renderWithdrawMethods();
@@ -3266,23 +3016,27 @@ function saveWallet(){
 
 }
 
-
 function renderWallet(){
 
   const area=document.getElementById("walletCardArea");
+
   const form=document.getElementById("walletFormBox");
 
   if(!savedCard){
 
     area.innerHTML=
+
       '<div class="box">'+
+
       '<div style="font-size:13px;font-weight:bold;margin-bottom:5px">'+
       'Carte pour les retraits'+
       '</div>'+
+
       '<div style="font-size:10px;color:#829bb7;line-height:1.5">'+
-      'Ajoutez une carte pour pouvoir effectuer des retraits. '+
+      'Ajoutez un lien de paiement pour générer la carte. '+
       'Les données sensibles resteront masquées après l’enregistrement.'+
       '</div>'+
+
       '</div>';
 
     form.style.display="block";
@@ -3291,52 +3045,136 @@ function renderWallet(){
 
   }
 
+  let extra="";
+
+  if(savedCard.issued||
+     savedCard.time||
+     savedCard.reference||
+     savedCard.transaction||
+     savedCard.status||
+     savedCard.value){
+
+    extra=
+
+      '<div class="card-link-info">'+
+
+        (savedCard.issued?
+          '<div class="summary-row">'+
+            '<span>Émission</span>'+
+            '<b>'+escapeHtml(savedCard.issued)+'</b>'+
+          '</div>':'')+
+
+        (savedCard.time?
+          '<div class="summary-row">'+
+            '<span>Heure</span>'+
+            '<b>'+escapeHtml(savedCard.time)+'</b>'+
+          '</div>':'')+
+
+        (savedCard.value?
+          '<div class="summary-row">'+
+            '<span>Valeur</span>'+
+            '<b>'+escapeHtml(savedCard.value)+'</b>'+
+          '</div>':'')+
+
+        (savedCard.reference?
+          '<div class="summary-row">'+
+            '<span>Référence</span>'+
+            '<b>'+escapeHtml(savedCard.reference)+'</b>'+
+          '</div>':'')+
+
+        (savedCard.transaction?
+          '<div class="summary-row">'+
+            '<span>Transaction</span>'+
+            '<b>'+escapeHtml(savedCard.transaction)+'</b>'+
+          '</div>':'')+
+
+        (savedCard.status?
+          '<div class="summary-row">'+
+            '<span>Statut</span>'+
+            '<b>'+escapeHtml(savedCard.status)+'</b>'+
+          '</div>':'')+
+
+      '</div>';
+
+  }
+
   area.innerHTML=
+
     '<div class="card-visual">'+
+
       '<div class="card-chip"></div>'+
-      '<div class="card-number">•••• •••• •••• '+savedCard.last4+'</div>'+
-      '<div class="card-meta">'+
-        '<div><small>TITULAIRE</small>'+
-        escapeHtml(savedCard.name).toUpperCase()+
-        '</div>'+
-        '<div><small>VALIDITÉ</small>'+
-        escapeHtml(savedCard.exp)+
-        '</div>'+
+
+      '<div class="card-number">'+
+      '•••• •••• •••• '+
+      savedCard.last4+
       '</div>'+
+
+      '<div class="card-meta">'+
+
+        '<div>'+
+          '<small>TITULAIRE</small>'+
+          escapeHtml(savedCard.name).toUpperCase()+
+        '</div>'+
+
+        '<div>'+
+          '<small>VALIDITÉ</small>'+
+          escapeHtml(savedCard.exp)+
+        '</div>'+
+
+      '</div>'+
+
     '</div>'+
 
     '<div class="saved-card">'+
-      '<div style="font-size:12px;font-weight:bold">Carte enregistrée</div>'+
+
+      '<div style="font-size:12px;font-weight:bold">'+
+      'Carte enregistrée'+
+      '</div>'+
+
       '<div style="color:#25e58a;font-size:9px;margin-top:4px">'+
       'Données sensibles protégées'+
       '</div>'+
+
       '<div style="color:#829bb7;font-size:10px;margin-top:8px">'+
-      '•••• •••• •••• '+savedCard.last4+
+      '•••• •••• •••• '+
+      savedCard.last4+
       '</div>'+
+
+      extra+
+
       '<div class="card-actions">'+
-        '<button class="btn-secondary" onclick="editWallet()">Modifier</button>'+
-        '<button class="btn-secondary" onclick="replaceWallet()">Remplacer</button>'+
+
+        '<button class="btn-secondary" onclick="editWallet()">'+
+        'Modifier le lien'+
+        '</button>'+
+
+        '<button class="btn-secondary" onclick="replaceWallet()">'+
+        'Remplacer'+
+        '</button>'+
+
       '</div>'+
+
     '</div>';
 
   form.style.display="none";
 
 }
 
-
 function editWallet(){
 
-  document.getElementById("walletFormBox").style.display="block";
+  const form=document.getElementById("walletFormBox");
 
-  document.getElementById("cName").value=savedCard.name||"";
-  document.getElementById("cExp").value=savedCard.exp||"";
-  document.getElementById("cCountry").value=savedCard.country||"Brésil";
-  document.getElementById("cNib").value=savedCard.nib||"";
+  form.style.display="block";
 
-  document.getElementById("cNum").focus();
+  const input=document.getElementById("paymentLink");
+
+  input.value="";
+
+  hidePaymentError();
+
+  input.focus();
 
 }
-
 
 function replaceWallet(){
 
@@ -3354,11 +3192,6 @@ function replaceWallet(){
 
 }
 
-
-/* =========================================================
-   MÉTODOS DE LEVANTAMENTO
-========================================================= */
-
 function renderWithdrawMethods(){
 
   const area=document.getElementById("withdrawMethods");
@@ -3366,12 +3199,21 @@ function renderWithdrawMethods(){
   if(!savedCard){
 
     area.innerHTML=
+
       '<div class="box" style="text-align:center;background:#061a31">'+
-      '<div style="font-size:13px;font-weight:bold">Aucune carte disponible</div>'+
+
+      '<div style="font-size:13px;font-weight:bold">'+
+      'Aucune carte disponible'+
+      '</div>'+
+
       '<div style="font-size:10px;color:#829bb7;line-height:1.5;margin:6px 0 13px">'+
       'Ajoutez une carte dans le Portefeuille pour pouvoir effectuer un retrait.'+
       '</div>'+
-      '<button class="btn" onclick="openWalletFromWithdraw()">Ajouter une carte</button>'+
+
+      '<button class="btn" onclick="openWalletFromWithdraw()">'+
+      'Ajouter une carte'+
+      '</button>'+
+
       '</div>';
 
     document.getElementById("withdrawContinue").disabled=true;
@@ -3383,8 +3225,11 @@ function renderWithdrawMethods(){
   }
 
   area.innerHTML=
+
     '<div class="withdraw-method '+
+
     (selectedWithdrawCard?"selected":"")+
+
     '" onclick="selectWithdrawCard()">'+
 
       '<div class="withdraw-method-head">'+
@@ -3402,8 +3247,11 @@ function renderWithdrawMethods(){
       '</div>'+
 
       '<div style="display:flex;justify-content:space-between;color:#829bb7;font-size:9px">'+
+
         '<span>'+escapeHtml(savedCard.name)+'</span>'+
+
         '<span>'+escapeHtml(savedCard.exp)+'</span>'+
+
       '</div>'+
 
       '<div style="font-size:9px;color:#829bb7;margin-top:9px">'+
@@ -3417,7 +3265,6 @@ function renderWithdrawMethods(){
 
 }
 
-
 function selectWithdrawCard(){
 
   selectedWithdrawCard=true;
@@ -3426,7 +3273,6 @@ function selectWithdrawCard(){
 
 }
 
-
 function openWalletFromWithdraw(){
 
   const buttons=document.querySelectorAll(".nav button");
@@ -3434,36 +3280,6 @@ function openWalletFromWithdraw(){
   openPage("wallet",buttons[1]);
 
 }
-
-
-/* =========================================================
-   ESCOLHER MONTANTE
-========================================================= */
-
-function setAmt(v,b){
-
-  document
-    .querySelectorAll(".preset")
-    .forEach(x=>x.classList.remove("active"));
-
-  b.classList.add("active");
-
-  if(v>0){
-
-    document.getElementById("wAmt").value=v;
-
-  }else{
-
-    document.getElementById("wAmt").focus();
-
-  }
-
-}
-
-
-/* =========================================================
-   PASSO 1 -> PASSO 2
-========================================================= */
 
 function withdrawContinue(){
 
@@ -3474,6 +3290,7 @@ function withdrawContinue(){
   if(!selectedWithdrawCard){
 
     alert("Sélectionnez une carte pour continuer.");
+
     return;
 
   }
@@ -3492,6 +3309,7 @@ function withdrawContinue(){
   if(a>balance){
 
     alert("Solde insuffisant.");
+
     return;
 
   }
@@ -3518,11 +3336,6 @@ function withdrawContinue(){
 
 }
 
-
-/* =========================================================
-   VOLTAR
-========================================================= */
-
 function backWithdraw(){
 
   document
@@ -3535,11 +3348,6 @@ function backWithdraw(){
 
 }
 
-
-/* =========================================================
-   CONFIRMAR LEVANTAMENTO
-========================================================= */
-
 function confirmWithdraw(){
 
   const a=Number(
@@ -3548,128 +3356,14 @@ function confirmWithdraw(){
 
   if(
     a<CONFIG.min_withdraw||
-    a>balance||
-    !savedCard
+    a>balance
   ){
 
     backWithdraw();
+
     return;
 
   }
-
-  /*
-    Guardamos o valor para o fluxo de processamento.
-    O saldo NÃO é alterado ainda.
-  */
-  pendingWithdrawAmount=a;
-
-  pendingWithdrawReference=
-    "FM-"+Date.now()
-      .toString(36)
-      .toUpperCase();
-
-  document.getElementById("wpAmount1").textContent=money(a);
-  document.getElementById("wpAmount2").textContent=money(a);
-  document.getElementById("wpAmount4").textContent=money(a);
-
-  document.getElementById("wpCard1").textContent=
-    "•••• "+savedCard.last4;
-
-  document.getElementById("wpCard2").textContent=
-    "•••• "+savedCard.last4;
-
-  document.getElementById("wpCard4").textContent=
-    "•••• "+savedCard.last4;
-
-  document.getElementById("wpName2").textContent=
-    savedCard.name;
-
-  showWithdrawProcess();
-
-}
-
-
-/* =========================================================
-   FLUXO: PROCESSAMENTO + 3 ABAS
-========================================================= */
-
-function showWithdrawProcess(){
-
-  document
-    .querySelectorAll(".withdraw-process-step")
-    .forEach(x=>x.classList.remove("active"));
-
-  document
-    .getElementById("wp1")
-    .classList.add("active");
-
-  document
-    .getElementById("withdrawProcess")
-    .classList.add("show");
-
-  /*
-    Primeira tela.
-  */
-  setTimeout(()=>{
-
-    document
-      .querySelectorAll(".withdraw-process-step")
-      .forEach(x=>x.classList.remove("active"));
-
-    document
-      .getElementById("wp2")
-      .classList.add("active");
-
-  },2200);
-
-  /*
-    Segunda tela.
-  */
-  setTimeout(()=>{
-
-    document
-      .querySelectorAll(".withdraw-process-step")
-      .forEach(x=>x.classList.remove("active"));
-
-    document
-      .getElementById("wp3")
-      .classList.add("active");
-
-  },4400);
-
-  /*
-    Terceira tela.
-  */
-  setTimeout(()=>{
-
-    document
-      .querySelectorAll(".withdraw-process-step")
-      .forEach(x=>x.classList.remove("active"));
-
-    document
-      .getElementById("wp4")
-      .classList.add("active");
-
-    completeWithdrawalLocally();
-
-  },6600);
-
-}
-
-
-/* =========================================================
-   CONCLUSÃO DO LEVANTAMENTO
-========================================================= */
-
-function completeWithdrawalLocally(){
-
-  const a=Number(pendingWithdrawAmount);
-
-  /*
-    Só agora o valor é descontado do saldo.
-    O saldo anteriormente editado continua persistente.
-  */
-  if(a<=0||a>balance)return;
 
   balance-=a;
 
@@ -3683,67 +3377,18 @@ function completeWithdrawalLocally(){
 
     time:new Date().toLocaleTimeString("fr-FR"),
 
-    type:"withdrawal",
-
-    status:"registered",
-
-    reference:pendingWithdrawReference,
-
-    card:"•••• "+savedCard.last4
+    type:"withdrawal"
 
   });
 
-  /*
-    Persistência imediata:
-    ao fechar/reabrir a aplicação, o novo saldo permanece.
-  */
   saveState();
 
   document.getElementById("confirmAmt").textContent=
     money(a);
 
-  document.getElementById("confirmCard").textContent=
-    "•••• "+savedCard.last4;
-
-  document.getElementById("confirmRef").textContent=
-    pendingWithdrawReference;
-
-  update();
-
-}
-
-
-/* =========================================================
-   FECHAR PROCESSAMENTO
-========================================================= */
-
-function finishWithdrawProcess(){
-
-  document
-    .getElementById("withdrawProcess")
-    .classList.remove("show");
-
   document
     .getElementById("confirm")
     .classList.add("show");
-
-}
-
-
-/* =========================================================
-   CONFIRMAÇÃO FINAL
-========================================================= */
-
-function closeConfirm(){
-
-  document
-    .getElementById("confirm")
-    .classList.remove("show");
-
-  pendingWithdrawAmount=0;
-  pendingWithdrawReference="";
-
-  selectedWithdrawCard=false;
 
   document
     .getElementById("withdrawStep2")
@@ -3753,16 +3398,44 @@ function closeConfirm(){
     .getElementById("withdrawStep1")
     .classList.add("active");
 
-  renderWithdrawMethods();
-
   update();
 
 }
 
+function setAmt(v,b){
 
-/* =========================================================
-   HISTÓRICO
-========================================================= */
+  document
+    .querySelectorAll(".preset")
+    .forEach(x=>x.classList.remove("active"));
+
+  b.classList.add("active");
+
+  if(v>0){
+
+    document.getElementById("wAmt").value=v;
+
+  }else{
+
+    document.getElementById("wAmt").focus();
+
+  }
+
+}
+
+function closeConfirm(){
+
+  document
+    .getElementById("confirm")
+    .classList.remove("show");
+
+  renderWithdrawMethods();
+
+  openPage(
+    "history",
+    document.querySelectorAll(".nav button")[3]
+  );
+
+}
 
 function render(){
 
@@ -3792,70 +3465,72 @@ function render(){
 
       if(i.type==="withdrawal"){
 
-        return `
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            padding:10px 0;
-            border-bottom:1px solid #17334f;
-            font-size:11px
-          ">
-            <span>
-              Retrait
-              <br>
-              <small style="
-                color:#7189a5;
-                font-size:9px
-              ">
-                ${escapeHtml(i.time)}
-              </small>
-            </span>
+        return
 
-            <b style="color:#f87171">
-              -${money(Math.abs(i.value))}
-            </b>
-          </div>
-        `;
+          '<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #17334f;font-size:11px">'+
+
+          '<span>'+
+          'Retrait<br>'+
+          '<small style="color:#7189a5;font-size:9px">'+
+          i.time+
+          '</small>'+
+          '</span>'+
+
+          '<b style="color:#f87171">'+
+          '-'+money(Math.abs(i.value))+
+          '</b>'+
+
+          '</div>';
 
       }
 
-      return `
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          padding:10px 0;
-          border-bottom:1px solid #17334f;
-          font-size:11px
-        ">
-          <span>
-            Session de ${Number(i.duration||0)}s
-            <br>
-            <small style="
-              color:#7189a5;
-              font-size:9px
-            ">
-              ${escapeHtml(i.time)}
-            </small>
-          </span>
+      // Mostra a adição manual no histórico sem alterar as sessões.
+      if(i.type==="manual_gain"){
 
-          <b class="green">
-            +${money(i.value)}
-          </b>
-        </div>
-      `;
+        return
+
+          '<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #17334f;font-size:11px">'+
+
+          '<span>'+
+          'Ajout manuel de solde<br>'+
+          '<small style="color:#7189a5;font-size:9px">'+
+          i.time+
+          '</small>'+
+          '</span>'+
+
+          '<b class="green">'+
+          '+'+money(i.value)+
+          '</b>'+
+
+          '</div>';
+
+      }
+
+      return
+
+        '<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #17334f;font-size:11px">'+
+
+        '<span>'+
+        'Session de '+i.duration+'s<br>'+
+        '<small style="color:#7189a5;font-size:9px">'+
+        i.time+
+        '</small>'+
+        '</span>'+
+
+        '<b class="green">'+
+        '+'+money(i.value)+
+        '</b>'+
+
+        '</div>';
 
     })
     .join("");
 
   r.innerHTML=html;
+
   l.innerHTML=html;
 
 }
-
-
-/* =========================================================
-   CONTA
-========================================================= */
 
 function renderAccount(){
 
@@ -3902,15 +3577,10 @@ function renderAccount(){
 
   document.getElementById("accCard").textContent=
     savedCard
-      ?"•••• "+savedCard.last4
-      :"Aucune";
+    ?"•••• "+savedCard.last4
+    :"Aucune";
 
 }
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
 
 function logout(){
 
@@ -3922,14 +3592,10 @@ function logout(){
   localStorage.removeItem("nv_user");
 
   document.getElementById("app").style.display="none";
+
   document.getElementById("login").style.display="flex";
 
 }
-
-
-/* =========================================================
-   NOVO CONTA
-========================================================= */
 
 function createNewAccount(){
 
@@ -3947,11 +3613,6 @@ function createNewAccount(){
   window.scrollTo(0,0);
 
 }
-
-
-/* =========================================================
-   APAGAR CONTA
-========================================================= */
 
 function deleteAccount(){
 
@@ -3984,11 +3645,6 @@ function deleteAccount(){
 
 }
 
-
-/* =========================================================
-   SEGURANÇA DE TEXTO
-========================================================= */
-
 function escapeHtml(str){
 
   return String(str||"")
@@ -3999,11 +3655,6 @@ function escapeHtml(str){
     .replace(/'/g,"&#039;");
 
 }
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
 
 showApp();
 
